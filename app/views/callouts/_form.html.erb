@@ -1,0 +1,115 @@
+
+<section id="fh5co-feature">
+  <div class="container">
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+    <div class="row">
+			<div class="col-md-12">
+
+        <%= form_with(model: callout) do |form| %>
+          <% if callout.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(callout.errors.count, "error") %> prohibited this callout from being saved:</h2>
+
+              <ul>
+                <% callout.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div id="fh5co-tab-feature" class="fh5co-tab text-center">
+            <ul class="resp-tabs-list hor_1">
+              <li> English (en)</li>
+              <li> Korean (ko)</li>
+            </ul>
+            <div class="resp-tabs-container hor_1">
+              <div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_title %> this doesn't show up publicly - use it to keep your records
+                      <%= form.text_area :en_title, size:'70x2', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <% if callout.en_image.attached? %>
+                        <%= image_tag callout.en_image.variant(resize_to_limit: [100, 100]), class: "img-fluid" %>
+                      <% end %>
+                      <br>
+                      <%= form.label :en_image %>
+                      <%= form.file_field :en_image, direct_upload: true, class: "form-control input-lg"  %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_link_url %>
+                      <%= form.text_field :en_link_url, class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_title %> this doesn't show up publicly - use it to keep your records
+                      <%= form.text_area :ko_title, size:'70x2', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <% if callout.ko_image.attached? %>
+                        <%= image_tag callout.ko_image.variant(resize_to_limit: [100, 100]), class: "img-fluid" %>
+                      <% end %>
+                      <br>
+                      <%= form.label :ko_image %>
+                      <%= form.file_field :ko_image, direct_upload: true, class: "form-control input-lg"  %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_link_url %>
+                      <%= form.text_field :ko_link_url, class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-8 col-md-offset-2">
+              <div class="field form-group">
+                <%= form.label :tags %> Separate each tag with a new line
+                <%= form.text_area :tags, name: 'callout[tags][]', size: '70x5', class: 'form-control input-lg', placeholder: "cope with loss\nself-care\ntrigger warning\ndepression", value: form.object.tags.join("\n") %>
+              </div>
+
+              <div class="field form-group">
+                <%= form.label :external_link? %> check this to make the link open in a new tab
+                <%= form.check_box :external_link %>
+              </div>
+
+              <div class="field form-group">
+                <%= form.label :archive? %> check this if you don't want to display it anymore but don't want to delete it
+                <%= form.check_box :archive %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :priority %> 
+                <%= form.text_field :priority, :size=>"2"  %>
+              </div>
+
+              <div class="actions">
+                <%= form.submit class: "btn btn-primary btn-lg btn-block"%>
+                <%= link_to 'Back', callouts_path, class: "btn btn-primary btn-lg btn-block" %>
+              </div>
+            </div>
+
+          </div>
+
+        <% end %>
+        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+      </div>
+    </div>
+  </div>
+</section>

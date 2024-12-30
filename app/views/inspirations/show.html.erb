@@ -1,0 +1,62 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
+          <div class="field form-group">
+            <p id="notice"><%= notice %></p>
+              <p>
+                <strong>Inspiration:</strong>
+                <%= @inspiration.inspiration %>
+              </p>
+
+              <p>
+                <strong>Tags:</strong>
+                <%= @inspiration.tags %>
+              </p>
+
+              <p>
+                <strong>Languages:</strong>
+                <%= @inspiration.languages %>
+              </p>
+
+              <p>
+                <strong>Category:</strong>
+                <%= @inspiration.category %>
+              </p>
+
+              <p>
+                <strong>Featured:</strong>
+                <%= @inspiration.featured %>
+              </p>
+
+              <p>
+                <strong>Archive:</strong>
+                <%= @inspiration.archive %>
+              </p>
+
+              <p>
+                <strong>Priority:</strong>
+                <%= @inspiration.priority %>
+              </p>
+
+              <div class="col-md-12">
+                <% if current_user.try(:admin?) %>
+                  <div class="actions">
+                    <%= link_to 'Edit inspiration', edit_inspiration_path(@inspiration), class: "btn btn-primary btn-lg btn-block" %>
+                  </div>
+                <% end %>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="actions">
+                    <%= link_to t('messages.back'), inspirations_path, class: "btn btn-primary btn-lg btn-block" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

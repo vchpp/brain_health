@@ -1,0 +1,132 @@
+en:
+  hello: "Hello world"
+  welcome: "Welcome!"
+  language: "English"
+  locale: "en"
+  disclaimer: "Disclaimer: The information contained in this website is for educational purpose only.  Given the fast-evolving situation of COVID-19, while the research team attempts to provide timely information on this website, please refer to the COVID-19 information website of the Centers for Disease Control and Prevention (CDC) https://www.cdc.gov/coronavirus/2019-ncov/index.html for the most updated guidelines. Always seek advice from your health care provider for specific recommendation pertaining to your health condition."
+  navbar:
+    about: "About"
+    messages: "Messages"
+    resources: "Resources"
+    faqs: "FAQs"
+    statistics: "Statistics"
+    layhealthworkers: "Lay Health Educators"
+    additional: "Additional Resources"
+    mission: "Mission"
+    inspirations: "Inspiration"
+    healthwise: "Healthwise Articles"
+  about:
+    research_team: "Research Team"
+    research_team_titles:
+      co_investigator: "Co-investigator"
+      executive_director: "Executive Director"
+      student_intern: "Student Intern"
+      principal_investigator: "Principal Investigator"
+      research_staff: "Research Staff"
+      community_coordinator: "Community Coordinator"
+      study_coordinator: "Study Coordinator"
+    cab_members: "Community Advisory Board"
+    lhw: "Lay Health Educators"
+    title1: "Healthy Family Project – "
+    title2: "Getting INFORMED for Living Well"
+    mission1: "“INFORMED-Living Well” is a research project to facilitate pandemic recovery by promoting emotional wellness among Asian Americans."
+    mission2: "“INFORMED” stands for “Individual and Family Oriented Responsive Messaging and Education.” The study aims to explore various approaches to build resilience and promote emotional wellness among Asian Californians in a post-pandemic world. We will investigate whether text messaging alone or text messaging combined with lay health worker outreach education can help Asian Americans get informed and learn practical skills for emotional well-being."
+    disclaimer: "INFORMED is supported by the California Department of Public Health (Contract #22-10528) through the <a href='https://cpr3.ucsf.edu/' target='_blank'>California Collaborative for Pandemic Recovery and Readiness Research (CPR³)</a>. The content is solely the responsibility of the authors and does not necessarily represent the official views of the California Department of Public Health. UCSF IRB Approval Number 23-39285. <br><br>Disclaimer: The information, including but not limited to, text, graphics, images and other material contained on this website, is for informational purpose only. Some website content and images are adapted from the <a href='https://www.nih.gov/health-information/emotional-wellness-toolkit' target='_blank'>NIH Emotional Wellness Toolkit</a>, which have been modified for our study and tailored for cultural and language appropriateness among diverse Asian American populations. Educational use permission granted by NIH News in Health. No material on this site is intended to be a substitute for professional medical advice, diagnosis or treatment. Always seek the advice of your physician or other qualified health care provider for specific recommendations pertaining to your health condition."  
+    video: "https://www.youtube.com/embed/EChvG56_5sQ?si=fHDwTqnDo-DYHAL9"
+  messages:
+    coming_soon: "Coming soon"
+    messages: "Messages"
+    read_more: "Read More"
+    comments: "Comments"
+    leave_comment: "Leave a Comment"
+    submit: "Submit"
+    back: "back"
+    show:
+      action_item_more_info: "For more info you can visit:"
+      survey_link: "To take our survey, please visit:"
+  resources:
+    resources: "Resources"
+    additional:
+      source: "Source"
+      additional_resources: "Additional Resources"
+      search_for_resources: "Search For Resources"
+      view: "View"
+      search: "Search"
+      all: "All"
+      contents_of_resources: "Contents Of Resources"
+      notes: "Notes"
+      additional_links: "External Links"
+      last_updated: "Last Updated"
+      general: "General"
+      testing: "Testing"
+      vaccination: "Vaccination"
+      other: "Other"
+      featured: "Featured"
+      wellness: "Wellness"
+      self_care: "Self Care"
+      strengthen_social_connections: "Strengthen Social Connections"
+      cope_with_loss: "Cope With Loss"
+      help_yourself_help_others: "Help Yourself Help Others"
+      helplines: "Helplines"
+      mental_health_services: "Mental Health Services"
+      education_materials: "Education Materials"
+      classes_and_events: "Classes and Events"
+      community_resources: "Community Resources"
+      covid_related: "COVID Related"
+      filter: "Filter by County"
+    statistics: "Statistics"
+    layhealthworkers:
+      layhealthworkers: "Lay Health Educators"
+      project: "About Lay Health Educators of the INFORMED Project:"
+      project1: "A lay health worker in the INFORMED-Living Well Project is someone selected to educate others in their communities on maintaining health and well-being in the post-pandemic era. Trained by the research staff, these individuals provide up-to-date information on various approaches to building resilience and promoting emotional wellness."
+      project2: "Our lay health workers are chosen for their warmth, friendliness, open-mindedness, and interest in improving the health of their communities. They will lead health educational sessions on emotional wellness, so that the important health messages will reach members of the communities in a culturally and linguistically appropriate way."
+      downloads: "Downloads of INFORMED Materials:"
+      downloads1: "With support from the California Department of Public Health (Research Grant Number 22-10528), the training and educational materials used by our lay health workers are made available for research and educational use for free."
+      stats: "Statistics About COVID-19 from Selected Sources:"
+      stats1: "To keep our communities informed about COVID-19, we have selected several online resources that provide the latest statistics related to the COVID-19 pandemic, both globally and locally. These resources are listed under the “Statistics” tab."
+    downloads: "Downloads"
+    healthwise:
+      general: "General"
+      build_resilience: "Build Resilience"
+      get_good_sleep: "Get Good Sleep"
+      manage_stress: "Manage Stress"
+      strengthen_social_connections: "Strengthen Social Connections"
+      help_yourself_help_others: "Help Yourself Help Others"
+      mental_health_conditions: "Mental Health Conditions"
+      suicide_prevention: "Suicide Prevention"
+      healthwise: "Healthwise Articles"
+      missing_article: "The information is available in English only. Sorry for the inconvenience."
+      disclaimer: "The health information articles provided are at no cost by Healthwise, a nonprofit partner of the INFORMED Project. Healthwise (healthwise.org) provides evidence-based health information for the community, hospitals, and electronic medical record (EMR) providers. Many people have turned to Healthwise information to learn how to make better health decisions. Please feel free to comment and share the information with your community."
+    inspirations: "Welcome to our ‘INFORMED-Living Well’ Inspirational Quotes Collection!"
+    inspirations1: "Here, you’ll discover over 130 motivational quotes, each presented in its original language—English, Chinese, Korean, Hmong, or Vietnamese—shared by participants of our program. Browse by language or keywords to connect with phrases that resonate deeply with you. We sincerely thank all our participants for their heartfelt contributions."
+    inspirations2: "We hope these personal words of encouragement inspire and uplift you on your journey to greater well-being. Thank you for visiting!"
+  faqs:
+    faq: "Frequently Asked Questions"
+    filter: "Filter By Category"
+    or: "or"
+    search_for_questions: "Search For Questions"
+    search: "Search"
+    all: "All"
+  activerecord:
+    models:
+      message:
+        one: 'Message'
+        other: 'Messages'
+      comment: 'Comment'
+      faq: "Frequently Asked Questions"
+    attributes:
+      message:
+        name: 'Name'
+        content: 'Content'
+      comment:
+        content: 'Content'
+  helpers:
+    submit:
+      # helpers.submit.<action>
+      create: "Create a %{model}"
+      update: "Confirm changes to %{model}"
+
+      # helpers.submit.<model>.<action>
+      comment:
+        create: "Leave a comment"
+        update: "Update comment"

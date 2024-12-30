@@ -1,0 +1,187 @@
+<%
+meta title: "INFORMED - Living Well - Messages",
+     description: "Informed - Living Well",
+     keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
+%>
+<% content_for :head do %>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('send','event','eventCategory','eventAction');
+  </script>
+<% end %>
+
+<!-- START #fh5co-hero -->
+
+<section id="fh5co-feature">
+  <!-- START FEATURE 2 -->
+  <div class="container">
+    <div class="row fh5co-feature-2">
+
+      <div class="col-md-12">
+        <h1 class="fh5co-uppercase-heading-lg text-center"><%= Message.model_name.human(count:2) %></h1>
+      </div>
+
+      <div class="col-md-8 col-md-offset-2">
+        <% if current_user.try(:admin?) %>
+        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+          <div class="actions">
+            <%= link_to 'New Message', new_message_path, class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+          <div class="actions">
+            <%= link_to 'Export Messages to CSV', messages_path(format: "csv"), class: "btn btn-primary btn-lg btn-block"  %>
+          </div>
+          <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <% end %>
+      </div>
+
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
+          <label for="faq" class="sr-only">Search for Messages (t)</label>
+          <form id="search" method="GET" action="/<%=params[:locale]%>/messages" >
+            <div class="col-md-8 form-group">
+              <input class="form-control input-lg" type="text" name="search" placeholder="Search for Messages (t)">
+            </div>
+            <div class="col-md-2 form-group">
+              <button id="search-submit" class="form-control btn btn-primary" type="submit">
+                <i class="ti-search"></i>
+              </button>
+            </div>
+          </form>
+          <form id="reset" method="GET" action="/<%=params[:locale]%>/messages" >
+            <div class="col-md-2 form-group">
+              <input id="reset-submit" class="form-control btn btn-primary" type="submit" value="<%= t('resources.additional.all')%>">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+        <!--
+            <div class="col-md-8 col-md-offset-2">
+              <div class="form-group">
+                <label for="faq" class="sr-only">Filter by Category</label>
+                <form id="category" method="GET" action="/<%=params[:locale]%>/messages" >
+                  <select class="form-control input-lg" name="category" id="category-form">
+                    <option value="">All</option>
+                    <% @message_categories.each do |faq| %>
+                      <option value="<%=faq%>"> <%= faq %></option>
+                    <% end %>
+                  </select>
+                </form>
+              </div>
+            </div>
+        -->
+
+      <% if @featured.any? %>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.featured')%></h2>
+        <%= render 'featured', collection: @featured %>
+      <% end %>
+
+      <% if @build_resilience.any? %>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.build_resilience')%></h2>
+        <%= render 'build_resilience', collection: @build_resilience %>
+      <% end %>
+
+      <% if @get_good_sleep.any? %>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.get_good_sleep')%></h2>
+        <%= render 'get_good_sleep', collection: @get_good_sleep %>
+      <% end %>
+
+      <% if @manage_stress.any? %>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.manage_stress')%></h2>
+        <%= render 'manage_stress', collection: @manage_stress %>
+      <% end %>
+
+      <% if @strengthen_social_connections.any? %>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.strengthen_social_connections')%></h2>
+        <%= render 'strengthen_social_connections', collection: @strengthen_social_connections %>
+      <% end %>
+
+      <% if @help_yourself_help_others.any?  %>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.help_yourself_help_others')%></h2>
+        <%= render 'help_yourself_help_others', collection: @help_yourself_help_others %>
+      <% end %>
+
+      <% if @other.any?  %>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.other')%></h2>
+        <%= render 'other', collection: @other %>
+      <% end %>
+    </div>
+  </div>
+
+
+  <% if current_user.try(:admin?) %>
+  <div class="col-md-12 Admin-border">
+    <h1 class="text=center">Messages Admin View</h1>
+    <table class="table table-sm table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">en_name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Tags</th>
+          <th scope="col">Archived?</th>
+          <th scope="col">Featured?</th>
+          <th scope="col">Priority</th>
+          <th scope="col" colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @admin_messages.each do |message| %>
+          <tr>
+            <td><%= message.en_name %></td>
+            <td><%= message.category %></td>
+            <td><%= message.tags %></td>
+            <% if message.archive == true %>
+              <td class="archive-border"><%= message.archive %></td>
+            <% else %>
+              <td><%= message.archive %></td>
+            <% end %>
+            <% if message.featured == true %>
+              <td class="featured-border"><%= message.featured %></td>
+            <% else %>
+              <td><%= message.featured %></td>
+            <% end %>
+            <td><%= message.priority %></td>
+            <td><%= link_to 'Show', message %></td>
+            <td><%= link_to 'Edit', edit_message_path(message) %></td>
+            <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
+
+</section>
+
+<script>
+  document.addEventListener("click", function(event){
+    if (event.target.id === 'search-submit') {
+      gtag ('event', 'form_submit', {
+          'form_name': event.target.id,
+          'form_destination': event.target.baseURI,
+          'TID': tid
+      })
+    }
+    else if (event.target.id === 'reset-submit') {
+        gtag ('event', 'form_submit', {
+          'form_name': event.target.id,
+          'form_destination': event.target.baseURI,
+          'TID': tid
+      })
+    }
+  });
+  document.addEventListener("submit", function(event){
+    if (event.target.id === 'search-submit') {
+      gtag ('event', 'form_submit', {
+          'form_name': event.target.id,
+          'form_destination': event.target.baseURI,
+          'TID': tid
+      })
+    }
+  });
+</script>

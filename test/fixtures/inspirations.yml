@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  en_inspiration: MyString
+  zh_cn_inspiration: MyString
+  zh_tw_inspiration: MyString
+  vi_inspiration: MyString
+  hm_inspiration: MyString
+  ko_inspiration: MyString
+  tags: MyString
+  category: MyString
+  featured: false
+  archive: false
+  priority: 1
+
+two:
+  en_inspiration: MyString
+  zh_cn_inspiration: MyString
+  zh_tw_inspiration: MyString
+  vi_inspiration: MyString
+  hm_inspiration: MyString
+  ko_inspiration: MyString
+  tags: MyString
+  category: MyString
+  featured: false
+  archive: false
+  priority: 1

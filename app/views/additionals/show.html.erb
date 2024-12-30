@@ -1,0 +1,100 @@
+<%
+meta title: "INFORMED - Living Well - Additional Resources - #{@additional.id}",
+     description: "Informed - Living Well",
+     keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
+%>
+<% content_for :head do %>
+<!--
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('set', 'user_properties', {'TID': tid });
+    gtag('send','event','eventCategory','eventAction');
+  </script>
+-->
+<% end %>
+
+<section id="fh5co-feature">
+  <div class="container">
+
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+    <div class="row fh5co-feature-1">
+
+      <div class="col-md-8 col-md-offset-2 fh5co-feature-blurb">
+        <ul>
+          <li>
+            <div class="fh5co-feature-blurb-text">
+              <h2 >
+                <%= @additional.en_title if params[:locale] == 'en'%>
+                <%= @additional.ko_title if params[:locale] == 'ko'%>
+              </h2>
+              <p class="fh5co-feature-blurb-title"><%= t('resources.additional.source') %>:
+                <%= @additional.en_source if params[:locale] == 'en'%>
+                <%= @additional.ko_source if params[:locale] == 'ko'%>
+              </p>
+            </div>
+          </li>
+
+
+          <li>
+            <div class="fh5co-feature-blurb-text">
+              <h2 ><%= t('resources.additional.contents_of_resources')%>:</h2>
+              <p class="fh5co-feature-blurb-title">
+                <%= @additional.en_content if params[:locale] == 'en'%>
+                <%= @additional.ko_content if params[:locale] == 'ko'%>
+              </p>
+            </div>
+          </li>
+
+
+          <li>
+            <div class="fh5co-feature-blurb-text">
+              <h2 ><%= t('resources.additional.notes')%>:</h2>
+              <p class="fh5co-feature-blurb-title">
+                <%= @additional.en_notes if params[:locale] == 'en'%>
+                <%= @additional.ko_notes if params[:locale] == 'ko'%>
+              </p>
+            </div>
+          </li>
+
+
+          <li>
+            <div class="fh5co-feature-blurb-text">
+              <h2 ><%= t('resources.additional.additional_links')%>:</h2>
+              <p class="fh5co-feature-blurb-title">
+                <%= link_to @additional.en_external_link, @additional.en_external_link, target: "_blank" if params[:locale] == 'en' %>
+                <%= link_to @additional.ko_external_link, @additional.ko_external_link, target: "_blank" if params[:locale] == 'ko' %>
+              </p>
+            </div>
+          </li>
+
+
+          <li>
+            <div class="fh5co-feature-blurb-text">
+              <h2 ><%= t('resources.additional.last_updated')%>:</h2>
+              <p class="fh5co-feature-blurb-title"><%= @additional.last_version_date %></p>
+            </div>
+          </li>
+
+        </ul>
+
+      <div class="fh5co-spacer fh5co-spacer-sm"></div>
+      <div class="col-md-12">
+        <% if current_user.try(:admin?) %>
+        <div class="actions">
+          <%= link_to 'Edit Additional Resource', edit_additional_path(@additional), class: "btn btn-primary btn-lg btn-block" %>
+        </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-12">
+        <div class="actions">
+          <%= link_to t('messages.back'), additionals_path, class: "btn btn-primary btn-lg btn-block" %>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</section>

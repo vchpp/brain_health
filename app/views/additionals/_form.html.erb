@@ -1,0 +1,161 @@
+
+<section id="fh5co-feature">
+  <div class="container">
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+    <div class="row">
+			<div class="col-md-12">
+        <%= form_with(model: additional) do |form| %>
+          <% if additional.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(additional.errors.count, "error") %> prohibited this additional from being saved:</h2>
+
+              <ul>
+                <% additional.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div id="fh5co-tab-feature" class="fh5co-tab text-center">
+            <ul class="resp-tabs-list hor_1">
+              <li> English (en)</li>
+              <li> Korean (ko)</li>
+            </ul>
+            <div class="resp-tabs-container hor_1">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_title %>
+                      <%= form.text_area :en_title , size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_source %>
+                      <%= form.text_area :en_source, size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_content %>
+                      <%= form.text_area :en_content, size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_external_link %>
+                      <%= form.text_area :en_external_link, size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_notes %>
+                      <%= form.text_area :en_notes , size: '70x5', class: 'form-control input-lg'%>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_title %>
+                      <%= form.text_area :ko_title, size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_source %>
+                      <%= form.text_area :ko_source, size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_content %>
+                      <%= form.text_area :ko_content, size: '70x5', class: 'form-control input-lg'  %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_external_link %>
+                      <%= form.text_area :ko_external_link, size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_notes %>
+                      <%= form.text_area :ko_notes, size: '70x5', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                <div class="row">
+                  <div class="col-md-8 col-md-offset-2">
+                    <div class="field form-group">
+                      <%= form.label :languages %> must be English / 繁體中文 / 简体中文 / lus hmoob / Tiếng Việt / 한국어
+                      <%= form.text_area :languages, name: 'additional[languages][]', size: '70x6', class: 'form-control input-lg', placeholder: "English\n繁體中文\n简体中文\nkwv tij hmoob\nTiếng Việ\n한국어t", value: form.object.languages.join("\n") %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-8 col-md-offset-2">
+                    <div class="field form-group">
+                      <%= form.label :tags %> Separate each tag with a new line
+                      <%= form.text_area :tags, name: 'additional[tags][]', size: '70x5', class: 'form-control input-lg', placeholder: "cope with loss\nself-care\ntrigger warning\ndepression", value: form.object.tags.join("\n") %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :category %>
+                      <%= form.select :category, ['helplines', 'mental_health_services', 'education_materials', 'classes_and_events', 'community_resources', 'covid_related', 'other'], class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :last_version_date %>
+                      <%= form.date_select :last_version_date %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :featured? %>
+                      <%= form.check_box :featured %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :archive? %>
+                      <%= form.check_box :archive %>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-12">
+                  <div class="actions">
+                    <%= form.submit class: "btn btn-primary btn-lg btn-block"%>
+                    <%= link_to 'Back', additionals_path, class: "btn btn-primary btn-lg btn-block" %>
+                  </div>
+                </div>
+
+                <div class="fh5co-spacer fh5co-spacer-sm"></div>
+
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+</section>

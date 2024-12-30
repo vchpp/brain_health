@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>En question:</strong>
+  <%= @faq.en_question %>
+</p>
+
+<p>
+  <strong>En answer:</strong>
+  <%= @faq.en_answer %>
+</p>
+
+<p>
+  <strong>Ko question:</strong>
+  <%= @faq.ko_question %>
+</p>
+
+<p>
+  <strong>Ko answer:</strong>
+  <%= @faq.ko_answer %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @faq.category %>
+</p>
+
+<%= link_to 'Edit', edit_faq_path(@faq) %> |
+<%= link_to 'Back', faqs_path %>

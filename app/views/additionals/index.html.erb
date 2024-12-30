@@ -1,0 +1,170 @@
+<%
+meta title: "INFORMED - Living Well - Additional Resources",
+     description: "Informed - Living Well",
+     keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
+%>
+<% content_for :head do %>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('send','event','eventCategory','eventAction');
+  </script>
+<% end %>
+
+<!-- RESEARCH TEAM -->
+<section id="fh5co-feature">
+  <div class="container">
+
+      <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.additional_resources')%></h2>
+
+      <div class="col-md-8 col-md-offset-2">
+        <% if current_user.try(:admin?) %>
+        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+          <div class="actions">
+            <%= link_to 'New Additional Resource', new_additional_path, class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+          <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <% end %>
+      </div>
+
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
+          <label for="faq" class="sr-only"><%= t('resources.additional.search')%></label>
+          <form id="search" method="GET" action="/<%=params[:locale]%>/resources/additional" >
+            <div class="col-md-8 form-group">
+              <input class="form-control input-lg" type="text" id="search" name="search" placeholder="<%= t('resources.additional.search_for_resources')%>">
+            </div>
+            <div class="col-md-2 form-group">
+              <button class="form-control btn btn-primary" type="submit">
+                <i class="ti-search"></i>
+              </button>
+            </div>
+          </form>
+          <form id="reset" method="GET" action="/<%=params[:locale]%>/resources/additional" >
+            <div class="col-md-2 form-group">
+              <input class="form-control btn btn-primary" type="submit" value="<%= t('resources.additional.all')%>">
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+          <div class="form-group">
+            <label for="faq" class="sr-only">Filter by County</label>
+            <form id="category" method="GET" action="/<%=params[:locale]%>/resources/additional" >
+              <select class="form-control input-lg" name="search" id="category-form">
+                <option value="">All</option>
+                <option value="San Francisco">San Francisco</option>
+                <option value="Alameda">Alameda</option>
+                <option value="Fresno">Fresno</option>
+                <option value="Santa Clara">Santa Clara</option>
+                <option value="San Mateo">San Mateo</option>
+              </select>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <% if @featured.any? %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.featured')%></h2>
+        <%= render 'featured', collection: @featured %>
+      <% end %>
+<%# 'helplines' 'mental Health Services' 'Education Materials' 'Classes and Events' 'Community Resources' 'COVID Related' 'other' 'featured' %>
+      <% if @helplines.any? %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.helplines')%></h2>
+        <%= render 'helplines', collection: @helplines %>
+      <% end %>
+
+      <% if @mental_health_services.any? %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.mental_health_services')%></h2>
+        <%= render 'mental_health_services', collection: @mental_health_services %>
+      <% end %>
+
+      <% if @education_materials.any? %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.education_materials')%></h2>
+        <%= render 'education_materials', collection: @education_materials %>
+      <% end %>
+
+      <% if @classes_and_events.any? %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.classes_and_events')%></h2>
+        <%= render 'classes_and_events', collection: @classes_and_events %>
+      <% end %>
+
+      <% if @community_resources.any? %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.community_resources')%></h2>
+        <%= render 'community_resources', collection: @community_resources %>
+      <% end %>
+
+      <% if @covid_related.any?  %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.covid_related')%></h2>
+        <%= render 'covid_related', collection: @covid_related %>
+      <% end %>
+
+      <% if @other.any?  %>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.other')%></h2>
+        <%= render 'other', collection: @other %>
+      <% end %>
+  </div>
+
+  <% if current_user.try(:admin?) %>
+  <div class="col-md-12 Admin-border">
+    <h1 class="text-center">Additionals Admin List</h1>
+
+    <table class="table table-sm table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">En title</th>
+          <th scope="col">En source</th>
+          <th scope="col">En notes</th>
+          <th scope="col">Category</th>
+          <th scope="col">Languages</th>
+          <th scope="col">Tags</th>
+          <th scope="col">Last version date</th>
+          <th scope="col">Featured?</th>
+          <th scope="col">Archived?</th>
+          <th scope="col" colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @admin_additionals.each do |additional| %>
+          <tr>
+            <td><%= additional.en_title %></td>
+            <td><%= additional.en_source %></td>
+            <td><%= additional.en_notes %></td>
+            <td><%= additional.category %></td>
+            <td><%= additional.languages %></td>
+            <td><%= additional.tags %></td>
+            <td><%= additional.last_version_date %></td>
+            <% if additional.featured == true %>
+              <td class="featured-border"><%= additional.featured %></td>
+            <% else %>
+              <td><%= additional.featured %></td>
+            <% end %>
+            <% if additional.archive == true %>
+              <td class="archive-border"><%= additional.archive %></td>
+            <% else %>
+              <td><%= additional.archive %></td>
+            <% end %>
+            <td><%= link_to 'Show', additional %></td>
+            <td><%= link_to 'Edit', edit_additional_path(additional) %></td>
+            <td><%= link_to 'Destroy', additional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
+
+</section>
+

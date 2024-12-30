@@ -1,0 +1,45 @@
+<div class="fh5co-spacer fh5co-spacer-md"></div>
+<section id="fh5co-testimonial">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+
+				<% if @callouts.length==1 %>
+					<% @callouts.each do |c| %>
+						<div class="item">
+							<div class="col-md-10 col-md-offset-1 fh5co-item-slide-img">
+								<a href="<%=c.send("#{I18n.locale}_link_url".downcase)%>" <%= sanitize "target=\"_blank\"" if c.external_link? %> >
+									<%= image_tag c.send("#{I18n.locale}_image".downcase), class: "img-responsive" if c.send("#{I18n.locale}_image".downcase).attached? %>
+								</a>
+							</div>
+							<!-- </div> -->
+						</div>
+						<!-- END .item -->
+					<% end %>
+				<% else %>
+					<div class="owl-carousel-fullwidth owl-carousel-2">
+	          <% @callouts.each do |c| %>
+	  					<div class="item">
+	              <div class="col-md-10 col-md-offset-1 fh5co-item-slide-img">
+									<a href="<%=c.send("#{I18n.locale}_link_url".downcase)%>" <%= sanitize "target=\"_blank\"" if c.external_link? %> >
+	                	<%= image_tag c.send("#{I18n.locale}_image".downcase), class: "img-responsive" if c.send("#{I18n.locale}_image".downcase).attached? %>
+									</a>
+	              </div>
+	  						<!-- </div> -->
+	  					</div>
+	  					<!-- END .item -->
+	          <% end %>
+  				</div>
+				<% end %>
+			</div> <!-- Close col-md-12 -->
+		</div> <!-- Close row -->
+	</div> <!-- Close container -->
+</section>
+<div class="fh5co-spacer fh5co-spacer-md"></div>
+<% if current_user.try(:admin?) %>
+  <div class="row" >
+    <div class="col-md-6 col-md-offset-3" >
+        <%= link_to 'edit callouts', callouts_path, class: "btn btn-large btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>

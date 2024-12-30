@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>En title:</strong>
+  <%= @callout.en_title %>
+</p>
+
+<p>
+  <strong>Ko title:</strong>
+  <%= @callout.ko_title %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @callout.link %>
+</p>
+
+<p>
+  <strong>External link:</strong>
+  <%= @callout.external_link %>
+</p>
+
+<p>
+  <strong>Archive:</strong>
+  <%= @callout.archive %>
+</p>
+
+<%= link_to 'Edit', edit_callout_path(@callout) %> |
+<%= link_to 'Back', callouts_path %>

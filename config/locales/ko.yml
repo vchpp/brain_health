@@ -1,0 +1,132 @@
+ko:
+  hello: "Hello world"
+  welcome: "환영합니다!"
+  language: "한국어"
+  locale: "ko"
+  disclaimer: "참고사항: 이 웹사이트의 정보는 교육용 목적으로만 사용됩니다. 본인의 건강 상태에 관한 특정한 정보는 의사의 권고를 구하십시요."
+  navbar:
+    about: "개요"
+    messages: "문자 메시지"
+    resources: "자료 및 정보"
+    faqs: "자주 묻는 질문"
+    statistics: "통계"
+    layhealthworkers: "건강지킴이"
+    additional: "그외 정보"
+    mission: "사명"
+    inspirations: "격려문"
+    healthwise: "Healthwise자료"
+  about:
+    research_team: "연구진"
+    research_team_titles:
+      co_investigator: "공동 연구자"
+      executive_director: "관장"
+      student_intern: "학생 인턴"
+      principal_investigator: "책임 연구자"
+      research_staff: "연구원"
+      community_coordinator: "지역 사회 코디네이터"
+      study_coordinator: "연구 코디네이터"
+    cab_members: "지역사회 자문위원"
+    lhw: "건강지킴이"
+    title1: "건강한 가족 프로젝트 - "
+    title2: "INFORMED-Living Well (건강한 삶의 길잡이)"
+    mission1: "“INFORMED-Living Well (건강한 삶의 길잡이)” 은 아시아계 미국인들의 정서적 안녕을 증진하여 팬데믹의 영향으로부터 회복을 촉진하기 위한 연구 프로젝트입니다."
+    mission2: "“INFORMED”는 “개인 및 가족을 위한 전화문자 교육”을 의미합니다. 본 연구의 목적은 팬데믹 이후 사회에서 아시아계 캘리포니아 주민들의 회복탄력성(resilience)을 구축하고 정서적 건강을 증진하기 위한 다양한 접근 방식을 탐구하는 것입니다. 구체적으로는 전화 문자만 사용하거나 전화 문자와 건강지킴이의 교육을 함께 받는 것이 아시아계 미국인이 정서적 건강을 위한 정보를 얻고 실용적인 기술을 배우는데 도움이 되는지를 조사할 것입니다."
+    disclaimer: "건강한 삶의 길잡이 프로젝트는 캘리포니아 팬데믹 복구 및 준비 연구 협력<a href='https://cpr3.ucsf.edu/' target='_blank'>(CPR³)</a>을 통해 캘리포니아 공중보건부 (계약번호 22-10528)의 지원을 받았습니다. 본 내용은 전적으로 저자들의 책임이며 캘리포니아 공중보건부의 공식 의견을 대변하는 것은 아닙니다. UCSF IRB 승인 번호 23-39285.<br><br>Disclaimer: 본 웹사이트에 포함된 정보는 글, 그림, 컴퓨터 그래픽 및 기타 자료를 포함하되 이에 국한되지 않으며, 정보 제공의 목적으로만 제공됩니다. 웹사이트의 일부 내용과 그림은 <a href='https://www.nih.gov/health-information/emotional-wellness-toolkit' target='_blank'>NIH Emotional Wellness Toolkit</a>에서 채택되어 본 연구를 위하여 아시아계 미국인의 다양성에 맞춰 문화적, 언어적 필요를 충족하도록 수정되었습니다. 본 사이트의 어떠한 자료도 전문 의료 자문, 진단 또는 치료를 대체할 수 없습니다. 귀하의 건강 상태와 관련된 특정 권장 사항에 대해서는 항상 담당 의사나 기타 자격을 갖춘 의료 서비스 제공자에게 조언을 구하십시오."
+    video: "https://www.youtube.com/embed/y0hk6SLTCnI?si=Dgylroo6m3J1kMER"
+  messages:
+    coming_soon: "곧 발표 예정"
+    messages: "문자 메시지"
+    read_more: "더 보기"
+    comments: "댓글"
+    leave_comment: "댓글 남기기"
+    submit: "제출하기"
+    back: "뒤로"
+    show:
+      action_item_more_info: "그외 다른 정보를 원하시면 이곳으로 :"
+      survey_link: "이 연구 설문에 응답하시려면 이곳으로:"
+  resources:
+    resources: "자료 및 정보"
+    additional:
+      source: "정보 출처 "
+      additional_resources: "그외 자료"
+      search_for_resources: "자료 검색"
+      view: "보기"
+      search: "찾기"
+      all: "전부"
+      contents_of_resources: "자료 목차"
+      notes: "주"
+      additional_links: "추가 링크"
+      last_updated: "마지막 업데이트"
+      general: "일반"
+      testing: "Testing"
+      vaccination: "Vaccination"
+      other: "기타"
+      featured: "추천"
+      wellness: "건강"
+      self_care: "자기 관리"
+      strengthen_social_connections: "사회적 관계 강화하기"
+      cope_with_loss: "상실에 대처하기"
+      help_yourself_help_others: "스스로 돕고 다른 사람들 돕기"   
+      helplines: "도움 전화"
+      mental_health_services: "정신건강 서비스"
+      education_materials: "교육 자료"
+      classes_and_events: "강의 및 행사"
+      community_resources: "지역사회 자원이나 서비스"
+      covid_related: "코비드19 관련"  
+      filter: "검색필터"
+    statistics: "통계"
+    layhealthworkers:
+      layhealthworkers: "건강지킴이"
+      project: "INFORMED 프로젝트의 건강지킴이에 대하여:"
+      project1: "INFORMED-Living Well (건강한 삶의 길잡이) 프로젝트의 건강지킴이는 자신의 지역 사회에서 다른 이들에게 COVID-19 팬데믹 이후 어떻게 건강과 안녕을 유지할지에 대한 교육을 제공하기 위해 선발된 사람입니다. 이들은 회복탄력성을 구축하고 정서적 건강을 증진하기 위한 다양한 접근 방식에 대한 최신 정보를 제공할 수 있도록 연구원에 의해 훈련 받았습니다."
+      project2: "건강지킴이로는 따뜻하고 친근하며 개방적인 성격을 가지며 지역사회의 건강을 개선하고자 하는 관심을 가진 분들이 선택되었습니다. 이 분들이 정서적 건강에 관한 건강 교육 모임을 인도함으로써 중요한 건강 메시지가 문화적, 언어적으로 적절한 방식으로 지역사회 구성원에게 전달될 것입니다."
+      downloads: "프로젝트 자료 다운로드:"
+      downloads1: "캘리포니아 공중보건부 (계약번호 22-10528)의 지원으로 건강지킴이가 사용하는 훈련 및 교육 자료를 연구 및 교육용으로 무료로 제공합니다."
+      stats: "Statistics About COVID-19 from Selected Sources:"
+      stats1: "To keep our communities informed about COVID-19, we have selected several online resources that provide the latest statistics related to the COVID-19 pandemic, both globally and locally. These resources are listed under the “Statistics” tab."
+    downloads: "다운로드"
+    healthwise:
+      general: "일반"
+      build_resilience: "회복탄력성 구축하기"
+      get_good_sleep: "숙면 취하기"
+      manage_stress: "스트레스 관리하기"
+      strengthen_social_connections: "사회적 관계 강화하기"
+      help_yourself_help_others: "스스로 돕고 다른 사람들 돕기"
+      mental_health_conditions: "정신 건강 문제"
+      suicide_prevention: "자살 예방"
+      healthwise: "Healthwise자료"
+      missing_article: "이 정보는 한국어로 제공되지 않습니다. 불편을 드려 죄송합니다."
+      disclaimer: "제공된 건강 정보 기사는 본 프로젝트의 비영리 파트너인 Healthwise가 무료로 제공합니다. <a href='https://healthwise.org' target='_blank'>Healthwise</a> 은 지역사회, 병원 및 전자 의료 기록 제공업체를 위해 근거에 기반한 건강 정보를 제공합니다. 많은 사람들이 더 나은 건강 결정을 내리기 위해 Healthwise 정보를 활용해 왔습니다. 이 정보에 대해 자유롭게 댓글을 달고 귀하의 지역사회와 이 정보를 공유해 주십시오."
+    inspirations: "저희 건강한 삶의 길잡이(INFORMED-Living Well) 프로젝트의 자가 격려문 컬렉션에 오신 것을 환영합니다! "
+    inspirations1: "여기에서는 프로그램 참여자분들이 영어, 중국어, 한국어, 몽어 또는 베트남어로 공유한 130개 이상의 동기 부여 인용 문구를  발견할 수 있습니다. 언어나 키워드를 이용하여 여러분에게 깊이 공감되는 문구들을 만나보세요."
+    inspirations2: "모든 참여자분들의 진심 어린 기여에 깊이 감사드립니다. 이러한 개인적인 격려의 말이 더 나은 웰빙을 향한 여러분의 여정에서 영감을 주고 격려가 되길 바랍니다. 방문해 주셔서 감사합니다!"
+  faqs:
+    faq: "자주 묻는 질문"
+    filter: "분류별 검색"
+    or: "또는"
+    search_for_questions: "질문 검색"
+    search: "검색"
+    all: "전체보기"
+  activerecord:
+    models:
+      message:
+        one: '문자 메시지'
+        other: '문자 메시지'
+      comment: '댓글'
+      faq: "자주 묻는 질문"
+    attributes:
+      message:
+        name: '이름'
+        content: '내용'
+      comment:
+        content: '내용'
+  helpers:
+    submit:
+      # helpers.submit.<action>
+      create: "댓글 남기기 %{model}"
+      update: "업데이트하기 %{model}"
+
+      # helpers.submit.<model>.<action>
+      comment:
+        create: "댓글을 남겨주세요"
+        update: "댓글 업데이트t"

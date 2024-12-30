@@ -1,0 +1,81 @@
+<%
+meta title: "INFORMED - Living Well - Mission",
+     description: "Informed - Living Well",
+     keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
+%>
+<% content_for :head do %>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('send','event','eventCategory','eventAction');
+  </script>
+<% end %>
+
+<!-- START #fh5co-hero -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+      <div class="col-md-6">
+        <img class="fh5co-align-left img-responsive" src="/assets/INFORMED-LivingWell Logo 2023-12.png" alt="livingwell logo" >
+      </div>
+      <div class="col-md-6 clearfix fh5co-header">
+        <div class="fh5co-spacer fh5co-spacer-lg"></div>
+        <h1 class="h1 fh5co-heading fh5co-no-margin-bottom"><%= t('about.title1') %></h1>
+        <h1 class="h1 fh5co-heading fh5co-no-margin-bottom"><%= t('about.title2') %></h1>
+      </div>
+
+      <div class="fh5co-spacer fh5co-spacer-sm"></div>
+      <% if @callouts.any? %>
+        <%= render 'callouts', collection: @callouts %>
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+      <% end %>
+
+      <div class="clearfix fh5co-header">
+        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+        <h4 class="h5 fh5co-heading-sub"><%= t('about.mission1') %></h4>
+        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+        <h4 class="h5 fh5co-heading-sub"><%= t('about.mission2') %></h4>
+        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="<%= t('about.video')%>" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!--
+      <section>
+        <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="fh5co-spacer fh5co-spacer-xxs"></div>
+            <a href="#" class="btn btn-primary btn-lg btn-block">Join the Study</a>
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+      </div>
+      </section> -->
+
+  <div class="container">
+    <div class="row">
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+      <div class="col-md-12 text-center">
+        <img class="img-responsive" src="/assets/INFORMED logos  - living well.png" alt="logos">
+      </div>
+      <div class="fh5co-spacer fh5co-spacer-xxs"></div>
+    </div>
+  </div>
+

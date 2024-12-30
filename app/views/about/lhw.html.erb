@@ -1,0 +1,98 @@
+<%
+meta title: "INFORMED - Living Well - Lay Health Workers",
+     description: "Informed - Living Well",
+     keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
+%>
+<% content_for :head do %>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('send','event','eventCategory','eventAction');
+  </script>
+<% end %>
+
+<!-- CAB MEMBERS -->
+<section>
+  <div class="container">
+    <div class="fh5co-feature-2">
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('about.lhw') %></h2>
+        <div class="fh5co-spacer fh5co-spacer-md"></div>
+      <div class="col-md-12">
+        <h2 class="h2"> <%= t('resources.layhealthworkers.project') %> </h2>
+      </div>
+      <div class="col-md-12">
+        <p> <%= t('resources.layhealthworkers.project1')%> </p>
+      </div>
+      <div class="col-md-12">
+        <p> <%= t('resources.layhealthworkers.project2')%> </p>
+      </div>
+
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+
+      <% @lhw.in_groups_of(4, false).each do |item1, item2, item3, item4| %>
+      <div class="row">
+        <a href="<%= profile_path(item1) %>">
+          <div class="col-md-3 col-sm-6 fh5co-feature-item">
+            <span class="fh5co-feature-icon"><%= image_tag item1.headshot.variant(resize_to_limit: [200, 200]), class: "img-circle" if item1.headshot.attached?%></span>
+            <p class="text-center fh5co-feature-description">
+              <%= item1.send("#{I18n.locale}_project_title".downcase) %>
+            </p>
+            <h3 class="text-center fh5co-feature-title h4 text-uppercase"><%= item1.firstname%> <%= item1.lastname %></h3>
+            <p class="text-center fh5co-feature-description text-uppercase">
+              <%= item1.send("#{I18n.locale}_affiliation".downcase) %>
+            </p>
+          </div>
+        </a>
+        <% if item2 %>
+        <a href="<%= profile_path(item2) %>">
+          <div class="col-md-3 col-sm-6 fh5co-feature-item">
+            <span class="fh5co-feature-icon"><%= image_tag item2.headshot.variant(resize_to_limit: [200, 200]), class: "img-circle" if item2.headshot.attached?%></span>
+            <p class="text-center fh5co-feature-description">
+              <%= item2.send("#{I18n.locale}_project_title".downcase) %>
+            </p>
+            <h3 class="text-center fh5co-feature-title h4 text-uppercase"><%= item2.firstname%> <%= item2.lastname %></h3>
+            <p class="text-center fh5co-feature-description text-uppercase">
+              <%= item2.send("#{I18n.locale}_affiliation".downcase) %>
+            </p>
+          </div>
+        </a>
+        <% end %>
+				<div class="clearfix visible-sm-block"></div>
+        <% if item3 %>
+        <a href="<%= profile_path(item3) %>">
+          <div class="col-md-3 col-sm-6 fh5co-feature-item">
+            <span class="fh5co-feature-icon"><%= image_tag item3.headshot.variant(resize_to_limit: [200, 200]), class: "img-circle" if item3.headshot.attached?%></span>
+            <p class="text-center fh5co-feature-description">
+              <%= item3.send("#{I18n.locale}_project_title".downcase) %>
+            </p>
+            <h3 class="text-center fh5co-feature-title h4 text-uppercase"><%= item3.firstname%> <%= item3.lastname %></h3>
+            <p class="text-center fh5co-feature-description text-uppercase">
+              <%= item3.send("#{I18n.locale}_affiliation".downcase) %>
+            </p>
+          </div>
+        </a>
+        <% end %>
+        <% if item4 %>
+        <a href="<%= profile_path(item4) %>">
+          <div class="col-md-3 col-sm-6 fh5co-feature-item">
+            <span class="fh5co-feature-icon"><%= image_tag item4.headshot.variant(resize_to_limit: [200, 200]), class: "img-circle" if item4.headshot.attached?%></span>
+            <p class="text-center fh5co-feature-description">
+              <%= item4.send("#{I18n.locale}_project_title".downcase) %>
+            </p>
+            <h3 class="text-center fh5co-feature-title h4 text-uppercase"><%= item4.firstname%> <%= item4.lastname %></h3>
+            <p class="text-center fh5co-feature-description text-uppercase">
+              <%= item4.send("#{I18n.locale}_affiliation".downcase) %>
+            </p>
+          </div>
+        </a>
+        <% end %>
+      </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</section>

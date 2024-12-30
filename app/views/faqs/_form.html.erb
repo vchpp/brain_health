@@ -1,0 +1,126 @@
+
+<section id="fh5co-feature">
+  <div class="container">
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+    <div class="row">
+			<div class="col-md-12">
+        <%= form_with(model: faq) do |form| %>
+          <% if faq.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(faq.errors.count, "error") %> prohibited this faq from being saved:</h2>
+
+              <ul>
+                <% faq.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div id="fh5co-tab-feature" class="fh5co-tab text-center">
+
+            <ul class="resp-tabs-list hor_1">
+              <li> English (en)</li>
+              <li> Korean (ko)</li>
+            </ul>
+            <div class="resp-tabs-container hor_1">
+              <div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_question %>
+                      <%= form.text_area :en_question, size:'70x2', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_answer %>
+                      <%= form.rich_text_area :en_answer %>
+                    </div>
+                  </div>
+                </div>
+                <div class="field form-group">
+                  <% if @faq.en_audio.attached? %>
+                    <div class="col-md-12 text-center">
+                      <%= audio_tag url_for(@faq.en_audio), controls: true %>
+                    </div>
+                  <% end %>
+                  <br>
+                  <%= form.label :en_audio %> <b> | All audio must be in .wav or .mp3 format.</b>
+                  <%= form.file_field :en_audio, direct_upload: true, class: "form-control input-lg" %>
+                  <% if @faq.en_audio.attached? %>
+                    <%= label_tag(:en_audio_purge, "Delete en_audio?") %>
+                    <%= check_box_tag(:en_audio_purge) %>
+                  <% end %>
+                </div>
+              </div>
+
+              <div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_question %>
+                      <%= form.text_area :ko_question, size:'70x2', class: 'form-control input-lg' %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_answer %>
+                      <%= form.rich_text_area :ko_answer %>
+                    </div>
+                  </div>
+                </div>
+                <div class="field form-group">
+                  <% if @faq.ko_audio.attached? %>
+                    <div class="col-md-12 text-center">
+                      <%= audio_tag url_for(@faq.ko_audio), controls: true %>
+                    </div>
+                  <% end %>
+                  <br>
+                  <%= form.label :ko_audio %> <b>| All audio must be in .wav or .mp3 format.</b>
+                  <%= form.file_field :ko_audio, direct_upload: true, class: "form-control input-lg" %>
+                  <% if @faq.ko_audio.attached? %>
+                    <%= label_tag(:ko_audio_purge, "Delete ko_audio?") %>
+                    <%= check_box_tag(:ko_audio_purge) %>
+                  <% end %>
+                </div>
+              </div>
+          </div>
+
+          <div class="col-md-8 col-md-offset-2">
+            <div class="field form-group">
+              <%= form.label :tags %> Separate each tag with a new line
+              <%= form.text_area :tags, name: 'faq[tags][]', size: '70x5', class: 'form-control input-lg', placeholder: "cope with loss\nself-care\ntrigger warning\ndepression", value: form.object.tags.join("\n") %>
+            </div>
+          </div>
+          
+          <div class="col-md-12">
+            <div class="field form-group">
+              <%= form.label :category %>
+              <%= form.select :category, ['general', 'self_care', 'strengthen_social_connections', 'cope_with_loss', 'help_yourself_help_others', 'other'], class: 'form-control input-lg' %>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="field form-group">
+              <%= form.label :archive? %>
+              <%= form.check_box :archive %>
+            </div>
+          </div>
+
+          <div class="col-md-8 col-md-offset-2">
+            <div class="actions">
+              <%= form.submit class: "btn btn-primary btn-lg btn-block"%>
+              <%= link_to 'Back', faqs_path, class: "btn btn-primary btn-lg btn-block" %>
+            </div>
+          </div>
+
+          </div>
+
+        <% end %>
+        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+      </div>
+    </div>
+  </div>
+</section>

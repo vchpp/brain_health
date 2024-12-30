@@ -1,0 +1,132 @@
+vi:
+  hello: "Chào thế giới"
+  welcome: "chào mừng!"
+  language: "Tiếng Việt"
+  locale: "vi"
+  disclaimer: "Tuyên bố từ chối trách nhiệm: Thông tin trong trang mạng này chỉ dành cho mục đích giáo dục. Trước tình hình thay đổi nhanh chóng của bệnh COVID-19, trong khi nhóm nghiên cứu cố gắng cung cấp thông tin kịp thời trên trang mạng này, bạn cũng nên vui lòng tham khảo trang mạng thông tin về COVID-19 của Trung Tâm Kiểm Soát Và Phòng Ngừa Bệnh Tật (CDC) https: // www. cdc.gov/coronavirus/2019-ncov/index.html để có các hướng dẫn cập nhật. Bạn luôn luôn phải tìm kiếm lời khuyên từ các nhân viên cung cấp dịch vụ chăm sóc sức khỏe của bạn để có khuyến nghị cụ thể liên quan đến tình trạng sức khỏe của bạn."
+  navbar:
+    about: "Giới Thiệu"
+    messages: "Tin Nhắn"
+    resources: "Tài Nguyên"
+    faqs: "Câu Hỏi Thường Gặp"
+    statistics: "Số liệu thống kê"
+    layhealthworkers: "Nhân Viên Sức Khỏe Cộng Đồng"
+    additional: "Tài Nguyên Bổ Sung"
+    mission: "Mục đích"
+    inspirations: "Câu trích dẫn truyền cảm hứng"
+    healthwise: "Các bài báo của Healthwise"
+  about:
+    research_team: "Nhóm nghiên cứu chương trình"
+    research_team_titles:
+      co_investigator: "Đồng giám đốc"
+      executive_director: "Giám đốc điều hành"
+      student_intern: "Thực tập sinh"
+      principal_investigator: "Tổng giám đốc"
+      research_staff: "Nhân viên nghiên cứu"
+      community_coordinator: "Điều phối viên cộng đồng"
+      study_coordinator: "Điều phối viên nghiên cứu"
+    cab_members: "Thành viên ban cố vấn cộng đồng chương trình INFORMED"
+    lhw: "Nhân Viên Sức Khỏe Cộng Đồng"
+    title1: "Chương Trình Gia Đình Khỏe Mạnh - "
+    title2: "Nhận THÔNG TIN Để Sống Khỏe"
+    mission1: "“Nhận THÔNG TIN Để Sống KHỏe Mạnh” là một dự án nghiên cứu nhằm tạo điều kiện phục hồi sau đại dịch bằng cách thúc đẩy sức khỏe tinh thần của người Mỹ gốc Á."
+    mission2: "“INFORMED” là viết tắt của tiếng Anh “Giáo Dục Nhắn Tin Phản Hồi Theo Định Hướng Cá Nhân Và Gia Đình”. Chúng ta tạm dịch theo tiếng Việt là Chương Trình “THÔNG TIN”. Nghiên cứu này nhằm mục đích khám phá các phương pháp khác nhau để xây dựng khả năng phục hồi và thúc đẩy sức khỏe cảm xúc của cư dân California gốc Á trong một hoàn cảnh sau đại dịch. Chúng tôi sẽ tìm hiểu xem liệu chỉ nhắn tin văn bản hay kết hợp nhắn tin văn bản với giáo dục tiếp cận nhân viên sức khỏe cộng đồng có thể giúp người Mỹ gốc Á có được thông tin và học các kỹ năng thực tế để có được hạnh phúc tinh thần."
+    disclaimer: "INFORMED được hỗ trợ bởi Sở Y Tế Công Cộng California  (Contract #22-10528) thông qua Hợp Tác Nghiên Cứu và Sẵn Sàng Phục Hồi Đại Dịch California <a href='https://cpr3.ucsf.edu/' target='_blank'>(CPR³)</a>. Nội dung chỉ có trách nhiệm của các tác giả và không nhất thiết phản ánh quan điểm chính thức của Sở Y Tế Công Cộng California. Số phê duyệt  IRB của UCSF là 23-39285.<br><br>Tuyên bố từ chối trách nhiệm: Thông tin, bao gồm nhưng không giới hạn ở văn bản, đồ họa, hình ảnh và tài liệu khác có trên trang mạng này chỉ nhằm mục đích cung cấp thông tin. Không có tài liệu nào trên trang mạng này nhằm mục đích thay thế cho lời khuyên, chẩn đoán hoặc điều trị y tế chuyên nghiệp. Một số nội dung và hình ảnh trên trang web được lấy từ Bộ công cụ Sức khỏe Cảm xúc <a href=https://www.nih.gov/health-information/emotional-wellness-toolkit' target='_blank'>NIH</a>. Nó đã được sửa đổi để đáp ứng nhu cầu văn hóa và ngôn ngữ dựa trên mục tiêu của nghiên cứu và để phù hợp với sự đa dạng của người Mỹ gốc Á. Quyền sử dụng cho mục đích giáo dục được cấp phép bởi NIH News in Health. Không có tài liệu nào trên trang mạng này nhằm mục đích thay thế cho lời khuyên, chẩn đoán hoặc điều trị y tế chuyên nghiệp. Các bạn luôn tìm kiếm lời khuyên của bác sĩ hoặc nhà cung cấp dịch vụ chăm sóc sức khỏe tiêu chuẩn khác để có khuyến nghị cụ thể liên quan đến tình trạng sức khỏe của bạn. "
+    video: "https://www.youtube.com/embed/Eq2F_YdSsTc?si=nbuN_HP4wDUoQQHr"
+  messages:
+    coming_soon: "Sắp ra mắt"
+    messages: "Tin Nhắn"
+    read_more: "Đọc thêm"
+    comments: "bình luận"
+    leave_comment: "Để lại một bình luận"
+    submit: "Gửi đi"
+    back: "trở lại"
+    show:
+      action_item_more_info: "Để biết thêm thông tin, bạn có thể truy cập:"
+      survey_link: "Để tham gia cuộc khảo sát của chúng tôi, vui lòng truy cập:"
+  resources:
+    resources:  "Tài nguyên"
+    additional:
+      source: "Nguồn"
+      additional_resources: "Tài Nguyên Bổ Sung"
+      search_for_resources: "Tìm Kiếm Tài Nguyên"
+      view: "lượt xem"
+      search: "Tìm kiếm"
+      all: "Tất cả"
+      contents_of_resources: "Nội dung của tài nguyên"
+      notes: "ghi chú"
+      additional_links: "liên kết bổ sun"
+      last_updated: "Cập nhật mới nhất"
+      general: "Tổng Quát"
+      testing: "Thử Nghiệm"
+      vaccination: "Chích Ngừa"
+      wellness: "Sức khỏe"
+      other: "Khác"
+      featured: "Các Tài Nguyên Đề Nghị"
+      self_care: "Tự chăm sóc"
+      strengthen_social_connections: "Tăng cường kết nối với xã hội"
+      cope_with_loss: "Đối phó với sự mất mát"
+      help_yourself_help_others: "Tự giúp mình và giúp người khác"  
+      helplines: "Đường dây điện thoại trợ giúp"
+      mental_health_services: "Dịch Vụ Sức Khỏe Tâm Thần"
+      education_materials: "Tài Liệu Giáo Khoa"
+      classes_and_events: "Các lớp học và hoạt động"
+      community_resources: "Tài Nguyên Cộng Đồng"
+      covid_related: "Liên quan đến COVID"   
+      filter: "Chọn lọc"
+    statistics: "Số Liệu Thống Kê"
+    layhealthworkers:
+      layhealthworkers: "Nhân Viên Sức Khỏe Cộng Đồng"
+      project: "Giới Thiệu Nhân Viên Sức Khỏe Cộng Đồng Của Chương Trình THÔNG TIN:"
+      project1: "Nhân viên sức khỏe cộng đồng trong Chương Trình INFORMED là một người đã được chọn để dạy những người khác trong cộng đồng của họ về cách giữ gìn sức khỏe và hạnh phúc sau thời kỳ đại dịch. Họ đã được các nhân viên nghiên cứu đào tạo để cung cấp thông tin cập nhật về các phương cách để họ tự tạo khả năng phục hồi và cổ động hạnh phúc tinh thần."
+      project2: "Nhân viên sức khỏe cộng đồng của chúng tôi được lựa chọn vì họ là người niềm nở, thân thiện, cởi mở và thể hiện sự quan tâm đến việc cải thiện sức khỏe cộng đồng của họ. Họ sẽ hướng dẫn các buổi giáo dục về sức khỏe cảm xúc, như vậy để các thông tin sức khỏe quan trọng được truyền đạt đến các thành viên của cộng đồng theo cách phù hợp về mặt văn hóa và ngôn ngữ."
+      downloads: "Tải Xuống Tài Liệu Của Chương Trình THÔNG TIN:"
+      downloads1: "Với sự hỗ trợ của Bộ Y Tế Công Cộng California (Số tài trợ nghiên cứu 22-10528), Các tài liệu đào tạo và giáo dục mà giảng viên sức khỏe cộng đồng của chúng tôi sử dụng đã có sẵn để cung cấp miễn phí cho mục đích nghiên cứu và giáo dục."
+      stats: "Thống Kê Về COVID-19 Từ Các Nguồn Đã Chọn:"
+      stats1: "Để cộng đồng của chúng ta được thông báo về COVID-19, chúng tôi đã chọn một số tài liệu trực tuyến cung cấp số liệu thống kê mới nhất liên quan đến đại dịch COVID-19 trên toàn cầu và địa phương. Các tài liệu này được liệt kê ở chỗ “Thống kê”."
+    downloads: "Tải xuống"
+    healthwise:
+      general: "Tổng Quát"
+      build_resilience: "Tạo Khả Năng Phục Hồi"
+      get_good_sleep: "Ngủ Cho Ngon Giấc"
+      manage_stress: "Quản Lý Căng Thẳng"
+      strengthen_social_connections: "Tăng Cường Kết Nối Với Xã Hội"
+      help_yourself_help_others: "Tự giúp mình và giúp người khác"
+      mental_health_conditions: "Tình Trạng Sức Khỏe Tâm Thần"
+      suicide_prevention: "Phòng Chống Tự Sát"
+      healthwise: "Các bài báo của Healthwise"
+      missing_article: "Thông tin này không có sẵn bằng tiếng Việt. Xin lỗi."
+      disclaimer: "Các bài báo về thông tin sức khỏe được cung cấp miễn phí bởi Healthwise, một tổ chức hợp tác phi lợi nhuận của chương trình INFORMED. Healthwise (healthwise.org) cung cấp thông tin sức khỏe dựa trên bằng chứng khoa học cho cộng đồng, bệnh viện và nhà cung cấp hồ sơ y tế điện tử (EMR). Nhiều người đã chuyển sang thông tin Healthwise để tìm hiểu cách đưa ra quyết định tốt hơn về sức khỏe. Xin vui lòng bình luận và chia sẻ thông tin với cộng đồng của bạn."
+    inspirations: "Chào mừng bạn đến với bộ sưu tập những câu nói khích lệ bản thân từ dự án Nhận THÔNG TIN Để Sống Khỏe (INFORMED-Living Well) của chúng tôi! "
+    inspirations1: "Tại đây bạn sẽ tìm thấy hơn 130 câu trích dẫn tạo động lực được chia sẻ bởi những người tham gia chương trình bằng tiếng Anh, tiếng Trung Hoa, tiếng Đại Hàn, tiếng H'Mông hoặc tiếng Việt. Sử dụng ngôn ngữ hoặc từ khóa để tìm những cụm từ gây ấn tượng sâu sắc với bạn."
+    inspirations2: "Chúng tôi xin chân thành cảm ơn tất cả những người tham gia vì những đóng góp thật tình của họ. Tôi hy vọng những lời động viên cá nhân này sẽ truyền cảm hứng và khuyến khích bạn trên hành trình hướng tới hạnh phúc tốt hơn. Cảm ơn đã ghé thăm!"
+  faqs:
+    faq: "Các Câu Hỏi Thường Gặp"
+    filter: "lọc theo danh mục"
+    or: "hoặc là"
+    search_for_questions: "Tìm Kiếm Câu Hỏi"
+    search: "Tìm kiếm"
+    all: "Tất cả"
+  activerecord:
+    models:
+      message:
+        one: 'Thông điệp'
+        other: 'Tin nhắn'
+      comment: 'Bình luận'
+      faq: "Các câu hỏi thường gặp"
+    attributes:
+      message:
+        name: 'Tên'
+        content: 'Nội dung'
+      comment:
+        content: 'Nội dung'
+  helpers:
+    submit:
+      # helpers.submit.<action>
+      create: "Create a %{model}"
+      update: "Confirm changes to %{model}"
+
+      # helpers.submit.<model>.<action>
+      comment:
+        create: "Leave a comment"
+        update: "Update comment"

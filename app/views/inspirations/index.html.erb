@@ -1,0 +1,179 @@
+<%
+meta title: "INFORMED - Living Well - Inspirational Quotes",
+     description: "Informed - Living Well",
+     keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
+%>
+<% content_for :head do %>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('send','event','eventCategory','eventAction');
+  </script>
+<% end %>
+
+<section id="fh5co-feature">
+  <div class="container">
+
+    <div class="col-md-8 col-md-offset-2">
+      <div class="fh5co-spacer fh5co-spacer-xxs"></div>
+      <% if current_user.try(:admin?) %>
+        <div class="actions">
+          <%= link_to 'New Inspiration', new_inspiration_path, class: "btn btn-primary btn-lg btn-block" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+    <div class="col-md-12">
+      <h2 class="h2"> <%= t('resources.inspirations') %> </h2>
+    </div>
+    <div class="col-md-12">
+      <p> <%= t('resources.inspirations1')%> </p>
+      <p> <%= t('resources.inspirations2')%> </p>
+    </div>
+    <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+      <div class="col-md-12">
+        <label for="faq" class="sr-only"><%= t('resources.additional.search')%></label>
+        <form id="search" method="GET" action="/<%=params[:locale]%>/resources/inspiration" >
+          <div class="col-md-8 form-group">
+            <input class="form-control input-lg" type="text" id="search" name="search" placeholder="Search for inspirations">
+          </div>
+          <div class="col-md-2 form-group">
+            <button id="search-submit" class="form-control btn btn-primary" type="submit">
+              <i class="ti-search"></i>
+            </button>
+          </div>
+        </form>
+        <form id="reset" method="GET" action="/<%=params[:locale]%>/resources/inspiration" >
+          <div class="col-md-2 form-group">
+            <input class="form-control btn btn-primary" type="submit" value="<%= t('resources.additional.all')%>">
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-10 col-md-offset-1">
+          <div class="form-group">
+            <label for="faq" class="sr-only">Filter by Language</label>
+            <form id="category" method="GET" action="/<%=params[:locale]%>/resources/inspiration" >
+              <select class="form-control input-lg" name="lang" id="category-form">
+                <option value="">Filter by Language (All)</option>
+                <option value="en">English</option>
+                <option value="ko">한국어</option>
+              </select>
+            </form>
+          </div>
+        </div>
+
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+    <% @inspirations.in_groups_of(3, false).each do |item1, item2, item3| %>
+      <div class="row fh5co-pricing-table-1">
+        <% if item1 %>
+          <div class="col-md-4 col-sm-4 col-xs-6 fh5co-pricing-table-item">
+            <div class="fh5co-pricing-table-item-heading <%=item1.languages%> text-center">
+              <span><i><%= item1.inspiration %></i></span>
+            </div>
+          </div>
+        <% end %> <!-- end if item1 -->
+
+        <% if item2 %>
+          <div class="col-md-4 col-sm-4 col-xs-6 fh5co-pricing-table-item">
+            <div class="fh5co-pricing-table-item-heading <%=item2.languages%> text-center">
+              <span><i><%= item2.inspiration %></i></span>
+            </div>
+          </div>
+        <% end %> <!-- end if item2 -->
+
+        <% if item3 %>
+          <div class="col-md-4 col-sm-4 col-xs-6 fh5co-pricing-table-item">
+            <div class="fh5co-pricing-table-item-heading <%=item3.languages%> text-center">
+              <span><i><%= item3.inspiration %></i></span>
+            </div>
+          </div>
+        <% end %> <!-- end if item3 -->
+
+      </div>
+    <div class="fh5co-spacer fh5co-spacer-md"></div>
+    <% end %>
+  </div>
+  
+  <% if current_user.try(:admin?) %>
+  <div class="col-md-12 Admin-border">
+    <h1 class="text-center">Admin inspirations</h1>
+
+    
+    <table class="table table-sm table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">inspiration</th>
+          <th scope="col">Tags</th>
+          <th scope="col">Languages</th>
+          <th scope="col">Category</th>
+          <th scope="col">Featured</th>
+          <th scope="col">Archive</th>
+          <th scope="col">Priority</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @admin_inspirations.each do |inspiration| %>
+          <tr>
+            <td><%= inspiration.inspiration %></td>
+            <td><%= inspiration.tags %></td>
+            <td><%= inspiration.languages %></td>
+            <td><%= inspiration.category %></td>
+            <td><%= inspiration.featured %></td>
+            <% if inspiration.archive == true %>
+              <td class="archive-border"><%= inspiration.archive %></td>
+            <% else %>
+              <td><%= inspiration.archive %></td>
+            <% end %>
+            <td><%= inspiration.priority %></td>
+            <td><%= link_to 'Show', inspiration %></td>
+            <td><%= link_to 'Edit', edit_inspiration_path(inspiration) %></td>
+            <td><%= link_to 'Destroy', inspiration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <% end  %> 
+    
+</section>
+
+<script>
+  document.addEventListener("click", function(event){
+    // event.preventDefault();
+    // console.log(event);
+    if (event.target.id === 'search-submit') {
+      gtag ('event', 'form_submit' {
+          'form_name': event.target.id,
+          'form_destination': event.target.baseURI,
+          'TID': tid
+      })
+    },
+    else (event.target.id === 'reset-submit') {
+        gtag ('event', 'form_submit' {
+          'form_name': event.target.id,
+          'form_destination': event.target.baseURI,
+          'TID': tid
+      })
+    }
+  });
+  document.addEventListener("submit", function(event){
+    if (event.target.id === 'search-submit') {
+      gtag ('event', 'form_submit' {
+          'form_name': event.target.id,
+          'form_destination': event.target.baseURI,
+          'TID': tid
+      })
+    }
+  });
+</script>

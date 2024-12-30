@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>En file:</strong>
+  <%= @download.en_file %>
+</p>
+
+<p>
+  <strong>Ko file:</strong>
+  <%= @download.ko_file %>
+</p>
+
+<p>
+  <strong>Archive:</strong>
+  <%= @download.archive %>
+</p>
+
+<%= link_to 'Edit', edit_download_path(@download) %> |
+<%= link_to 'Back', downloads_path %>

@@ -1,0 +1,2 @@
+json.extract! additional, :id, :en_title, :en_source, :en_content, :en_additional_link, :en_notes, :zh_tw_title, :zh_tw_source, :zh_tw_content, :zh_tw_additional_link, :zh_tw_notes, :zh_cn_title, :zh_cn, :zh_cn_content, :zh_cn_additional_link, :zh_cn_notes, :vi_title, :vi_source, :vi_content, :vi_additional_link, :vi_notes, :hm_title, :hm_source, :hm_content, :hm_additional_link, :hm_notes, :languages, :last_version_date, :created_at, :updated_at
+json.url additional_url(additional, format: :json)

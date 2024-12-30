@@ -1,0 +1,39 @@
+<div class="col-md-12">
+  <h1>Admin view of all Profiles</h1>
+
+  <table class="table table-sm table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Firstname</th>
+        <th scope="col">Lastname</th>
+        <th scope="col">Profile_type</th>
+        <th scope="col">En project title</th>
+        <th scope="col">Archived?</th>
+        <th scope="col" colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @profiles.each do |profile| %>
+        <tr>
+          <td><%= profile.firstname %></td>
+          <td><%= profile.lastname %></td>
+          <td><%= profile.profile_type %></td>
+          <td><%= profile.en_project_title %></td>
+          <% if profile.archive == true %>
+            <td class="archive-border"><%= profile.archive %></td>
+          <% else %>
+            <td><%= profile.archive %></td>
+          <% end %>
+          <td><%= link_to 'Show', profile %></td>
+          <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
+          <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'New Profile', new_profile_path %>
+</div>

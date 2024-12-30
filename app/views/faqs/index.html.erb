@@ -1,0 +1,134 @@
+<%
+meta title: "INFORMED - Living Well - FAQs",
+     description: "Informed - Living Well",
+     keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
+%>
+<% content_for :head do %>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('send','event','eventCategory','eventAction');
+  </script>
+<% end %>
+
+<section id="fh5co-feature">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('faqs.faq') %></h2>
+      </div>
+
+      <% if current_user.try(:admin?) %>
+        <div class="col-md-4 col-md-offset-4">
+          <%= link_to 'Create A New Faq', new_faq_path, class: "form-control btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+      <div class="col-md-10 col-md-offset-1">
+  			<div class="col-md-12">
+          <label for="faq" class="sr-only"><%= t('faqs.search') %></label>
+          <form id="search" method="GET" action="/<%=params[:locale]%>/resources/faqs" >
+            <div class="col-md-8 form-group">
+              <input class="form-control input-lg" type="text" id="search" name="search" placeholder="<%= t('faqs.search_for_questions')%>">
+            </div>
+            <div class="col-md-2 form-group">
+              <button class="form-control btn btn-primary" type="submit">
+                <i class="ti-search"></i>
+              </button>
+            </div>
+          </form>
+          <form id="reset" method="GET" action="/<%=params[:locale]%>/resources/faqs" >
+            <div class="col-md-2 form-group">
+              <input class="form-control btn btn-primary" type="submit" value="<%= t('faqs.all')%>">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+      <div class="col-md-12">
+        <div class="panel-group fh5co-accordion" id="accordion" role="tablist" aria-multiselectable="true">
+
+          <% @faqs.each do |faq| %>
+            <div class="panel panel-default <%=faq.category%>-border">
+
+              <div class="panel-heading" role="tab" id="heading<%=faq.id%>" data-toggle="collapse" data-parent="#accordion" data-target="#collapse<%=faq.id%>" aria-expanded="false" aria-controls="collapse<%=faq.id%>">
+                <h4 class="panel-title">
+                  <a class="accordion-toggle">
+                    <%= faq.send("#{params[:locale]}_question".downcase) %>
+                  </a>
+                  <span style="float:right;padding-right: 40px">
+                    <% if current_user.try(:admin?) %>
+                      <%= link_to 'Show', faq %> /
+                      <%= link_to 'Edit', edit_faq_path(faq) %> /
+                      <%= link_to 'Delete', faq, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <% end %>
+                  </span>
+                </h4>
+              </div>
+
+              <div id="collapse<%=faq.id%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%=faq.id%>">
+                <div class="panel-body">
+                  <% if faq.send("#{params[:locale]}_audio".downcase).attached? %>
+                  <div class="col-md-12 text-center">
+                    <%= audio_tag url_for(faq.send("#{params[:locale]}_audio".downcase)), controls: true %>
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <% if params[:locale] == "zh_TW" %>
+                      <%= link_to t('messages.show.cantonese_audio'), url_for(locale: :zh_CN) %>
+                    <% elsif params[:locale] == "zh_CN" %>
+                      <%= link_to t('messages.show.mandarin_audio'), url_for(locale: :zh_TW) %>
+                    <% end %>
+                  </div>
+                  <% end %>
+                  <%= faq.send("#{params[:locale]}_answer".downcase) %>
+                </div>
+              </div>
+
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <% if current_user.try(:admin?) %>
+      <div class="col-md-12 Admin-border">
+        <h1 class="text-center">Faqs Admin View</h1>
+
+        <table class="table table-sm table-hover table-striped">
+          <th scope="col"ead>
+            <tr>
+              <th scope="col">En question</th>
+              <th scope="col">Category</th>
+              <th scope="col">Archived?</th>
+              <th scope="col" colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @admin_faqs.each do |faq| %>
+            <tr>
+              <td><%= faq.en_question %></td>
+              <td><%= faq.category %></td>
+              <% if faq.archive == true %>
+                <td class="archive-border"><%= faq.archive %></td>
+              <% else %>
+                <td><%= faq.archive %></td>
+              <% end %>
+              <td><%= link_to 'Show', faq %></td>
+              <td><%= link_to 'Edit', edit_faq_path(faq) %></td>
+              <td><%= link_to 'Destroy', faq, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+  </div>
+</section>
+

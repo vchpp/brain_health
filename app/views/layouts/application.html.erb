@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= metamagic %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <script>
+      function getCookie(name) {
+        match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+        if (match) return match[1];
+      }
+      var tid = getCookie('tid');
+      var locale = getCookie('locale');
+    </script>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => "reload" %>
+    <%= javascript_pack_tag 'application' %>
+
+    	<!-- Google Webfont -->
+  	<!-- <link href='https://fonts.googleapis.com/css?family=Lato:300,400|Crimson+Text' rel='stylesheet' type='text/css'> -->
+    <%= favicon_link_tag asset_path('favicon2.png') %>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW2ZN7T85S"></script>
+<!--
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MW2ZN7T85S', { 'debug_mode':true });
+
+      // GA4 previously used
+      // gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+      // untested; should be combined with
+      // gtag('event','Page View', { 'send_to': '{G-MW2ZN7T85S}' });
+
+      // GA4 config to set the params within the event call itself
+      // gtag("event", "Button Click", {'TID': tid });
+
+      // UA config
+      // gtag('config', 'G-MW2ZN7T85S', {'custom_map': {'dimension1': 'TID'}, 'user_id': tid });
+      
+      // gtag('send','event','eventCategory','eventAction');
+    </script>
+-->
+    <%= yield :head %> 
+  </head>
+
+  <body>
+
+    <!-- START #fh5co-header -->
+    <header id="fh5co-header-section" role="header" class="" >
+      <div class="container">
+
+        <!-- START #fh5co-logo -->
+        <h1 id="fh5co-logo" class="pull-left"><a href="<%= root_path %>"><img src="/assets/favicon2.png">     Informed:  Living Well</a></h1>
+
+        <!-- START #fh5co-menu-wrap -->
+        <nav id="fh5co-menu-wrap" role="navigation">
+          <ul class="sf-menu" id="fh5co-primary-menu">
+            <% if current_user.try(:admin?) %>
+            <li><a href="/<%=params[:locale]%>/admin">Admin</a></li>
+            <% end %>
+            <li>
+              <a href="#" class="fh5co-sub-ddown"><%= t('navbar.about') %></a>
+              <ul class="fh5co-sub-menu">
+                <li>
+                  <a href="/<%=params[:locale]%>/about/mission"><%= t('navbar.mission') %></a>
+                  <a href="/<%=params[:locale]%>/about/research-team"><%= t('about.research_team') %></a>
+                  <a href="/<%=params[:locale]%>/about/lay-health-workers"><%= t('about.lhw') %></a>
+                  <a href="/<%=params[:locale]%>/about/community-advisory-board"><%= t('about.cab_members') %></a>
+                </li>
+              </ul>
+            </li>
+            <li><a href="/<%=params[:locale]%>/messages"><%= t('navbar.messages') %></a></li>
+            <li>
+              <a href="#" class="fh5co-sub-ddown"><%= t('navbar.resources') %></a>
+              <ul class="fh5co-sub-menu">
+                <li>
+                  <a href="/<%=params[:locale]%>/resources/faqs"><%= t('navbar.faqs') %></a>
+                  <a href="/<%=params[:locale]%>/resources/downloads"><%= t('resources.downloads') %></a>
+                  <a href="/<%=params[:locale]%>/resources/additional"><%= t('navbar.additional') %></a>
+                  <a href="/<%=params[:locale]%>/resources/inspiration"><%= t('navbar.inspirations') %></a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="fh5co-sub-ddown"><%= t('language') %></a>
+              <ul class="fh5co-sub-menu">
+                <li><%= link_to 'English', url_for(locale: :en) %></li>
+                <li><%= link_to '한국어', url_for(locale: :ko) %></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+    </header>
+
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+    <% if current_user.try(:admin?) %>
+      <% if notice %>
+        <p class="alert alert-success text-center"><%= notice %></p>
+      <% end %>
+    <% end %>
+    <% if alert %>
+    <div class="fh5co-spacer fh5co-spacer-md"></div>
+      <p class="alert alert-danger text-center"><%= alert %></p>
+    <% end %>
+    <%= yield %>
+  </body>
+  <footer>
+    <div class="container">
+      <div class="fh5co-spacer fh5co-spacer-xs"></div>
+      <p> <%= raw t('about.disclaimer') %> </p>
+    </div>
+  </footer>
+</html>

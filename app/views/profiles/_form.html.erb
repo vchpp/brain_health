@@ -1,0 +1,138 @@
+
+<section id="fh5co-feature">
+  <div class="container">
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+    <div class="row">
+			<div class="col-md-8 col-md-offset-2">
+        <%= form_with(model: profile) do |form| %>
+          <% if profile.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+              <ul>
+                <% profile.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="field form-group">
+                <%= form.label :firstname %>
+                <%= form.text_field :firstname, class: 'form-control input-lg', placeholder: "firstname" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :middlename %>
+                <%= form.text_field :middlename, class: 'form-control input-lg', placeholder: "middlename" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :middlename2 %>
+                <%= form.text_field :middlename2, class: 'form-control input-lg', placeholder: "middlename2" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :lastname %>
+                <%= form.text_field :lastname, class: 'form-control input-lg', placeholder: "lastname" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :fullname %> For URL purposes only
+                <%= form.text_field :fullname, class: 'form-control input-lg', placeholder: "fullname" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :external_links %>
+                <%= form.text_area :external_links, name: 'profile[external_links][]', size: '70x5', class: 'form-control input-lg', placeholder: "external_links", value: form.object.external_links.join("\n") %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :profile_type %><br>
+                <%= form.select :profile_type, ["Research Team Member", "CAB Member", "Lay Health Worker"], class: 'form-control input-lg' %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :archive? %>
+                <%= form.check_box :archive %>
+              </div>
+
+              <div class="col-md-12">
+                <div class="field form-group">
+                  <% if @profile.headshot.attached? %>
+                    <%= image_tag @profile.headshot.variant(resize_to_limit: [100, 100]), class: "img-fluid" %>
+                  <% end %>
+                  <br>
+                  <%= form.label :headshot %>
+                  <%= form.file_field :headshot, direct_upload: true, class: "form-control input-lg" %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="fh5co-tab-feature-vertical" class="fh5co-tab text-center">
+            <ul class="resp-tabs-list hor_1">
+              <li> English (en)</li>
+              <li> Korean (ko)</li>
+            </ul>
+            <div class="resp-tabs-container hor_1">
+              <div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_project_title %>
+                      <%= form.text_field :en_project_title, class: 'form-control input-lg', placeholder: "en_project_title"  %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_affiliation %>
+                      <%= form.text_field :en_affiliation, class: 'form-control input-lg', placeholder: "en_affiliation"  %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :en_bio %>
+                      <%= form.text_area :en_bio, size: '70x5', class: 'form-control input-lg', placeholder: "en_bio"  %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_project_title %>
+                      <%= form.text_field :ko_project_title, class: 'form-control input-lg', placeholder: "ko_project_title"  %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_affiliation %>
+                      <%= form.text_field :ko_affiliation, class: 'form-control input-lg', placeholder: "ko_affiliation"  %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="field form-group">
+                      <%= form.label :ko_bio %>
+                      <%= form.text_area :ko_bio, size: '70x5', class: 'form-control input-lg', placeholder: "ko_bio"  %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fh5co-spacer fh5co-spacer-sm"></div>
+
+          <div class="col-md-12">
+            <div class="actions">
+              <%= form.submit class: "btn btn-primary btn-lg btn-block"%>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="actions">
+              <%= link_to t('messages.back'), @profile, class: "btn btn-primary btn-lg btn-block" %>
+            </div>
+          </div>
+        <% end %>
+  	  <div class="fh5co-spacer fh5co-spacer-sm"></div>
+		</div>
+	 </div>
+	</div>
+</section>
