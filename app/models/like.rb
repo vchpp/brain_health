@@ -1,7 +1,6 @@
 class Like < ApplicationRecord
   belongs_to :likeable, polymorphic: true
-  belongs_to :tid
-  validates :tid, inclusion: { in: (0..10000)}
+  validates :tid, presence: true #, inclusion: { in: (0..10000)}
 
   def self.to_csv
     attributes = %w{Created_at TID Uplikes Downlikes Type ID}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_12_30_063241) do
+ActiveRecord::Schema.define(version: 2025_02_21_054447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,10 +124,11 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
   create_table "comments", force: :cascade do |t|
     t.string "content"
     t.string "tid"
-    t.bigint "message_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["message_id"], name: "index_comments_on_message_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -185,6 +186,9 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
     t.bigint "message_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "likeable_type"
+    t.bigint "likeable_id"
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["message_id"], name: "index_likes_on_message_id"
   end
 
@@ -247,6 +251,5 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "messages"
   add_foreign_key "likes", "messages"
 end

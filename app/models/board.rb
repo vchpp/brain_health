@@ -1,8 +1,7 @@
 class Board < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  belongs_to :tid # test this
-  validates :tid, inclusion: { in: (0..10000)}
+  validates :tid, presence: true #, inclusion: { in: (0..10000)}
 
   extend FriendlyId
   friendly_id :en_post, use: %i(slugged history finders)

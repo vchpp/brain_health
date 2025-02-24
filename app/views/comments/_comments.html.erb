@@ -1,0 +1,30 @@
+<div class="col-md-offset-2">
+  <div class="row">
+    <div class="fh5co-feature-item">
+      <% comments.each do |comment| %>
+      <div class="fh5co-feature-blurb comment">
+        <span class="fh5co-feature-icon"><i class="ti-comment-alt"></i></span>
+        <h2 class="h4 fh5co-feature-title"><%= comment.content %>
+          <small>Posted at <%= comment.created_at %></small>
+        </h2>
+        <!-- Form for adding a nested comment -->
+        <div class="nested-comment-form hidden">
+          <%= form_with model: [comment, Comment.new], local: true do |form| %>
+            <div>
+              <%= form.label :content, "Reply" %>
+              <%= form.text_area :content %>
+            </div>
+            <div>
+              <%= form.submit "Post Reply" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+        <!-- Render nested comments -->
+        <%= render partial: 'comments/comments', locals: { comments: comment.comments } %>
+    <% end %>
+
+    </div>
+  </div>
+</div>

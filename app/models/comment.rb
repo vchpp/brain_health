@@ -1,9 +1,9 @@
 class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
-  belongs_to :tid # test this
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
-  validates :content, presence: true
-  validates :tid, inclusion: { in: (0..10000)}
+  # validates :content, presence: true
+  validates :tid, presence: true  #, inclusion: { in: (0..10000)}
 
   def self.to_csv
     attributes = %w{Created_at TID Content Type ID}

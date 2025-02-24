@@ -17,6 +17,8 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
+    @message = Message.friendly.find(params[:message_id]) if params[:message_id].present?
+    @board = Board.friendly.find(params[:board_id]) if params[:board_id].present?
     @comment = Comment.new
   end
 
@@ -26,15 +28,14 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @message = Message.friendly.find(params[:message_id]) if params[:message_id].present?
-    @model = @message # || @healthwise_article
-    @comment = @model.comments.new(comment_params)
+    @commentable = find_commentable
+    @comment = @commentable.comments.new(comment_params)
     @comment.tid = cookies[:tid] || '0'
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to message_path(@message), notice: "Thanks for your comment!" } if params[:message_id].present?
-        format.json { render :show, status: :created, location: @message }
-        logger.warn "Visitor with TID=#{cookies[:tid]} made a comment on message #{@message.id} with title #{@message.en_name}, saying '#{@comment.content}'" if params[:message_id].present?
+        format.html { redirect_back fallback_location: root_path, notice: "Thanks for your comment!" } 
+        format.json { render :show, status: :created, location: @commentable }
+        logger.warn "Visitor with TID=#{cookies[:tid]} made a comment on message #{@commentable.id} with title #{@commentable.en_name}, saying '#{@comment.content}'" if params[:message_id].present?
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -59,9 +60,11 @@ class CommentsController < ApplicationController
   def destroy
     authenticate_admin!
     @message = Message.friendly.find(params[:message_id]) if params[:message_id].present?
+    @message = Board.friendly.find(params[:board_id]) if params[:board_id].present?
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to message_path(@message), notice: "Comment was successfully destroyed." } if params[:message_id].present?
+      format.html { redirect_to board_path(@board), notice: "Comment was successfully destroyed." } if params[:board_id].present?
       format.json { head :no_content }
     end
   end
@@ -70,6 +73,16 @@ class CommentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
+    end
+
+    def find_commentable
+      if params[:comment_id]
+        Comment.find(params[:comment_id])
+      elsif params[:message_id]
+        Message.friendly.find(params[:message_id])
+      elsif params[:board_id]
+        Board.friendly.find(params[:board_id])
+      end
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  resources :boards
   root to: redirect("/#{I18n.locale}/about/mission"), as: :redirected_root
+  root 'about#index'
+
   get '/admin', to: redirect(path: "/#{I18n.locale}/admin")
+  get '/admin', to: 'admin#index'
+  authenticate :user, -> (u) { u.admin? } do
+    mount AuditLog::Engine => "/admin/audit-log"
+  end
+  
   scope "(:locale)", locale: /en|ko/ do
     resources :callouts
     resources :profiles
@@ -9,14 +15,15 @@ Rails.application.routes.draw do
       resources :likes
       resources :comments
     end
-    resources :likes
-    resources :comments
+    resources :comments do 
+      resources :comments
+    end
+    resources :boards do
+      resources :likes
+      resources :comments
+    end
     devise_for :users
     
-    get '/admin', to: 'admin#index'
-    authenticate :user, -> (u) { u.admin? } do
-      mount AuditLog::Engine => "/admin/audit-log"
-    end
     get '/about', to: redirect("/#{I18n.locale}/about/mission")
     scope '/about' do
       get '/mission', to: 'about#index'
@@ -35,7 +42,6 @@ Rails.application.routes.draw do
       resources :downloads
       resources :additionals, :path => "additional"
     end
-    root 'about#index'
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   end
 end

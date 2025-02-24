@@ -8,7 +8,7 @@ meta title: "INFORMED - Living Well - Message - #{@message.id}",
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('config', 'G-1VRHYC0027', {'TID': tid });
     gtag('send','event','eventCategory','eventAction');
   </script>
 <% end %>
@@ -171,25 +171,19 @@ meta title: "INFORMED - Living Well - Message - #{@message.id}",
         <%= link_to 'Export Comments to CSV', message_path(format: "csv", format_data: "comments"), class: "btn btn-primary btn-lg btn-block"  %>
       </div>
       <% else %>
-      <div class="row fh5co-feature-3"">
+      <div class="row fh5co-feature-3">
         <div class="col-md-12">
           <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('messages.comments')%>:</h2>
         </div>
 
         <div class="fh5co-spacer fh5co-spacer-sm"></div>
-
-          <% @comments.each do |comment| %>
-  					<div class="col-md-8 col-md-offset-2">
-              <div class="row">
-                <div class="fh5co-feature-item">
-                  <span class="fh5co-feature-icon"><i class="ti-comment-alt"></i></span>
-                  <div class="fh5co-feature-blurb">
-                    <h2 class="h4 fh5co-feature-title"><%= comment.content %></h2>
-                  </div>
-                </div>
-              </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="fh5co-feature-item">
+               <%= render partial: 'comments/comments', locals: { comments: @message.comments } %>
+             </div>
             </div>
-          <% end %>
+          </div>
         </div>
 
         <% if @page_count > 1 %>
@@ -239,7 +233,7 @@ meta title: "INFORMED - Living Well - Message - #{@message.id}",
       <div class="col-md-8 col-md-offset-2">
         <div class="col-md-12">
           <div class="field form-group">
-            <%= form_with model: [ @message, @message.comments.build ] do |form| %>
+            <%= form_with model: [@message, Comment.new], local: true do |form| %>
               <div class="field">
                 <%= form.label :content, class: 'sr-only'%>
                 <%= form.text_field :content, required: true, class: 'form-control input-lg expand', placeholder: t('messages.leave_comment') %>
