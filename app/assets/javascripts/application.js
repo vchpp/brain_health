@@ -28,12 +28,26 @@ function eventListeners(){
   submit_categories();
   getCookie('tid');
   selectActiveFilter();
+  toggleCommentForm();
 }
 
 function getCookie(name) {
   match = document.cookie.match(new RegExp(name + '=([^;]+)'));
   if (match) return match[1];
 }
+
+function toggleCommentForm() {
+  $('.fh5co-feature-icon').on('click', function(e){
+    let container = this.closest(".comment"); // Find the closest parent container
+    let form = container.querySelector("div");
+
+    if (form) {
+      form.classList.toggle("hidden"); // Toggle the 'hidden' class
+    }
+  })
+};
+
+
 
 // upLike a message
 function upLike(){

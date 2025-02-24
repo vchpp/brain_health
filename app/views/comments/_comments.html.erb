@@ -1,24 +1,25 @@
-<div class="col-md-offset-2">
+<div class="col-md-offset-1">
   <div class="row">
     <div class="fh5co-feature-item">
       <% comments.each do |comment| %>
       <div class="fh5co-feature-blurb comment">
-        <span class="fh5co-feature-icon"><i class="ti-comment-alt"></i></span>
+        <span class="fh5co-feature-icon"><i class="ti-comment-alt" id="toggleIcon"></i></span>
         <h2 class="h4 fh5co-feature-title"><%= comment.content %>
           <small>Posted at <%= comment.created_at %></small>
         </h2>
         <!-- Form for adding a nested comment -->
-        <div class="nested-comment-form hidden">
+        <div class="field form-group nested-comment-form hidden">
           <%= form_with model: [comment, Comment.new], local: true do |form| %>
-            <div>
-              <%= form.label :content, "Reply" %>
-              <%= form.text_area :content %>
+            <div class="field">
+              <%= form.label :content, class: 'sr-only'%>
+              <%= form.text_field :content, required: true, class: 'form-control input-lg expand', placeholder: t('messages.leave_comment') %>
             </div>
-            <div>
-              <%= form.submit "Post Reply" %>
+            <div class="actions">
+              <%= form.submit "Post Reply", class: "btn btn-primary btn-lg btn-block" %>
             </div>
           <% end %>
         </div>
+        
       </div>
 
         <!-- Render nested comments -->
