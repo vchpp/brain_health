@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>En post:</strong>
+  <%= @post.en_post %>
+</p>
+
+<p>
+  <strong>Ko post:</strong>
+  <%= @post.ko_post %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @post.tags %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @post.category %>
+</p>
+
+<p>
+  <strong>Featured:</strong>
+  <%= @post.featured %>
+</p>
+
+<p>
+  <strong>Archive:</strong>
+  <%= @post.archive %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @post.priority %>
+</p>
+
+<p>
+  <strong>Approved:</strong>
+  <%= @post.approved %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

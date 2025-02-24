@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  en_post: MyString
+  ko_post: MyString
+  tags: MyString
+  category: MyString
+  featured: false
+  archive: false
+  priority: 1
+  approved: false
+
+two:
+  en_post: MyString
+  ko_post: MyString
+  tags: MyString
+  category: MyString
+  featured: false
+  archive: false
+  priority: 1
+  approved: false

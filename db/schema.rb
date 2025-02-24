@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_21_054447) do
+ActiveRecord::Schema.define(version: 2025_02_24_085855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,19 +88,6 @@ ActiveRecord::Schema.define(version: 2025_02_21_054447) do
     t.index ["action"], name: "index_audit_logs_on_action"
     t.index ["record_type", "record_id"], name: "index_audit_logs_on_record_type_and_record_id"
     t.index ["user_id", "action"], name: "index_audit_logs_on_user_id_and_action"
-  end
-
-  create_table "boards", force: :cascade do |t|
-    t.string "en_post"
-    t.string "ko_post"
-    t.string "tags"
-    t.string "category"
-    t.boolean "featured"
-    t.boolean "archive"
-    t.integer "priority"
-    t.boolean "approved"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "callouts", force: :cascade do |t|
