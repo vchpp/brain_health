@@ -11,17 +11,14 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|ko/ do
     resources :callouts
     resources :profiles
-    resources :messages do
+    resources :messages, :path => "messageboards" do
       resources :likes
       resources :comments
     end
     resources :comments do 
       resources :comments
     end
-    resources :boards do
-      resources :likes
-      resources :comments
-    end
+
     devise_for :users
     
     get '/about', to: redirect("/#{I18n.locale}/about/mission")
@@ -32,16 +29,16 @@ Rails.application.routes.draw do
       get '/community-advisory-board', to: 'about#cab_members'
     end
     # get '/resources', to: 'resources#index'
-    get '/resources', to: redirect("/#{I18n.locale}/resources/faqs")
-    scope '/resources' do
-      mount PdfjsViewer::Rails::Engine => "downloads/pdfjs", as: 'pdfjs'
-      resources :faqs do
-        resources :likes
-      end
-      resources :inspirations, :path => "inspiration"
-      resources :downloads
-      resources :additionals, :path => "additional"
-    end
+    # get '/resources', to: redirect("/#{I18n.locale}/resources/faqs")
+    # scope '/resources' do
+    #   mount PdfjsViewer::Rails::Engine => "downloads/pdfjs", as: 'pdfjs'
+    #   resources :faqs do
+    #     resources :likes
+    #   end
+    #   resources :inspirations, :path => "inspiration"
+    #   resources :downloads
+    #   resources :additionals, :path => "additional"
+    # end
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   end
 end
