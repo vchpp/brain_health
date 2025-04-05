@@ -25,20 +25,21 @@
           <div class="resp-tabs-container hor_1">
             <div>
               <div class="row">
+                <!--
                 <div class="col-md-12">
                   <div class="field form-group">
                     <%= form.label :en_name %>
                     <%= form.text_area :en_name, size:'70x5', class: 'form-control input-lg', placeholder: "en_name" %>
                   </div>
                 </div>
-
+                -->
                 <div class="col-md-12">
                   <div class="field form-group">
                     <%= form.label :en_content %>
                     <%= form.rich_text_area :en_content, placeholder: "en_content"  %>
                   </div>
                 </div>
-
+                <!--
                 <div class="col-md-12">
                   <div class="field form-group">
                     <%= form.label :en_external_rich_links %>
@@ -85,26 +86,28 @@
                       <% end %>
                     </div>
                   </div>
+                -->
                 </div>
               </div>
             </div>
 
             <div>
               <div class="row">
+                <!--
                 <div class="col-md-12">
                   <div class="field form-group">
                     <%= form.label :ko_name %>
                     <%= form.text_area :ko_name, size: '70x5', class: 'form-control input-lg', placeholder: "ko_name" %>
                   </div>
                 </div>
-
+                -->
                 <div class="col-md-12">
                   <div class="field form-group">
                     <%= form.label :ko_content %>
                     <%= form.rich_text_area :ko_content, placeholder: "ko_content" %>
                   </div>
                 </div>
-
+                <!--
                 <div class="col-md-12">
                   <div class="field form-group">
                     <%= form.label :ko_external_rich_links %>
@@ -152,43 +155,42 @@
                     </div>
                   </div>
                 </div>
+                  -->
               </div>
             </div>
-
-
           </div>
         </div>
-
+        <!--
         <div class="col-md-8 col-md-offset-2">
           <div class="field form-group">
             <%= form.label :survey_link %>
             <%= form.text_field :survey_link, size: '70x5', class: 'form-control input-lg', placeholder: "survey_link" %>
           </div>
         </div>
-
-        <div class="col-md-8 col-md-offset-2">
-          <div class="col-md-5 col-md-offset-1">  
-            <div class="field form-group">
-              <%= form.label :category %>
-              <%= form.select :category, ['build_resilience', 'get_good_sleep', 'manage_stress', 'strengthen_social_connections', 'help_yourself_help_others', 'other'], class: 'form-control input-lg' %>
+        -->
+        <% if current_user.try(:admin?) %>
+          <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-5 col-md-offset-1">  
+              <div class="field form-group">
+                <%= form.label :category %>
+                <%= form.select :category, ['build_resilience', 'get_good_sleep', 'manage_stress', 'strengthen_social_connections', 'help_yourself_help_others', 'other'], class: 'form-control input-lg' %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :featured? %>
+                <%= form.check_box :featured %>
+              </div>
             </div>
-            <div class="field form-group">
-              <%= form.label :featured? %>
-              <%= form.check_box :featured %>
+            <div class="col-md-5 col-md-offset-1">
+              <div class="field form-group">
+                <%= form.label :priority %> 
+                <%= form.text_field :priority, :size=>"2" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :archive? %>
+                <%= form.check_box :archive %>
+              </div>
             </div>
           </div>
-          <div class="col-md-5 col-md-offset-1">
-            <div class="field form-group">
-              <%= form.label :priority %> 
-              <%= form.text_field :priority, :size=>"2" %>
-            </div>
-            <div class="field form-group">
-              <%= form.label :archive? %>
-              <%= form.check_box :archive %>
-            </div>
-          </div>
-
-        </div>
 
         <div class="col-md-8 col-md-offset-2">
           <div class="field form-group">
@@ -196,6 +198,7 @@
             <%= form.text_area :tags, name: 'message[tags][]', size: '70x5', class: 'form-control input-lg', placeholder: "cope with loss\nself-care\ntrigger warning\ndepression", value: form.object.tags.join("\n") %>
           </div>
         </div>
+        <% end %>
 
         <div class="col-md-8 col-md-offset-2">
           <div class="actions">

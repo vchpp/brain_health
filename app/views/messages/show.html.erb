@@ -8,62 +8,19 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-1VRHYC0027', {'TID': tid });
+    gtag('config', 'G-H8YZWYJK24', {'TID': tid });
     gtag('send','event','eventCategory','eventAction');
   </script>
 <% end %>
 
-<% if @message.send("#{params[:locale]}_images".downcase).attached? %>
-  <section id="fh5co-testimonial" >
-    <div class="text-center">
-      <% @message.send("#{params[:locale]}_images".downcase).each do |img| %>
-        <%= image_tag img, class: "img-fluid", :style => "max-width: 100%; height: auto;"%>
-      <% end %>
-    </div>
-  </section>
-<% end %>
 
 <section id="fh5co-feature">
   <div class="container">
     <div class="row">
-
-      <% if @audio.attached? %>
-        <div class="col-md-12 text-center">
-          <%= audio_tag url_for(@audio), controls: true %>
-        </div>
-        <div class="col-md-12 text-center">
-          <% if params[:locale] == "zh_TW" %>
-            <%= link_to t('messages.show.cantonese_audio'), url_for(locale: :zh_CN) %>
-          <% elsif params[:locale] == "zh_CN" %>
-            <%= link_to t('messages.show.mandarin_audio'), url_for(locale: :zh_TW) %>
-          <% end %>
-        </div>
-      <% end %>
-
       <div class="fh5co-spacer fh5co-spacer-xs"></div>
       <div class="col-md-8 col-md-offset-2 rtf-mobile">
         <div><%= @message_content %></div>
       </div>
-
-      <div class="col-md-8 col-md-offset-2 rtf-mobile">
-        <% if @message_action_item.present? %>
-          <div class="fh5co-spacer fh5co-spacer-sm"></div>
-          <div><%= @message_action_item %></div>
-        <% end %>
-      </div>
-
-      <div class="col-md-8 col-md-offset-2 rtf-mobile">
-        <div><%= @message_external_rich_links %></div>
-      </div>
-
-      <div class="col-md-8 col-md-offset-2 clearfix fh5co-header">
-        <% if @message.survey_link.present? %>
-          <div class="fh5co-spacer fh5co-spacer-sm"></div>
-          <h4 class="h5 fh5co-heading-sub"><%= t('messages.show.survey_link')%></h4>
-          <a href="<%=@message.survey_link%>?tid=<%=cookies[:tid]%>", target="_blank", style="fh5co-heading-sub-2"><%=@message.survey_link%></a>
-        <% end %>
-      </div>
-    </div>
 
     <div class="col-md-8 col-md-offset-2 clearfix fh5co-header"></div>
   </div>
@@ -75,7 +32,6 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 text-center">
-
       <%= form_with model: [ @message, @message.likes.build ] do |form| %>
         <div class="field col-md-6 col-sm-6 col-xs-6">
           <%= form.label :up, class: 'sr-only' %>
@@ -83,6 +39,7 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
           <%= form.button @up_likes, id: "uplike", class: "ti-thumb-up btn btn-primary btn-lg fh5co-btn-icon", value: @up_likes %>
         </div>
       <% end %>
+
 
       <%= form_with model: [ @message, @message.likes.build ] do |form| %>
         <div class="field col-md-6 col-sm-6 col-xs-6">

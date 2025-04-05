@@ -2,93 +2,31 @@ https://github.com/vchpp/informed-livingwell
 
 # TO DO:
 
-- [] Scope of work document with payment expectations for Janice
+- [x] Add new analytics site
 
-- [x] `informed-livingwell.com` and `informed-livingwell.org`
+- [x] Add TID to Messages
 
-- [x] add ko locale 
+- [x] Gate behind cookie range
 
-- [x] add ko database field migrations
+- [] Update MessageBoard#Index layout
 
-- [x] shift `hmn` locale to `hm`
+- [] Update MessageBoard#_form layout
 
-- [x] shift `external` resources to `additional`
+- [] Clean up Message attributes
 
-- [x] add likes to FAQs
+- [] Make Messages and Comments postable and editable based on cookie value
 
-- [x] HW jsonb support for databases (redo) and check API key
+- [] Buttons to create / edit / delete Messages and Comments by TID participants
 
-- [x] Remove `statistics` and `votes` resource entirely
+- [] Buttons for admin to delete Messages and Comments
 
-- [x] Add DT numbers to controller logic - 600 participants 
+- [] Placeholder for deleted Message and Comments
 
-- [x] Add `tags` to every resource for search hits
+- [] Give TIDs an avatar and Faker name (migration table)
 
-- [x] add ko model attributes
+- [] Likes for comments?
 
-- [x] more GA4 tracking points like clicks, engagements
-
-- [x] add ko controller allowed params
-
-- [x] add tags controller allowed params
-
-- [x] add tags view fields 
-
-- [x] be able to order Messages by rank(int), and pin by featured (bool)
-
-- [x] add ko form fields
-
-- [x] add view forms to be able to order Messages by priority(int), and pin by featured (bool)
-
-- [x] VIEWS add ko `language` form support on `additionals`, `HWA`, `downloads`
-
-- [x] VIEWS add ko edit buttons for `HWA`
-
-- [x] HealthwiseArticles ko-us languange support
-
-- [x] catch `@healthwise_article.send("#{article_locale}_json")["data"]["credits"]["primaryReviewers"]` when mising (use `@healthwise_article.send("#{article_locale}_json")["data"]["credits"]["author"]["name"]` and do not .map)
-
-- [x] HealthwiseArticles investigate why articles do not map
-
-- [x] CONTROLLER fix logic to sort by priorty, top by featured
-
-- [x] VIEWS new categories for all resources are ['general', 'self-care', 'strengthen social connections', 'cope with loss', 'become resourceful', 'other']
-
-- [x] Gate `downloads` and `callouts` behind an admin check
-
-- [x] CONTROLLER filter logic for new categories
-
-- [x] Add abiilty for admins to view an archived asset for previewabiliity, but keep hidden for visitors (display with a red border)
-
-- [x] provide ability for visitor to see messages in non-navigating language (give warning about not in native language)
-
-- [] all .yml translations for all new categories
-
-- [] 'likes' and 'comments' notice translations for all languages
-
-- [] Profiles - Janice first, Joyce, JiWon
-
-- [] gate behind cf access rule
-
-- [x] Update Livingwell logo in all languages
-
-- [] Update partner logos (CPR3 and UCSF)
-
-- [] HealthwiseArticles custom translations using `jsonb`
-
-- [] `stretch` add tags model search methods
-
-- [] `stretch` VIEWS add like buttons to FAQs - does logic work?
-
-- [] Heroku console download all profile photos or download from AWS
-
-- [] Profiles - try to migrate from covid-informed site
-
-- [] ability to 'duplicate' a message, sans attachments
-
-- [] potential styling overhaul to align with `ucsf.edu` domain
-
-~ - [] Add zh_CN to custom translated HW articles ~
+~ - [] gate behind cf access rule ~
 
 ~ - [] AJAX requests for paginated Comments on Messages ~
 
@@ -214,6 +152,73 @@ Track user by ID to see total pages they have visited per date
 
 
 # CHANGELOG:
+
+## Since 12/2024
+
+- [x] `informed-livingwell.com` and `informed-livingwell.org`
+
+- [x] add ko locale 
+
+- [x] add ko database field migrations
+
+- [x] shift `hmn` locale to `hm`
+
+- [x] shift `external` resources to `additional`
+
+- [x] add likes to FAQs
+
+- [x] HW jsonb support for databases (redo) and check API key
+
+- [x] Remove `statistics` and `votes` resource entirely
+
+- [x] Add DT numbers to controller logic - 600 participants 
+
+- [x] Add `tags` to every resource for search hits
+
+- [x] add ko model attributes
+
+- [x] more GA4 tracking points like clicks, engagements
+
+- [x] add ko controller allowed params
+
+- [x] add tags controller allowed params
+
+- [x] add tags view fields 
+
+- [x] be able to order Messages by rank(int), and pin by featured (bool)
+
+- [x] add ko form fields
+
+- [x] add view forms to be able to order Messages by priority(int), and pin by featured (bool)
+
+- [x] VIEWS add ko `language` form support on `additionals`, `HWA`, `downloads`
+
+- [x] VIEWS add ko edit buttons for `HWA`
+
+- [x] HealthwiseArticles ko-us languange support
+
+- [x] catch `@healthwise_article.send("#{article_locale}_json")["data"]["credits"]["primaryReviewers"]` when mising (use `@healthwise_article.send("#{article_locale}_json")["data"]["credits"]["author"]["name"]` and do not .map)
+
+- [x] HealthwiseArticles investigate why articles do not map
+
+- [x] CONTROLLER fix logic to sort by priorty, top by featured
+
+- [x] VIEWS new categories for all resources are ['general', 'self-care', 'strengthen social connections', 'cope with loss', 'become resourceful', 'other']
+
+- [x] Gate `downloads` and `callouts` behind an admin check
+
+- [x] CONTROLLER filter logic for new categories
+
+- [x] Add abiilty for admins to view an archived asset for previewabiliity, but keep hidden for visitors (display with a red border)
+
+- [x] provide ability for visitor to see messages in non-navigating language (give warning about not in native language)
+
+- [x] Profiles - Janice first, Joyce, JiWon
+
+
+- [x] Update Livingwell logo in all languages
+
+- [x] `stretch` add tags model search methods
 
 ### Since June 2022
 

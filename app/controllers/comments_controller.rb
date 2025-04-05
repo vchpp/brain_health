@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :authenticate_admin!, only: %i[ index new show edit destroy ]
-
+  before_action :check_cookie_value, only: %i[ new create edit update ]
   # GET /comments or /comments.json
   def index
     @comments = Comment.all
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_back fallback_location: root_path, notice: "Thanks for your comment!" } 
         format.json { render :show, status: :created, location: @commentable }
-        logger.warn "Visitor with TID=#{cookies[:tid]} made a comment on message #{@commentable.id} with title #{@commentable.en_name}, saying '#{@comment.content}'" if params[:message_id].present?
+        logger.info "Visitor with TID=#{cookies[:tid]} made a comment on message #{@commentable.id}, saying '#{@comment.content}'"
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -45,14 +45,18 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+    if @comment.tid == cookies[:tid]
+      respond_to do |format|
+        if @comment.update(comment_params)
+          format.html { redirect_back fallback_location: root_path, notice: "Comment was successfully updated." }
+          format.json { render :show, status: :ok, location: @comment }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_back fallback_location: root_path, alert: "Can't edit comment.  Action denied."
     end
   end
 
@@ -72,16 +76,14 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = Comment.friendly.find(params[:id])
     end
 
     def find_commentable
       if params[:comment_id]
-        Comment.find(params[:comment_id])
+        Comment.friendly.find(params[:comment_id])
       elsif params[:message_id]
         Message.friendly.find(params[:message_id])
-      elsif params[:board_id]
-        Board.friendly.find(params[:board_id])
       end
     end
 

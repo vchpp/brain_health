@@ -1,29 +1,58 @@
-<div class="col-md-offset-1">
+<div class="col-lg-12 col-md-8 col-md-offset-1 col-sm-4">
   <div class="row">
     <div class="fh5co-feature-item">
       <% comments.each do |comment| %>
-      <div class="fh5co-feature-blurb comment">
-        <span class="fh5co-feature-icon"><i class="ti-comment-alt" id="toggleIcon"></i></span>
-        <h2 class="h4 fh5co-feature-title"><%= comment.content %>
+      <div class="fh5co-feature-blurb">
+        <row class="comment" id="toggleIcon">
+          <span class="fh5co-feature-icon"><i class="ti-comment-alt"></i></span>
           <small>Posted at <%= comment.created_at %></small>
-        </h2>
-        <!-- Form for adding a nested comment -->
-        <div class="field form-group nested-comment-form hidden">
-          <%= form_with model: [comment, Comment.new], local: true do |form| %>
-            <div class="field">
-              <%= form.label :content, class: 'sr-only'%>
-              <%= form.text_field :content, required: true, class: 'form-control input-lg expand', placeholder: t('messages.leave_comment') %>
-            </div>
-            <div class="actions">
-              <%= form.submit "Post Reply", class: "btn btn-primary btn-lg btn-block" %>
-            </div>
-          <% end %>
-        </div>
-        
-      </div>
+        </row>
+        <section class="comment-body">
+          <row class="comment">
+            <span class="fh5co-feature-icon"></span>
+            <h2 class="h4 fh5co-feature-title"><%= comment.content %></h2>
+          </row>
+          <row class="comment">
+            <span class="fh5co-feature-icon"></span>
+            
+            <%= form_with model: [ comment, comment.likes.build ], local: true do |form| %>
+                <%= form.label :up, class: 'sr-only' %>
+                <%= form.hidden_field :up, value: 1 %>
+                <%= form.button comment.likes, id: "uplike", class: "ti-thumb-up btn btn-primary btn fh5co-btn-icon", value: comment.uplikes_count %>
+            <% end %>
+
+            <%= form_with model: [ comment, comment.likes.build ], local: true do |form| %>
+                <%= form.label :down, class: 'sr-only' %>
+                <%= form.hidden_field :down, value: 1 %>
+                <%= form.button comment.likes, id: "downlike", class: "ti-thumb-down btn btn-primary btn fh5co-btn-icon", value: comment.downlikes_count %>
+            <% end %>
+            
+            <% if comment.tid == cookies[:tid] %>
+              <button class="reply ti-return btn btn-primary btn fh5co-btn-icon">Edit</button>
+              <button class="reply ti-return btn btn-primary btn fh5co-btn-icon">Delete</button>
+            <% end %>
+            <button class="reply ti-return btn btn-primary btn fh5co-btn-icon">Reply</button>
+          </row>
+
+          <!-- Form for adding a nested comment -->
+          <div class="field form-group nested-comment-form hidden">
+            <%= form_with model: [comment, Comment.new], local: true do |form| %>
+              <div class="field">
+                <%= form.label :content, class: 'sr-only'%>
+                <%= form.text_field :content, required: true, class: 'form-control input-lg expand', placeholder: t('messages.leave_comment'), value: comment.content if comment.content.present? %>
+              </div>
+              <div class="actions">
+                <%= form.submit "Post Reply", class: "btn btn-primary btn-lg btn-block" %>
+              </div>
+            <% end %>
+          </div>
 
         <!-- Render nested comments -->
         <%= render partial: 'comments/comments', locals: { comments: comment.comments } %>
+
+        </section>
+        
+      </div>
     <% end %>
 
     </div>

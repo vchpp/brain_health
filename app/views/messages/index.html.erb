@@ -8,7 +8,7 @@ meta title: "Brain Health 4 You - Messages",
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-1VRHYC0027', {'TID': tid });
+    gtag('config', 'G-H8YZWYJK24', {'TID': tid });
     gtag('send','event','eventCategory','eventAction');
   </script>
 <% end %>
@@ -25,11 +25,11 @@ meta title: "Brain Health 4 You - Messages",
       </div>
 
       <div class="col-md-8 col-md-offset-2">
-        <% if current_user.try(:admin?) %>
         <div class="fh5co-spacer fh5co-spacer-sm"></div>
           <div class="actions">
             <%= link_to 'New Message', new_message_path, class: "btn btn-primary btn-lg btn-block" %>
           </div>
+        <% if current_user.try(:admin?) %>
           <div class="actions">
             <%= link_to 'Export Messages to CSV', messages_path(format: "csv"), class: "btn btn-primary btn-lg btn-block"  %>
           </div>

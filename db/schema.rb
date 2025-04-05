@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_24_085855) do
+ActiveRecord::Schema.define(version: 2025_03_20_230337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,7 +115,9 @@ ActiveRecord::Schema.define(version: 2025_02_24_085855) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "commentable_type"
     t.bigint "commentable_id"
+    t.string "slug"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["slug"], name: "index_comments_on_slug", unique: true
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -198,6 +200,7 @@ ActiveRecord::Schema.define(version: 2025_02_24_085855) do
     t.boolean "archive", default: false
     t.boolean "featured", default: false
     t.integer "priority"
+    t.string "tid"
     t.index ["slug"], name: "index_messages_on_slug", unique: true
   end
 

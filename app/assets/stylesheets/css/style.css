@@ -1651,6 +1651,13 @@ Other */
   box-shadow: 0 0 20px grey;
 }
 
+.comment {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  transition: background-color 0.5s ease, transform 0.3s linear;
+}
+
 audio {
   filter: sepia(100%) saturate(400%) grayscale(0) contrast(200%) hue-rotate(93deg) invert(25.833%);
 }

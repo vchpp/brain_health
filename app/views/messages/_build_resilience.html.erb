@@ -4,14 +4,6 @@
          <div class="col-md-6 col-sm-6 fh5co-feature-item text-center shadow-lg">
 
           <div class="fh5co-feature-icon <%=item1.category%>">
-            <% if item1.send("#{params[:locale]}_images".downcase).attached? %> 
-              <i><%= image_tag item1.send("#{params[:locale]}_images".downcase).first.variant(resize_to_limit: [700, 400]), class: "img-fluid", :style => "max-width: 90%; height: auto"%></i>
-            <% else %>
-              <i class="ti-layout-placeholder" style="color:red;"></i>
-            <% end %>
-          </div>
-          <h2 class="text-center fh5co-feature-title h4 text-uppercase"><%= item1.en_name %></h2>
-
               <p class="text-center"><%= link_to t('messages.read_more'), item1, class: "btn btn-primary btn-sm" %></p>
             <% if current_user.try(:admin?) %>
               <p class="text-center"><%= link_to 'Edit this message', edit_message_path(item1), class:"btn btn-primary btn-sm" %></p>
@@ -27,14 +19,6 @@
           <div class="col-md-6 col-sm-6 fh5co-feature-item text-center">
 
               <div class="fh5co-feature-icon <%=item2.category%>">
-                <% if item2.send("#{params[:locale]}_images".downcase).attached? %>
-                  <i><%= image_tag item2.send("#{params[:locale]}_images".downcase).first.variant(resize_to_limit: [700, 400]), class: "img-fluid", :style => "max-width: 90%; height: auto"%></i>
-                <% else %>
-                  <i class="ti-layout-placeholder" style="color:red;"></i>
-                <% end %>
-              </div>
-              <h2 class="text-center fh5co-feature-title h4 text-uppercase"><%= item2.en_name %></h2>
-
                 <p class="text-center"><%= link_to t('messages.read_more'), item2, class: "btn btn-primary btn-sm" %></p>
               <% if current_user.try(:admin?) %>
                 <p class="text-center"><%= link_to 'Edit this message', edit_message_path(item2), class:"btn btn-primary btn-sm" %></p>

@@ -1,6 +1,7 @@
 
 // ...
 //= require activestorage
+//= require trix/dist/trix
 //= require jquery
 //= require jquery_ujs
 //= require popper
@@ -37,8 +38,8 @@ function getCookie(name) {
 }
 
 function toggleCommentForm() {
-  $('.fh5co-feature-icon').on('click', function(e){
-    let container = this.closest(".comment"); // Find the closest parent container
+  $('.reply').on('click', function(e){
+    let container = this.closest(".fh5co-feature-blurb"); // Find the closest parent container
     let form = container.querySelector("div");
 
     if (form) {
@@ -46,6 +47,17 @@ function toggleCommentForm() {
     }
   })
 };
+
+function toggleComment() {
+  $('.ti-comment-alt').on('click', function(e){
+    console.log("click");
+    // let container = this.closest(".fh5co-feature-blurb")
+    // let body = container.classList("comment-body")
+    // if (body) {
+    //   body.classList.toggle("comment-body"); // Toggle the 'comment-body' class
+    // }
+  })
+}
 
 
 

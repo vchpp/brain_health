@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: redirect("/#{I18n.locale}/about/mission"), as: :redirected_root
   root 'about#index'
-
+  
   get '/admin', to: redirect(path: "/#{I18n.locale}/admin")
   get '/admin', to: 'admin#index'
   authenticate :user, -> (u) { u.admin? } do
@@ -12,13 +12,14 @@ Rails.application.routes.draw do
     resources :callouts
     resources :profiles
     resources :messages, :path => "messageboards" do
-      resources :likes
+      resources :likes, only: [:create, :destroy]
       resources :comments
     end
     resources :comments do 
       resources :comments
+      resources :likes, only: [:create, :destroy]
     end
-
+    
     devise_for :users
     
     get '/about', to: redirect("/#{I18n.locale}/about/mission")
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
       get '/lay-health-workers', to: 'about#lhw'
       get '/community-advisory-board', to: 'about#cab_members'
     end
+    get "restricted_access", to: "application#restricted_access"
     # get '/resources', to: 'resources#index'
     # get '/resources', to: redirect("/#{I18n.locale}/resources/faqs")
     # scope '/resources' do

@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, :only => :create
   protect_from_forgery prepend: true
   before_action :set_locale, :count_visits, :set_admin, :set_visitor, :set_locale_cookie
+  
+  def restricted_access
+    # render plain: "Access Denied: Your permissions are invalid."
+    flash.now[:alert] = "Action Denied: Your permissions are invalid."
+  end
 
 private
 
@@ -21,6 +26,8 @@ private
     end
   end
 
+  # set avatar on first browse, associate with TID cookie, flash welcome for avatar name
+
   def set_visitor
     if params[:tid].to_i.between?(1,9999)
       cookies[:tid] = {
@@ -36,6 +43,18 @@ private
         SameSite: 'none',
         secure: 'true'
       }
+    end
+  end
+
+  def check_cookie_value
+    allowed_range = (0..1000)  # Define the acceptable range
+    cookie_value = cookies[:tid].to_i  # Convert cookie to integer
+
+    unless allowed_range.include?(cookie_value)
+      reset_session  # Clear session to prevent unauthorized access
+      # redirect_to restricted_access_path, alert: "Access denied. Invalid cookie."
+      logger.info "#{params[:tid]} tried to take an action, but was redirected."
+      redirect_back fallback_location: root_path, alert: "Action denied."
     end
   end
 
