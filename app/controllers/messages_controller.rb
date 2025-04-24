@@ -14,21 +14,22 @@ class MessagesController < ApplicationController
     @messages = @messages.where(archive: false)
     set_message_categories
     @messages = @messages.filter_by_search(params[:search]) if (params[:search].present?)
-    @build_resilience, @get_good_sleep, @manage_stress, @strengthen_social_connections, @help_yourself_help_others, @other, @featured = [], [], [], [], [], [], []
-    @messages.each do |e|
-      if e.featured == true
-        @featured << e
-        # 'Build Resilience', 'Get Good Sleep', 'Manage Stress', 'Strengthen Social Connections', 
-        # 'Help Yourself Help Others', 'Mental Health Conditions', 'Suicide Prevention'
-      elsif e.featured == false
-        @build_resilience << e if e.category == "build_resilience"
-        @get_good_sleep << e if e.category == "get_good_sleep"
-        @manage_stress << e if e.category == "manage_stress"
-        @strengthen_social_connections << e if e.category == "strengthen_social_connections"
-        @help_yourself_help_others << e if e.category == "help_yourself_help_others"
-        @other << e if e.category == "other"
-      end
-    end
+
+    # @build_resilience, @get_good_sleep, @manage_stress, @strengthen_social_connections, @help_yourself_help_others, @other, @featured = [], [], [], [], [], [], []
+    # @messages.each do |e|
+    #   if e.featured == true
+    #     @featured << e
+    #     # 'Build Resilience', 'Get Good Sleep', 'Manage Stress', 'Strengthen Social Connections', 
+    #     # 'Help Yourself Help Others', 'Mental Health Conditions', 'Suicide Prevention'
+    #   elsif e.featured == false
+    #     @build_resilience << e if e.category == "build_resilience"
+    #     @get_good_sleep << e if e.category == "get_good_sleep"
+    #     @manage_stress << e if e.category == "manage_stress"
+    #     @strengthen_social_connections << e if e.category == "strengthen_social_connections"
+    #     @help_yourself_help_others << e if e.category == "help_yourself_help_others"
+    #     @other << e if e.category == "other"
+    #   end
+    # end
     respond_to do |format|
       format.html
       format.csv { send_data @messages.to_csv, filename: "Messages-#{Date.today}.csv" } if current_user.try(:admin?)
@@ -45,12 +46,12 @@ class MessagesController < ApplicationController
       end
     end
     @likes = @message.likes.all.order('tid::integer ASC')
-    @all_comments = @message.comments.includes(:likes)
+    @all_comments = @message.comments.includes(:likes, :visitor)
     @admin_comments = @all_comments.order('tid::integer ASC')
     @comments = @all_comments.order(created_at: :desc).limit(10).offset((@page.to_i - 1) * 10)
     @page_count = (@all_comments.count / 10) + 1
     # @message_name = @message.send("#{I18n.locale}_name".downcase)
-    @message_content = @message.send("#{I18n.locale}_content".downcase)
+    # @message_content = @message.send("#{I18n.locale}_content".downcase)
     # @message_external_rich_links = @message.send("#{I18n.locale}_external_rich_links".downcase)
     # @message_action_item = @message.send("#{I18n.locale}_action_item".downcase)
     # @audio = @message.send("#{I18n.locale}_audio".downcase)
@@ -80,6 +81,7 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
+    @message.visitor_id = @current_user.id
     @message.tid = cookies[:tid] || '0'
     # @message[:external_links] = params[:message][:external_links].first.split("\r\n").map(&:strip) if params[:message][:external_links].present?
     @message[:tags] = params[:message][:tags].first.split("\r\n").map(&:strip) if params[:message][:tags].present?
@@ -100,8 +102,8 @@ class MessagesController < ApplicationController
       if @message.save
         format.html { redirect_to @message, notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
-        logger.warn("#{current_user.email} created Message #{@message.id} with title #{@message.en_name}")
-        audit! :created_message, @message, payload: message_params
+        logger.info("#{@current_user} created Message #{@message.id} with title #{@message.en_name}")
+        # audit! :created_message, @message, payload: message_params
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
@@ -130,7 +132,7 @@ class MessagesController < ApplicationController
       if @message.update(message_params)
         format.html { redirect_to @message, notice: "Message was successfully updated." }
         format.json { render :show, status: :ok, location: @message }
-        logger.warn("#{current_user.email} updated Message #{@message.id} with title #{@message.en_name}")
+        logger.info("#{@current_user} updated Message #{@message.id} with title #{@message.en_name}")
         audit! :updated_message, @message, payload: message_params
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -197,7 +199,7 @@ private
                                     # :hm_name,
                                     # :hm_content,
                                     # :hm_action_item,
-                                    # :ko_name,
+                                    :ko_name,
                                     :ko_content,
                                     # :ko_action_item,
                                     # :external_links,

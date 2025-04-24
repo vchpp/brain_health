@@ -45,6 +45,9 @@ function toggleCommentForm() {
     if (form) {
       form.classList.toggle("hidden"); // Toggle the 'hidden' class
     }
+    // let field = this.closest(".comment-field");
+    // console.log("comment-field")
+    // field.focus();
   })
 };
 

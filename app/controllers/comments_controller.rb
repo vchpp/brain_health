@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :authenticate_admin!, only: %i[ index new show edit destroy ]
-  before_action :check_cookie_value, only: %i[ new create edit update ]
+  before_action :check_cookie_value, only: %i[ new create edit update destroy ]
+
   # GET /comments or /comments.json
   def index
     @comments = Comment.all
@@ -31,6 +32,7 @@ class CommentsController < ApplicationController
     @commentable = find_commentable
     @comment = @commentable.comments.new(comment_params)
     @comment.tid = cookies[:tid] || '0'
+    @comment.visitor_id = @current_user.id 
     respond_to do |format|
       if @comment.save
         format.html { redirect_back fallback_location: root_path, notice: "Thanks for your comment!" } 
@@ -62,14 +64,16 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
-    authenticate_admin!
-    @message = Message.friendly.find(params[:message_id]) if params[:message_id].present?
-    @message = Board.friendly.find(params[:board_id]) if params[:board_id].present?
-    @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to message_path(@message), notice: "Comment was successfully destroyed." } if params[:message_id].present?
-      format.html { redirect_to board_path(@board), notice: "Comment was successfully destroyed." } if params[:board_id].present?
-      format.json { head :no_content }
+    if @comment.tid == cookies[:tid]
+      @commentable = find_commentable
+      logger.info "Visitor with TID=#{cookies[:tid]} deleted comment #{@commentable.id}, saying '#{@comment.content}'"
+      @commentable.discard
+      respond_to do |format|
+        redirect_back fallback_location: root_path
+        format.json { head :no_content }
+      end
+    else
+      redirect_back fallback_location: root_path, alert: "Can't delete comment.  Action denied."
     end
   end
 

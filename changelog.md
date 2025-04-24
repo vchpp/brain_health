@@ -2,29 +2,45 @@ https://github.com/vchpp/informed-livingwell
 
 # TO DO:
 
+- [] Launch to website to allow admins to upload messages
+
+- [x] Fix admin views, including sign out, audit log
+
+- [x] Make all dynamic content visible regardless of locale, reduce Messages#_form to only one content
+
 - [x] Add new analytics site
 
 - [x] Add TID to Messages
 
 - [x] Gate behind cookie range
 
+- [x] Give TIDs an avatar and Faker name (migration table)
+
+- [x] Validate all admin views
+
+- [x] Likes for comments
+
+- [x] Update MessageBoard#Show 
+
+- [x] Make Messages and Comments postable based on cookie value
+
+- [x] Buttons to create / edit / delete Messages and Comments by TID participants
+
+- [x] Clean up Message attributes
+
+- [x] Buttons for admin to delete Messages and Comments
+
 - [] Update MessageBoard#Index layout
 
 - [] Update MessageBoard#_form layout
 
-- [] Clean up Message attributes
+- [] Make Messages and Comments editable based on cookie value
 
-- [] Make Messages and Comments postable and editable based on cookie value
+- [] Fix edit comment so it doesn't post a second comment
 
-- [] Buttons to create / edit / delete Messages and Comments by TID participants
+- [] Placeholder for deleted Message and Comments (dispose)
 
-- [] Buttons for admin to delete Messages and Comments
-
-- [] Placeholder for deleted Message and Comments
-
-- [] Give TIDs an avatar and Faker name (migration table)
-
-- [] Likes for comments?
+- [x] Admin Message and Comment display at bottom and export to CSV
 
 ~ - [] gate behind cf access rule ~
 

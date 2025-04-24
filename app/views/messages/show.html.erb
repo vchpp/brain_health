@@ -19,7 +19,7 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
     <div class="row">
       <div class="fh5co-spacer fh5co-spacer-xs"></div>
       <div class="col-md-8 col-md-offset-2 rtf-mobile">
-        <div><%= @message_content %></div>
+        <div><%= @message.en_content %></div>
       </div>
 
     <div class="col-md-8 col-md-offset-2 clearfix fh5co-header"></div>
@@ -51,98 +51,11 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
 
       </div>
     </div>
-    <% if @likes.any? %>
-      <% if current_user.try(:admin?) %>
-      <div class="row">
-        <div class="col-md-12 Admin-border">
-          <h1 class="text-center">Likes Admin View</h1>
-
-          <table class="col-md-10 col-md-offset-1">
-            <thead>
-              <tr>
-                <th>Created at</th>
-                <th>TID</th>
-                <th>UP</th>
-                <th>Down</th>
-                <th colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @likes.each do |like| %>
-              <tr>
-                <td><%= like.created_at %></td>
-                <td><%= like.tid %></td>
-                <td><%= like.up %></td>
-                <td><%= like.down %></td>
-                <td><%= link_to 'Destroy', [@message, like], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-md-8 col-md-offset-2">
-        <%= link_to 'Export Likes to CSV', message_path(format: "csv", format_data: "likes"), class: "btn btn-primary btn-lg btn-block"  %>
-      </div>
-      <% end %>
-      <div class="fh5co-spacer fh5co-spacer-md"></div>
-    <% end %>
   </div>
 </section>
 
-<section>
-  <div class="container">
-    <% if @comments.any? %>
-      <% if current_user.try(:admin?) %>
-      <div class="row">
-        <div class="col-md-12 Admin-border">
-          <div class="col-md-12">
-            <h1 class="text-center">Comments Admin View:</h1>
-          </div>
 
-          <table class="col-md-10 col-md-offset-1">
-            <thead>
-              <tr>
-                <th>Created at</th>
-                <th>TID</th>
-                <th>Content</th>
-                <th colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @admin_comments.each do |comment| %>
-              <tr>
-                <td><%= comment.created_at %></td>
-                <td><%= comment.tid %></td>
-                <td><%= comment.content %></td>
-                <td><%= link_to 'Destroy', [@message, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-md-8 col-md-offset-2">
-        <%= link_to 'Export Comments to CSV', message_path(format: "csv", format_data: "comments"), class: "btn btn-primary btn-lg btn-block"  %>
-      </div>
-      <% else %>
-      <div class="row fh5co-feature-3">
-        <div class="col-md-12">
-          <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('messages.comments')%>:</h2>
-        </div>
-
-        <div class="fh5co-spacer fh5co-spacer-sm"></div>
-          <div class="col-md-12">
-            <div class="row">
-              <div class="fh5co-feature-item">
-               <%= render partial: 'comments/comments', locals: { comments: @message.comments } %>
-             </div>
-            </div>
-          </div>
-        </div>
-
+<!-- Pagination
         <% if @page_count > 1 %>
           <div class="row text-center">
             <nav aria-label="Page navigation example">
@@ -176,14 +89,7 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
             </nav>
           </div>
         <% end %>
-
-
-    <% end %>
-    <% end %>
-  </div>
-  <div class="fh5co-spacer fh5co-spacer-md"></div>
-</section>
-
+-->
 <section>
   <div class="container">
     <div class="row">
@@ -202,10 +108,35 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
                 </div>
               </div>
             <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Comment Section -->
+  <div class="row fh5co-feature-3">
+    <div class="fh5co-spacer fh5co-spacer-sm"></div>
+      <div class="col-lg-12 col-md-8 col-sm-4">
+        <div class="row">
+          <div class="fh5co-feature-item">
+            <%= render partial: 'comments/comments', locals: { comments: @message.comments } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
+          <div class="field form-group">
             <div class="fh5co-spacer fh5co-spacer-xs"></div>
             <div class="col-md-12">
-            <% if current_user.try(:admin?) %>
+            <% if current_user.try(:admin?) || @message.tid == @current_user.tid %>
               <div class="actions">
                 <%= link_to 'Edit Message', edit_message_path(@message), class: "btn btn-primary btn-lg btn-block" %>
               </div>
@@ -220,6 +151,94 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comment admin panel -->
+<section>
+  <div class="container">
+    <div class="row">
+    <% if @comments.any? %>
+      <% if current_user.try(:admin?) %>
+      <div class="row">
+        <div class="col-md-12 Admin-border">
+          <div class="col-md-12">
+            <h1 class="text-center">Comments Admin View:</h1>
+          </div>
+
+          <table class="col-md-10 col-md-offset-1">
+            <thead>
+              <tr>
+                <th>Created at</th>
+                <th>TID</th>
+                <th>Comment ID</th>
+                <th>Content</th>
+                <th colspan="1"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @admin_comments.each do |comment| %>
+              <tr>
+                <td><%= comment.created_at.strftime("%c") %></td>
+                <td><%= comment.tid %></td>
+                <td><%= comment.id %></td>
+                <td><%= comment.content %></td>
+                <td><%= link_to 'Destroy', [@message, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-8 col-md-offset-2">
+        <%= link_to 'Export Comments to CSV', message_path(format: "csv", format_data: "comments"), class: "btn btn-primary btn-lg btn-block"  %>
+      </div>
+      <% end %>
+    <% end %>
+  <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+<!-- Likes admin panel -->
+    <% if @likes.any? %>
+      <% if current_user.try(:admin?) %>
+      <div class="row">
+        <div class="col-md-12 Admin-border">
+          <h1 class="text-center">Likes Admin View</h1>
+
+          <table class="col-md-10 col-md-offset-1">
+            <thead>
+              <tr>
+                <th>Created at</th>
+                <th>TID</th>
+                <th>Like ID</th>
+                <th>UP</th>
+                <th>Down</th>
+                <th colspan="1"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @likes.each do |like| %>
+              <tr>
+                <td><%= like.created_at.strftime("%c") %></td>
+                <td><%= like.tid %></td>
+                <td><%= like.id %></td>
+                <td><%= like.up %></td>
+                <td><%= like.down %></td>
+                <td><%= link_to 'Destroy', [@message, like], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-8 col-md-offset-2">
+        <%= link_to 'Export Likes to CSV', message_path(format: "csv", format_data: "likes"), class: "btn btn-primary btn-lg btn-block"  %>
+      </div>
+      <% end %>
+      <div class="fh5co-spacer fh5co-spacer-md"></div>
+    <% end %>
     </div>
   </div>
 </section>

@@ -1,37 +1,44 @@
-<div class="col-lg-12 col-md-8 col-md-offset-1 col-sm-4">
+<div class="col-lg-12 col-md-8 col-sm-4">
   <div class="row">
     <div class="fh5co-feature-item">
       <% comments.each do |comment| %>
       <div class="fh5co-feature-blurb">
         <row class="comment" id="toggleIcon">
-          <span class="fh5co-feature-icon"><i class="ti-comment-alt"></i></span>
-          <small>Posted at <%= comment.created_at %></small>
+          <span class="fh5co-feature-icon"> <%= image_tag(comment.visitor.avatar) %> </span>
+          <small><b><%= comment.visitor.name %></b> | <%= comment.created_at.strftime("%c") %>  </small>
         </row>
         <section class="comment-body">
           <row class="comment">
             <span class="fh5co-feature-icon"></span>
-            <h2 class="h4 fh5co-feature-title"><%= comment.content %></h2>
+            <% if comment.discarded? %>
+              <h2 class="h4 muted">(Deleted by visitor)</h2>
+            <% else %>
+                <h2 class="h4 fh5co-feature-title"><%= comment.content %></h2>
+            <% end %>
           </row>
           <row class="comment">
             <span class="fh5co-feature-icon"></span>
-            
-            <%= form_with model: [ comment, comment.likes.build ], local: true do |form| %>
+
+            <%= form_with model: [ comment, Like.new ], local: true do |form| %>
                 <%= form.label :up, class: 'sr-only' %>
                 <%= form.hidden_field :up, value: 1 %>
-                <%= form.button comment.likes, id: "uplike", class: "ti-thumb-up btn btn-primary btn fh5co-btn-icon", value: comment.uplikes_count %>
+                <%= form.button comment.uplikes_count, id: "uplike", class: "ti-thumb-up btn btn-primary btn fh5co-btn-icon" %>
             <% end %>
 
-            <%= form_with model: [ comment, comment.likes.build ], local: true do |form| %>
+            <%= form_with model: [ comment, Like.new ], local: true do |form| %>
                 <%= form.label :down, class: 'sr-only' %>
                 <%= form.hidden_field :down, value: 1 %>
-                <%= form.button comment.likes, id: "downlike", class: "ti-thumb-down btn btn-primary btn fh5co-btn-icon", value: comment.downlikes_count %>
+                <%= form.button comment.downlikes_count, id: "downlike", class: "ti-thumb-down btn btn-primary btn fh5co-btn-icon" %>
             <% end %>
             
+            <button class="reply ti-return btn btn-primary btn fh5co-btn-icon">Reply</button>
+            <!--  Update these later
             <% if comment.tid == cookies[:tid] %>
               <button class="reply ti-return btn btn-primary btn fh5co-btn-icon">Edit</button>
-              <button class="reply ti-return btn btn-primary btn fh5co-btn-icon">Delete</button>
+              <%= link_to "Delete", message_comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }, class: "reply ti-return btn btn-danger fh5co-btn-icon", role: "button" %>
+              <%# <!-- <%= button_to "Delete", user_delete_comment_path, class:"reply danger ti-return btn btn-primary btn fh5co-btn-icon" %> 
             <% end %>
-            <button class="reply ti-return btn btn-primary btn fh5co-btn-icon">Reply</button>
+            -->
           </row>
 
           <!-- Form for adding a nested comment -->
@@ -39,10 +46,10 @@
             <%= form_with model: [comment, Comment.new], local: true do |form| %>
               <div class="field">
                 <%= form.label :content, class: 'sr-only'%>
-                <%= form.text_field :content, required: true, class: 'form-control input-lg expand', placeholder: t('messages.leave_comment'), value: comment.content if comment.content.present? %>
+                <%= form.text_field :content, required: true, class: 'form-control input-lg expand', placeholder: t('messages.leave_comment') %>
               </div>
               <div class="actions">
-                <%= form.submit "Post Reply", class: "btn btn-primary btn-lg btn-block" %>
+                <%= form.submit "Post Reply", class: "btn btn-primary btn-lg btn-block comment-field"  %>
               </div>
             <% end %>
           </div>

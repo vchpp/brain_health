@@ -1662,6 +1662,10 @@ audio {
   filter: sepia(100%) saturate(400%) grayscale(0) contrast(200%) hue-rotate(93deg) invert(25.833%);
 }
 
+.message-title {
+  width: 100%;
+}
+
 /* Nav Links */
 .fh5co-nav-links ul {
   padding: 0;

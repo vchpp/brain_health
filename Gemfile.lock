@@ -122,12 +122,16 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    discard (1.4.0)
+      activerecord (>= 4.2, < 9.0)
     domain_name (0.6.20240107)
     dotenv (3.1.0)
     dotenv-rails (3.1.0)
       dotenv (= 3.1.0)
       railties (>= 6.1)
     erubi (1.13.1)
+    faker (3.5.1)
+      i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
@@ -361,7 +365,9 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  discard (~> 1.4)
   dotenv-rails
+  faker
   friendly_id (~> 5.4.0)
   image_processing (~> 1.12)
   jbuilder (~> 2.7)

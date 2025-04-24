@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   root to: redirect("/#{I18n.locale}/about/mission"), as: :redirected_root
   root 'about#index'
-  
   get '/admin', to: redirect(path: "/#{I18n.locale}/admin")
-  get '/admin', to: 'admin#index'
-  authenticate :user, -> (u) { u.admin? } do
-    mount AuditLog::Engine => "/admin/audit-log"
-  end
   
   scope "(:locale)", locale: /en|ko/ do
+    
+    get '/admin', to: 'admin#index'
+    authenticate :user, -> (u) { u.admin? } do
+      mount AuditLog::Engine => "/admin/audit-log"
+    end
     resources :callouts
     resources :profiles
     resources :messages, :path => "messageboards" do
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :comments
       resources :likes, only: [:create, :destroy]
     end
+    resources :likes, only: [:index]
     
     devise_for :users
     

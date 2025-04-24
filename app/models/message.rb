@@ -11,6 +11,7 @@ class Message < ApplicationRecord
   # has_rich_text :ko_action_item
   # has_rich_text :en_external_rich_links
   # has_rich_text :ko_external_rich_links
+  belongs_to :visitor #, presence: true
   extend FriendlyId
   friendly_id :en_content, use: %i(slugged history finders)
   scope :filter_by_category, -> (category) { where category: category }
