@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@babel/core":"7.0.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-private-methods": "^7.25.9",
     "@rails/actiontext": "^6.1.7-7",
