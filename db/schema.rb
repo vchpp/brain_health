@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_12_30_063241) do
+ActiveRecord::Schema.define(version: 2025_04_24_040110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,19 +90,6 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
     t.index ["user_id", "action"], name: "index_audit_logs_on_user_id_and_action"
   end
 
-  create_table "boards", force: :cascade do |t|
-    t.string "en_post"
-    t.string "ko_post"
-    t.string "tags"
-    t.string "category"
-    t.boolean "featured"
-    t.boolean "archive"
-    t.integer "priority"
-    t.boolean "approved"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "callouts", force: :cascade do |t|
     t.string "en_title"
     t.string "en_body"
@@ -124,10 +111,17 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
   create_table "comments", force: :cascade do |t|
     t.string "content"
     t.string "tid"
-    t.bigint "message_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["message_id"], name: "index_comments_on_message_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.string "slug"
+    t.bigint "visitor_id"
+    t.datetime "discarded_at"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["discarded_at"], name: "index_comments_on_discarded_at"
+    t.index ["slug"], name: "index_comments_on_slug", unique: true
+    t.index ["visitor_id"], name: "index_comments_on_visitor_id"
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -185,6 +179,9 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
     t.bigint "message_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "likeable_type"
+    t.bigint "likeable_id"
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["message_id"], name: "index_likes_on_message_id"
   end
 
@@ -207,7 +204,10 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
     t.boolean "archive", default: false
     t.boolean "featured", default: false
     t.integer "priority"
+    t.string "tid"
+    t.bigint "visitor_id"
     t.index ["slug"], name: "index_messages_on_slug", unique: true
+    t.index ["visitor_id"], name: "index_messages_on_visitor_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -241,12 +241,22 @@ ActiveRecord::Schema.define(version: 2024_12_30_063241) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
+    t.string "tid", default: "0"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "visitors", force: :cascade do |t|
+    t.string "tid"
+    t.string "name", default: "Anonymous"
+    t.binary "avatar"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "messages"
+  add_foreign_key "comments", "visitors"
   add_foreign_key "likes", "messages"
+  add_foreign_key "messages", "visitors"
 end

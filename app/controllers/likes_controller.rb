@@ -1,7 +1,8 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
   before_action :authenticate_admin!, only: %i[ index new show edit destroy ]
-
+  before_action :check_cookie_value, only: %i[ new create edit update ]
+  
   # GET /likes or /likes.json
   def index
     @likes = Like.all
@@ -26,24 +27,20 @@ class LikesController < ApplicationController
 
   # POST /likes or /likes.json
   def create
-    @model = Message.friendly.find(params[:message_id]) if params[:message_id].present?
-    @model = Faq.friendly.find(params[:faq_id]) if params[:faq_id].present?
+    @likeable = find_likeable
     existing_likes = []
-    @model.likes.each { |like| existing_likes.push(like.tid)}
-    @like = @model.likes.new(like_params)
+    @likeable.likes.each { |like| existing_likes.push(like.tid)}
+    @like = @likeable.likes.new(like_params)
     @like.tid = cookies[:tid] || '0'
     if existing_likes.include?(@like.tid)
-      logger.info "#{params[:tid]} tried to like a message a second time, but was redirected"
-      redirect_to @model if params[:message_id].present?
-      redirect_to @model if params[:faq_id].present?
+      logger.info "#{params[:tid]} tried to like a second time, but was redirected"
+      redirect_back fallback_location: root_path, alert: "Can't like a second time.  Action denied."
     else
       respond_to do |format|
         if @like.save
-          format.html { redirect_to @model, notice: "Thanks for the like!" } if params[:message_id].present?
-          format.html { redirect_to @model, notice: "Thanks for the like!" } if params[:faq_id].present?
-          format.json { render :show, status: :created, location: @model }
-          logger.info "Visitor #{params[:tid]} liked message #{@model.id} with title #{@model.en_name}" if params[:message_id].present?
-          logger.info "Visitor #{params[:tid]} liked FAQ #{@model.id} with title #{@model.en_question}" if params[:faq_id].present?
+          format.html { redirect_back fallback_location: root_path, notice: "Thanks for the like!" } 
+          format.json { render :show, status: :created, location: @likeable }
+          logger.info "Visitor #{params[:tid]} liked #{@likeable.id} "
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @like.errors, status: :unprocessable_entity }
@@ -56,7 +53,7 @@ class LikesController < ApplicationController
   def update
     respond_to do |format|
       if @like.update(like_params)
-        format.html { redirect_to @message, notice: "Like was successfully updated." }
+        format.html { redirect_back fallback_location: root_path, notice: "Like was successfully updated." }
         format.json { render :show, status: :ok, location: @like }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,7 +66,7 @@ class LikesController < ApplicationController
   def destroy
     @like.destroy
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: "Like was successfully destroyed." }
+      format.html { redirect_back fallback_location: root_path, notice: "Like was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -78,6 +75,14 @@ class LikesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_like
       @like = Like.find(params[:id])
+    end
+
+    def find_likeable
+      if params[:comment_id]
+        Comment.find(params[:comment_id])
+      elsif params[:message_id]
+        Message.friendly.find(params[:message_id])
+      end
     end
 
     # Only allow a list of trusted parameters through.

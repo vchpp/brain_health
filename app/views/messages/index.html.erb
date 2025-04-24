@@ -1,6 +1,6 @@
 <%
-meta title: "INFORMED - Living Well - Messages",
-     description: "Informed - Living Well",
+meta title: "Brain Health 4 You - Messages",
+     description: "Brain Health 4 You",
      keywords: %w(free html5, free template, free bootstrap, html5, css3, mobile first, responsive)
 %>
 <% content_for :head do %>
@@ -8,7 +8,7 @@ meta title: "INFORMED - Living Well - Messages",
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-MW2ZN7T85S', {'TID': tid });
+    gtag('config', 'G-H8YZWYJK24', {'TID': tid });
     gtag('send','event','eventCategory','eventAction');
   </script>
 <% end %>
@@ -25,11 +25,11 @@ meta title: "INFORMED - Living Well - Messages",
       </div>
 
       <div class="col-md-8 col-md-offset-2">
-        <% if current_user.try(:admin?) %>
         <div class="fh5co-spacer fh5co-spacer-sm"></div>
           <div class="actions">
             <%= link_to 'New Message', new_message_path, class: "btn btn-primary btn-lg btn-block" %>
           </div>
+        <% if current_user.try(:admin?) %>
           <div class="actions">
             <%= link_to 'Export Messages to CSV', messages_path(format: "csv"), class: "btn btn-primary btn-lg btn-block"  %>
           </div>
@@ -59,57 +59,32 @@ meta title: "INFORMED - Living Well - Messages",
       </div>
       <div class="fh5co-spacer fh5co-spacer-md"></div>
 
-        <!--
-            <div class="col-md-8 col-md-offset-2">
-              <div class="form-group">
-                <label for="faq" class="sr-only">Filter by Category</label>
-                <form id="category" method="GET" action="/<%=params[:locale]%>/messages" >
-                  <select class="form-control input-lg" name="category" id="category-form">
-                    <option value="">All</option>
-                    <% @message_categories.each do |faq| %>
-                      <option value="<%=faq%>"> <%= faq %></option>
-                    <% end %>
-                  </select>
-                </form>
-              </div>
-            </div>
-        -->
+      
+  <div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-6 shadow-lg fh5co-feature-blurb">
 
-      <% if @featured.any? %>
-        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.additional.featured')%></h2>
-        <%= render 'featured', collection: @featured %>
-      <% end %>
+        <% @messages.each do |m| %>
+        <a href="<%= message_path(m) %>">
 
-      <% if @build_resilience.any? %>
-        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.build_resilience')%></h2>
-        <%= render 'build_resilience', collection: @build_resilience %>
-      <% end %>
+        
+          <span class="fh5co-feature-blurb-icon"><%= image_tag(m.visitor.avatar) %></span>
 
-      <% if @get_good_sleep.any? %>
-        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.get_good_sleep')%></h2>
-        <%= render 'get_good_sleep', collection: @get_good_sleep %>
-      <% end %>
+          <div class="fh5co-feature-blurb-text">
+            <h2 class="fh5co-feature-blurb-title h4"><%= m.en_name %></h2>
+            <!--<p class="fh5co-feature-blurb-description"><%=m.en_content%></p>-->
+            <!--<p class="text-center"><%= link_to t('messages.read_more'), m, class: "btn btn-primary btn-sm" %></p>-->
+            <% if current_user.try(:admin?)  %>
+              <p class="text-center"><%= link_to 'Edit this message', edit_message_path(m), class:"btn btn-primary btn-sm" %></p>
+              <p class="text-center"><%= link_to 'Delete this message', m, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-primary btn-sm" %></p>
+            <% end %>
+            <div class="fh5co-spacer fh5co-spacer-md"></div>
+          </div>
+          <div class="clearfix visible-sm-block"></div>
 
-      <% if @manage_stress.any? %>
-        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.manage_stress')%></h2>
-        <%= render 'manage_stress', collection: @manage_stress %>
-      <% end %>
+          </a>
+          <% end %>
 
-      <% if @strengthen_social_connections.any? %>
-        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.strengthen_social_connections')%></h2>
-        <%= render 'strengthen_social_connections', collection: @strengthen_social_connections %>
-      <% end %>
-
-      <% if @help_yourself_help_others.any?  %>
-        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.help_yourself_help_others')%></h2>
-        <%= render 'help_yourself_help_others', collection: @help_yourself_help_others %>
-      <% end %>
-
-      <% if @other.any?  %>
-        <h2 class="fh5co-uppercase-heading-lg text-center"><%= t('resources.healthwise.other')%></h2>
-        <%= render 'other', collection: @other %>
-      <% end %>
-    </div>
+      </div>
   </div>
 
 
@@ -121,6 +96,7 @@ meta title: "INFORMED - Living Well - Messages",
         <tr>
           <th scope="col">en_name</th>
           <th scope="col">Category</th>
+          <th scope="col">TID</th>
           <th scope="col">Tags</th>
           <th scope="col">Archived?</th>
           <th scope="col">Featured?</th>
@@ -134,6 +110,7 @@ meta title: "INFORMED - Living Well - Messages",
           <tr>
             <td><%= message.en_name %></td>
             <td><%= message.category %></td>
+            <td><%= message.tid %></td>
             <td><%= message.tags %></td>
             <% if message.archive == true %>
               <td class="archive-border"><%= message.archive %></td>

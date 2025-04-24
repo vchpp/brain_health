@@ -1,4 +1,4 @@
-<%= form_with model: [ @message, @message.comments.build ] do |form| %>
+<%= form_with model: [@message, Comment.new], local: true do |form| %>
 <% if comment.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>

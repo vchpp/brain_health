@@ -27,63 +27,14 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="field form-group">
-                    <%= form.label :en_name %>
-                    <%= form.text_area :en_name, size:'70x5', class: 'form-control input-lg', placeholder: "en_name" %>
+                    <!--<%= form.label :en_name %>-->
+                    <%= form.text_field :en_name, placeholder: "Title", class: "message-title" %>
                   </div>
                 </div>
-
                 <div class="col-md-12">
                   <div class="field form-group">
-                    <%= form.label :en_content %>
-                    <%= form.rich_text_area :en_content, placeholder: "en_content"  %>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <%= form.label :en_external_rich_links %>
-                    <%= form.rich_text_area :en_external_rich_links, placeholder: "en_external_rich_links"  %>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <%= form.label :en_action_item %>
-                    <%= form.rich_text_area :en_action_item, placeholder: "en_action_item"  %>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <% if @message.en_images.attached? %>
-                      <% @message.en_images.each do |img| %>
-                        <%= image_tag img.variant(resize_to_limit: [100, 100]), class: "img-fluid" %>
-                      <% end %>
-                    <% end %>
-                    <br>
-                    <%= form.label :en_images %>
-                    <%= form.file_field :en_images, multiple: true, direct_upload: true, class: "form-control input-lg" %>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <% if @message.en_audio.attached? %>
-                      <div class="col-md-12 text-center">
-                        <%= audio_tag url_for(@message.en_audio), controls: true %>
-                      </div>
-                    <% end %>
-                    <br>
-                    <div class="col-md-6 text-center">
-                      <%= form.label :en_audio %> <b> | All audio must be in .wav or .mp3 format. </b>
-                      <%= form.file_field :en_audio, direct_upload: true, class: "form-control input-lg" %>
-                    </div>
-                    <div class="col-md-6 text-center">
-                      <% if @message.en_audio.attached? %>
-                        <%= label_tag(:en_audio_purge, "Delete en_audio?") %>
-                        <%= check_box_tag(:en_audio_purge) %>
-                      <% end %>
-                    </div>
+                    <!--<%= form.label :en_content %>-->
+                    <%= form.rich_text_area :en_content, placeholder: "Content"  %>
                   </div>
                 </div>
               </div>
@@ -93,102 +44,43 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="field form-group">
-                    <%= form.label :ko_name %>
-                    <%= form.text_area :ko_name, size: '70x5', class: 'form-control input-lg', placeholder: "ko_name" %>
+                    <!--<%= form.label :en_name %>-->
+                    <%= form.text_field :ko_name, placeholder: "Title", class: "message-title" %>
                   </div>
                 </div>
-
                 <div class="col-md-12">
                   <div class="field form-group">
                     <%= form.label :ko_content %>
                     <%= form.rich_text_area :ko_content, placeholder: "ko_content" %>
                   </div>
                 </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <%= form.label :ko_external_rich_links %>
-                    <%= form.rich_text_area :ko_external_rich_links, placeholder: "ko_external_rich_links" %>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <%= form.label :ko_action_item %>
-                    <%= form.rich_text_area :ko_action_item, placeholder: "ko_action_item" %>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <% if @message.ko_images.attached? %>
-                      <% @message.ko_images.each do |img| %>
-                      <%= image_tag img.variant(resize_to_limit: [100, 100]), class: "img-fluid" %>
-                      <% end %>
-                    <% end %>
-                    <br>
-                    <%= form.label :ko_image %>
-                    <%= form.file_field :ko_images, multiple: true, direct_upload: true, class: "form-control input-lg" %>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="field form-group">
-                    <% if @message.ko_audio.attached? %>
-                      <div class="col-md-12 text-center">
-                        <%= audio_tag url_for(@message.ko_audio), controls: true %>
-                      </div>
-                    <% end %>
-                    <br>
-                    <div class="col-md-6 text-center">
-                      <%= form.label :ko_audio %> <b> | All audio must be in .wav or .mp3 format. </b>
-                      <%= form.file_field :ko_audio, direct_upload: true, class: "form-control input-lg" %>
-                    </div>
-                    <div class="col-md-6 text-center">
-                      <% if @message.ko_audio.attached? %>
-                        <%= label_tag(:ko_audio_purge, "Delete ko_audio?") %>
-                        <%= check_box_tag(:ko_audio_purge) %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
-
-
           </div>
         </div>
-
-        <div class="col-md-8 col-md-offset-2">
-          <div class="field form-group">
-            <%= form.label :survey_link %>
-            <%= form.text_field :survey_link, size: '70x5', class: 'form-control input-lg', placeholder: "survey_link" %>
-          </div>
-        </div>
-
-        <div class="col-md-8 col-md-offset-2">
-          <div class="col-md-5 col-md-offset-1">  
-            <div class="field form-group">
-              <%= form.label :category %>
-              <%= form.select :category, ['build_resilience', 'get_good_sleep', 'manage_stress', 'strengthen_social_connections', 'help_yourself_help_others', 'other'], class: 'form-control input-lg' %>
+        <% if current_user.try(:admin?) %>
+          <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-5 col-md-offset-1">  
+              <div class="field form-group">
+                <%= form.label :category %>
+                <%= form.select :category, ['build_resilience', 'get_good_sleep', 'manage_stress', 'strengthen_social_connections', 'help_yourself_help_others', 'other'], class: 'form-control input-lg' %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :featured? %>
+                <%= form.check_box :featured %>
+              </div>
             </div>
-            <div class="field form-group">
-              <%= form.label :featured? %>
-              <%= form.check_box :featured %>
-            </div>
-          </div>
-          <div class="col-md-5 col-md-offset-1">
-            <div class="field form-group">
-              <%= form.label :priority %> 
-              <%= form.text_field :priority, :size=>"2" %>
-            </div>
-            <div class="field form-group">
-              <%= form.label :archive? %>
-              <%= form.check_box :archive %>
+            <div class="col-md-5 col-md-offset-1">
+              <div class="field form-group">
+                <%= form.label :priority %> 
+                <%= form.text_field :priority, :size=>"2" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :archive? %>
+                <%= form.check_box :archive %>
+              </div>
             </div>
           </div>
-
-        </div>
 
         <div class="col-md-8 col-md-offset-2">
           <div class="field form-group">
@@ -196,6 +88,7 @@
             <%= form.text_area :tags, name: 'message[tags][]', size: '70x5', class: 'form-control input-lg', placeholder: "cope with loss\nself-care\ntrigger warning\ndepression", value: form.object.tags.join("\n") %>
           </div>
         </div>
+        <% end %>
 
         <div class="col-md-8 col-md-offset-2">
           <div class="actions">

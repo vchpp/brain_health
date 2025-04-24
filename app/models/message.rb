@@ -1,29 +1,30 @@
 class Message < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
-  has_many :comments, as: :commentable, dependent: :destroy
-  has_many_attached :en_images, dependent: :destroy
-  has_many_attached :ko_images, dependent: :destroy
-  has_one_attached :en_audio, dependent: :destroy
-  has_one_attached :ko_audio, dependent: :destroy
+  has_many :comments, as: :commentable
+  # has_many_attached :en_images, dependent: :destroy
+  # has_many_attached :ko_images, dependent: :destroy
+  # has_one_attached :en_audio, dependent: :destroy
+  # has_one_attached :ko_audio, dependent: :destroy
   has_rich_text :en_content
   has_rich_text :ko_content
-  has_rich_text :en_action_item
-  has_rich_text :ko_action_item
-  has_rich_text :en_external_rich_links
-  has_rich_text :ko_external_rich_links
+  # has_rich_text :en_action_item
+  # has_rich_text :ko_action_item
+  # has_rich_text :en_external_rich_links
+  # has_rich_text :ko_external_rich_links
+  belongs_to :visitor #, presence: true
   extend FriendlyId
-  friendly_id :en_name, use: %i(slugged history finders)
+  friendly_id :en_content, use: %i(slugged history finders)
   scope :filter_by_category, -> (category) { where category: category }
-  scope :filter_by_search, -> (search) { where("en_name ilike ?", "%#{search}%").or(
-                                        where("ko_name ilike ?", "%#{search}%")).or(
+  scope :filter_by_search, -> (search) { where("en_content ilike ?", "%#{search}%").or(
+                                        where("ko_content ilike ?", "%#{search}%")).or(
                                         where("category ilike ?", "%#{search}%")).or(
-                                        where("array_to_string(tags,'||') ILIKE :en_name", en_name: "%#{search}%"))
+                                        where("array_to_string(tags,'||') ILIKE :en_content", en_content: "%#{search}%"))
                                         }
 
   def self.to_csv
     attributes = %w{id
       created_at
-      en_name
+      en_content
       category
       archive}
 
@@ -60,6 +61,6 @@ class Message < ApplicationRecord
   end
 
   def should_generate_new_friendly_id? #will change the slug if the en_name changed
-    en_name_changed?
+    en_content_changed?
   end
 end
