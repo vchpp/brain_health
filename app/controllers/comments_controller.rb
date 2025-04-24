@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
       logger.info "Visitor with TID=#{cookies[:tid]} deleted comment #{@commentable.id}, saying '#{@comment.content}'"
       @commentable.discard
       respond_to do |format|
-        redirect_back fallback_location: root_path
+        format.html { redirect_back fallback_location: root_path, notice: "Comment was successfully deleted." }
         format.json { head :no_content }
       end
     else
