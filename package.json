@@ -4,6 +4,7 @@
     "@babel/plugin-transform-private-methods": "^7.25.9",
     "@rails/actiontext": "^6.1.7-7",
     "@rails/webpacker": "5.4.3",
+    "node": "^20.10.0",
     "trix": "^1.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
