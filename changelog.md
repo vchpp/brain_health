@@ -30,6 +30,8 @@ https://github.com/vchpp/informed-livingwell
 
 - [x] Buttons for admin to delete Messages and Comments
 
+- [] Add comment_likes admin panel for CSV export
+
 - [] Update MessageBoard#Index layout
 
 - [] Update MessageBoard#_form layout
