@@ -39,10 +39,9 @@ gem 'friendly_id', '~> 5.4.0'
 gem "activestorage-office-previewer"
 gem 'metamagic'
 gem 'audit-log', git: 'https://github.com/justincadburywong/audit-log'
-gem 'pdfjs_viewer-rails'
+# gem 'pdfjs_viewer-rails'
 gem 'store_model'
 gem 'lograge'
-# gem 'ancestry'
 gem 'faker'
 gem 'discard', '~> 1.4'
 
