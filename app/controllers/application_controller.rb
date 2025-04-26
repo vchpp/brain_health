@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale, :count_visits, :set_admin, :set_visitor_cookie, :set_locale_cookie, :check_visitor
   
   def restricted_access
-    # render plain: "Access Denied: Your permissions are invalid."
-    flash.now[:alert] = "Action Denied: Your permissions are invalid."
+    render plain: "Access Denied: Your permissions are invalid."
+    # flash.now[:alert] = "Action Denied: Your permissions are invalid."
   end
 
 private
@@ -88,9 +88,9 @@ private
 
     unless allowed_range.include?(cookie_value)
       reset_session  # Clear session to prevent unauthorized access
-      # redirect_to restricted_access_path, alert: "Access denied. Invalid cookie."
       logger.info "#{params[:tid]} tried to take an action, but was redirected."
-      redirect_back fallback_location: root_path, alert: "Action denied."
+      redirect_to restricted_access_path
+      # redirect_back fallback_location: root_path, alert: "Action denied."
     end
   end
 

@@ -18,9 +18,5 @@
     "node": "20.10.0",
     "yarn": "1.22.22"
   },
-  "scripts": {
-    "start": "set NODE_OPTIONS=--openssl-legacy-provider",
-    "build": "set NODE_OPTIONS=--openssl-legacy-provider"
-  },
   "license": "UNLICENSED"
 }

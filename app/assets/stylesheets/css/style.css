@@ -1658,12 +1658,21 @@ Other */
   transition: background-color 0.5s ease, transform 0.3s linear;
 }
 
+.comment-page {
+  padding-right: 10%;
+}
+
 audio {
   filter: sepia(100%) saturate(400%) grayscale(0) contrast(200%) hue-rotate(93deg) invert(25.833%);
 }
 
 .message-title {
   width: 100%;
+}
+
+.message-content {
+  min-height: 15em;
+  text-align: left;
 }
 
 /* Nav Links */

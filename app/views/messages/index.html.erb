@@ -40,7 +40,7 @@ meta title: "Brain Health 4 You - Messages",
       <div class="col-md-10 col-md-offset-1">
         <div class="col-md-12">
           <label for="faq" class="sr-only">Search for Messages (t)</label>
-          <form id="search" method="GET" action="/<%=params[:locale]%>/messages" >
+          <form id="search" method="GET" action="/<%=params[:locale]%>/messageboards" >
             <div class="col-md-8 form-group">
               <input class="form-control input-lg" type="text" name="search" placeholder="Search for Messages (t)">
             </div>
@@ -50,7 +50,7 @@ meta title: "Brain Health 4 You - Messages",
               </button>
             </div>
           </form>
-          <form id="reset" method="GET" action="/<%=params[:locale]%>/messages" >
+          <form id="reset" method="GET" action="/<%=params[:locale]%>/messageboards" >
             <div class="col-md-2 form-group">
               <input id="reset-submit" class="form-control btn btn-primary" type="submit" value="<%= t('resources.additional.all')%>">
             </div>
@@ -58,81 +58,102 @@ meta title: "Brain Health 4 You - Messages",
         </div>
       </div>
       <div class="fh5co-spacer fh5co-spacer-md"></div>
+    </div>
 
       
-  <div class="row">
-    <div class="col-lg-12 col-md-6 col-sm-6 shadow-lg fh5co-feature-blurb">
-
-        <% @messages.each do |m| %>
-        <a href="<%= message_path(m) %>">
-
-        
-          <span class="fh5co-feature-blurb-icon"><%= image_tag(m.visitor.avatar) %></span>
-
-          <div class="fh5co-feature-blurb-text">
-            <h2 class="fh5co-feature-blurb-title h4"><%= m.en_name %></h2>
-            <!--<p class="fh5co-feature-blurb-description"><%=m.en_content%></p>-->
-            <!--<p class="text-center"><%= link_to t('messages.read_more'), m, class: "btn btn-primary btn-sm" %></p>-->
-            <% if current_user.try(:admin?)  %>
-              <p class="text-center"><%= link_to 'Edit this message', edit_message_path(m), class:"btn btn-primary btn-sm" %></p>
-              <p class="text-center"><%= link_to 'Delete this message', m, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-primary btn-sm" %></p>
-            <% end %>
-            <div class="fh5co-spacer fh5co-spacer-md"></div>
-          </div>
-          <div class="clearfix visible-sm-block"></div>
-
+    <div class="row fh5co-pricing-table-1">
+      <% @messages.in_groups_of(3, false).each do |item1, item2, item3| %>
+        <% if item1 %>
+          <a href="<%= message_path(item1) %>">
+            <div class="col-md-4 col-sm-6 fh5co-pricing-table-item">
+              <div class="text-center fh5co-pricing-table-item-heading text-uppercase <%= item1.category %> ">
+                <%= image_tag(item1.visitor.avatar) %>
+              </div>
+              <div class="text-center fh5co-pricing-table-item-body <%= item1.category %>-border ">
+                <div><%= item1.en_name %></div>
+                <div class="fh5co-spacer fh5co-spacer-xxs"></div>
+              </div>
+              <div class="fh5co-spacer fh5co-spacer-md"></div>
+            </div>
           </a>
-          <% end %>
-
-      </div>
-  </div>
-
-
-  <% if current_user.try(:admin?) %>
-  <div class="col-md-12 Admin-border">
-    <h1 class="text=center">Messages Admin View</h1>
-    <table class="table table-sm table-hover table-striped">
-      <thead>
-        <tr>
-          <th scope="col">en_name</th>
-          <th scope="col">Category</th>
-          <th scope="col">TID</th>
-          <th scope="col">Tags</th>
-          <th scope="col">Archived?</th>
-          <th scope="col">Featured?</th>
-          <th scope="col">Priority</th>
-          <th scope="col" colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @admin_messages.each do |message| %>
-          <tr>
-            <td><%= message.en_name %></td>
-            <td><%= message.category %></td>
-            <td><%= message.tid %></td>
-            <td><%= message.tags %></td>
-            <% if message.archive == true %>
-              <td class="archive-border"><%= message.archive %></td>
-            <% else %>
-              <td><%= message.archive %></td>
-            <% end %>
-            <% if message.featured == true %>
-              <td class="featured-border"><%= message.featured %></td>
-            <% else %>
-              <td><%= message.featured %></td>
-            <% end %>
-            <td><%= message.priority %></td>
-            <td><%= link_to 'Show', message %></td>
-            <td><%= link_to 'Edit', edit_message_path(message) %></td>
-            <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-  <% end %>
+        <% if item2 %>
+          <a href="<%= message_path(item2) %>">
+            <div class="col-md-4 col-sm-6 fh5co-pricing-table-item">
+              <div class="text-center fh5co-pricing-table-item-heading text-uppercase <%= item2.category %> ">
+                <%= image_tag(item2.visitor.avatar) %>
+              </div>
+              <div class="text-center fh5co-pricing-table-item-body <%= item2.category %>-border ">
+                <div><%= item2.en_name %></div>
+                <div class="fh5co-spacer fh5co-spacer-xxs"></div>
+              </div>
+              <div class="fh5co-spacer fh5co-spacer-md"></div>
+            </div>
+          </a>
+        <% end %>
+        <% if item3 %>
+          <a href="<%= message_path(item3) %>">
+            <div class="col-md-4 col-sm-6 fh5co-pricing-table-item">
+              <div class="text-center fh5co-pricing-table-item-heading text-uppercase <%= item3.category %> ">
+                <%= image_tag(item3.visitor.avatar) %>
+              </div>
+              <div class="text-center fh5co-pricing-table-item-body <%= item3.category %>-border ">
+                <div><%= item3.en_name %></div>
+                <div class="fh5co-spacer fh5co-spacer-xxs"></div>
+              </div>
+              <div class="fh5co-spacer fh5co-spacer-md"></div>
+            </div>
+          </a>
+        <% end %>
+      <% end %>
+    </div>
 
+
+    <% if current_user.try(:admin?) %>
+    <div class="col-md-12 Admin-border">
+      <h1 class="text=center">Messages Admin View</h1>
+      <table class="table table-sm table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">en_name</th>
+            <th scope="col">Category</th>
+            <th scope="col">TID</th>
+            <th scope="col">Tags</th>
+            <th scope="col">Archived?</th>
+            <th scope="col">Featured?</th>
+            <th scope="col">Priority</th>
+            <th scope="col" colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @admin_messages.each do |message| %>
+            <tr>
+              <td><%= message.en_name %></td>
+              <td><%= message.category %></td>
+              <td><%= message.tid %></td>
+              <td><%= message.tags %></td>
+              <% if message.archive == true %>
+                <td class="archive-border"><%= message.archive %></td>
+              <% else %>
+                <td><%= message.archive %></td>
+              <% end %>
+              <% if message.featured == true %>
+                <td class="featured-border"><%= message.featured %></td>
+              <% else %>
+                <td><%= message.featured %></td>
+              <% end %>
+              <td><%= message.priority %></td>
+              <td><%= link_to 'Show', message %></td>
+              <td><%= link_to 'Edit', edit_message_path(message) %></td>
+              <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+  </div>
 </section>
 
 <script>
