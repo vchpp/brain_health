@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :set_message, only: %i[ show edit update destroy ]
   before_action :authenticate_admin!, only: %i[ destroy ]
   before_action :set_page, only: [:show]
-  before_action :check_cookie_value, only: %i[ new create index show edit update ]
+  before_action :check_cookie_value, only: %i[ new create index show edit update destroy]
 
   # GET /messages or /messages.json
   def index

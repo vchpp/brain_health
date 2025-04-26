@@ -2,7 +2,7 @@
   <div class="row">
     <div class="fh5co-feature-item">
       <% comments.each do |comment| %>
-      <div class="fh5co-feature-blurb">
+      <div class="fh5co-feature-blurb comment-page">
         <row class="comment" id="toggleIcon">
           <span class="fh5co-feature-icon"> <%= image_tag(comment.visitor.avatar) %> </span>
           <small><b><%= comment.visitor.name %></b> | <%= comment.created_at.strftime("%c") %>  </small>
@@ -11,9 +11,9 @@
           <row class="comment">
             <span class="fh5co-feature-icon"></span>
             <% if comment.discarded? %>
-              <h2 class="h4 muted">(Deleted by visitor)</h2>
+              <h2 class="h4 fh5co-feature-title muted">(Deleted by visitor)</h2>
             <% else %>
-                <h2 class="h4 fh5co-feature-title"><%= comment.content %></h2>
+              <h2 class="h4 fh5co-feature-title"><%= comment.content %></h2>
             <% end %>
           </row>
           <row class="comment">
@@ -46,10 +46,10 @@
             <%= form_with model: [comment, Comment.new], local: true do |form| %>
               <div class="field">
                 <%= form.label :content, class: 'sr-only'%>
-                <%= form.text_field :content, required: true, class: 'form-control input-lg expand', placeholder: t('messages.leave_comment') %>
+                <%= form.text_field :content, required: true, class: 'form-control input-lg expand comment-field', placeholder: t('messages.leave_comment') %>
               </div>
               <div class="actions">
-                <%= form.submit "Post Reply", class: "btn btn-primary btn-lg btn-block comment-field"  %>
+                <%= form.submit "Post Reply", class: "btn btn-primary btn-lg btn-block"  %>
               </div>
             <% end %>
           </div>
