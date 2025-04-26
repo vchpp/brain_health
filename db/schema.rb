@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_24_040110) do
+ActiveRecord::Schema.define(version: 2025_04_26_203122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,13 +193,7 @@ ActiveRecord::Schema.define(version: 2025_04_24_040110) do
     t.string "tags", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "en_action_item"
-    t.string "ko_action_item"
-    t.string "external_links", default: [], array: true
     t.string "slug"
-    t.string "survey_link"
-    t.string "en_external_rich_links"
-    t.string "ko_external_rich_links"
     t.string "category", default: "general"
     t.boolean "archive", default: false
     t.boolean "featured", default: false
