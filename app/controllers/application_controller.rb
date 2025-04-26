@@ -76,7 +76,6 @@ private
         SameSite: 'none',
         secure: 'true'
       }
-      create_visitor
     end
     p @current_user
     p cookies[:tid]
