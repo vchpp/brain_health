@@ -7,23 +7,30 @@ class Message < ApplicationRecord
   # has_one_attached :ko_audio, dependent: :destroy
   has_rich_text :en_content
   has_rich_text :ko_content
+  has_many :rich_texts,
+  class_name: "ActionText::RichText",
+  as: :record,
+  inverse_of: :record,
+  autosave: true,
+  dependent: :destroy
   # has_rich_text :en_action_item
   # has_rich_text :ko_action_item
   # has_rich_text :en_external_rich_links
   # has_rich_text :ko_external_rich_links
   belongs_to :visitor #, presence: true
   extend FriendlyId
-  friendly_id :en_content, use: %i(slugged history finders)
+  friendly_id :en_name, use: %i(slugged history finders)
   scope :filter_by_category, -> (category) { where category: category }
-  scope :filter_by_search, -> (search) { where("en_content ilike ?", "%#{search}%").or(
-                                        where("ko_content ilike ?", "%#{search}%")).or(
-                                        where("category ilike ?", "%#{search}%")).or(
-                                        where("array_to_string(tags,'||') ILIKE :en_content", en_content: "%#{search}%"))
-                                        }
+  scope :filter_by_search, -> (search) { joins(:rich_texts).where("action_text_rich_texts.body ilike ?", "%#{search}%").or(
+                                                            where("array_to_string(tags,'||') ILIKE :en_name", en_name: "%#{search}%")).or(
+                                                            where("en_name ilike ?", "%#{search}%")).or(
+                                                            where("category ilike ?", "%#{search}%")).uniq
+                                                          }
 
   def self.to_csv
     attributes = %w{id
       created_at
+      en_name
       en_content
       category
       archive}

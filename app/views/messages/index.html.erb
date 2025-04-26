@@ -40,7 +40,7 @@ meta title: "Brain Health 4 You - Messages",
       <div class="col-md-10 col-md-offset-1">
         <div class="col-md-12">
           <label for="faq" class="sr-only">Search for Messages (t)</label>
-          <form id="search" method="GET" action="/<%=params[:locale]%>/messages" >
+          <form id="search" method="GET" action="/<%=params[:locale]%>/messageboards" >
             <div class="col-md-8 form-group">
               <input class="form-control input-lg" type="text" name="search" placeholder="Search for Messages (t)">
             </div>
@@ -50,7 +50,7 @@ meta title: "Brain Health 4 You - Messages",
               </button>
             </div>
           </form>
-          <form id="reset" method="GET" action="/<%=params[:locale]%>/messages" >
+          <form id="reset" method="GET" action="/<%=params[:locale]%>/messageboards" >
             <div class="col-md-2 form-group">
               <input id="reset-submit" class="form-control btn btn-primary" type="submit" value="<%= t('resources.additional.all')%>">
             </div>
