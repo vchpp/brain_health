@@ -1672,6 +1672,7 @@ audio {
 
 .message-content {
   min-height: 15em;
+  text-align: left;
 }
 
 /* Nav Links */

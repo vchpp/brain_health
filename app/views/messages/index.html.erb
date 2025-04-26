@@ -65,15 +65,12 @@ meta title: "Brain Health 4 You - Messages",
 
         <% @messages.each do |m| %>
         <a href="<%= message_path(m) %>">
-
-        
           <span class="fh5co-feature-blurb-icon"><%= image_tag(m.visitor.avatar) %></span>
-
           <div class="fh5co-feature-blurb-text">
             <h2 class="fh5co-feature-blurb-title h4"><%= m.en_name %></h2>
             <!--<p class="fh5co-feature-blurb-description"><%=m.en_content%></p>-->
             <!--<p class="text-center"><%= link_to t('messages.read_more'), m, class: "btn btn-primary btn-sm" %></p>-->
-            <% if current_user.try(:admin?)  %>
+            <% if current_user.try(:admin?) %> <!-- || @message.tid == @current_user.tid  -->
               <p class="text-center"><%= link_to 'Edit this message', edit_message_path(m), class:"btn btn-primary btn-sm" %></p>
               <p class="text-center"><%= link_to 'Delete this message', m, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-primary btn-sm" %></p>
             <% end %>

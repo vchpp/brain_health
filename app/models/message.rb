@@ -1,22 +1,14 @@
 class Message < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, as: :commentable
-  # has_many_attached :en_images, dependent: :destroy
-  # has_many_attached :ko_images, dependent: :destroy
-  # has_one_attached :en_audio, dependent: :destroy
-  # has_one_attached :ko_audio, dependent: :destroy
   has_rich_text :en_content
   has_rich_text :ko_content
   has_many :rich_texts,
-  class_name: "ActionText::RichText",
-  as: :record,
-  inverse_of: :record,
-  autosave: true,
-  dependent: :destroy
-  # has_rich_text :en_action_item
-  # has_rich_text :ko_action_item
-  # has_rich_text :en_external_rich_links
-  # has_rich_text :ko_external_rich_links
+    class_name: "ActionText::RichText",
+    as: :record,
+    inverse_of: :record,
+    autosave: true,
+    dependent: :destroy
   belongs_to :visitor #, presence: true
   extend FriendlyId
   friendly_id :en_name, use: %i(slugged history finders)
@@ -68,6 +60,6 @@ class Message < ApplicationRecord
   end
 
   def should_generate_new_friendly_id? #will change the slug if the en_name changed
-    en_content_changed?
+    en_name_changed?
   end
 end
