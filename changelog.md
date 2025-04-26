@@ -32,17 +32,17 @@ https://github.com/vchpp/informed-livingwell
 
 - [x] Admin Message and Comment display at bottom and export to CSV
 
+- [x] Update MessageBoard#Index layout
+
+- [x] Update MessageBoard#_form layout
+
 - [] Add comment_likes admin panel for CSV export
-
-- [] Update MessageBoard#Index layout
-
-- [] Update MessageBoard#_form layout
 
 - [] Make Messages and Comments editable based on cookie value
 
 - [] Fix edit comment so it doesn't post a second comment
 
-- [] Placeholder for deleted Message and Comments (dispose)
+- [] Placeholder for deleted Message and Comments (discard)
 
 ~ - [] gate behind cf access rule ~
 
