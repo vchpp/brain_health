@@ -24,6 +24,7 @@ private
   def set_admin
     if current_user.try(:admin?)
       cookies[:tid] = "0"
+      @visitor = current_user
     end
   end
   
@@ -52,28 +53,25 @@ private
       v.avatar = Faker::Avatar.image(slug: cookies[:tid], size: "50x50")
     end
     @visitor.save
-    current_user = @visitor
     flash.now[:notice] = "Welcome " + @visitor.name
   end
   
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
   def check_visitor
-    if current_user == nil && cookies[:tid] == '0'
+    if @visitor == nil && cookies[:tid] == '0'
       # handle admin signouts
-    # redirect_to user_session_path
-      cookies[:tid] ||= {
-        value: rand(1001..99999999).to_s,
-        path: '/',
-        SameSite: 'none',
-        secure: 'true'
-      }
-      # create_visitor 
+      # cookies[:tid] ||= {
+      #   value: rand(1001..99999999).to_s,
+      #   path: '/',
+      #   SameSite: 'none',
+      #   secure: 'true'
+      # }
     elsif cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
       # check if not admin
       if Visitor.where(tid: cookies[:tid]).first != nil
         # check if Visitor exists
         if Visitor.where(tid: cookies[:tid]).first.tid > '0'
-          current_user = Visitor.where(tid: cookies[:tid]).first
+          @visitor = Visitor.where(tid: cookies[:tid]).first
         end
       else 
         create_visitor
@@ -81,7 +79,7 @@ private
     else cookies[:tid] == '0'
       # check if admin, do nothing
     end
-    p "current user is #{current_user}"
+    p "Visitor is #{@visitor}"
     p "TID = " + cookies[:tid]
   end
   
