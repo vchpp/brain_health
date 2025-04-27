@@ -23,7 +23,6 @@ private
   
   def set_admin
     if current_user.try(:admin?)
-      cookies[:tid] = nil
       cookies[:tid] = "0"
     end
   end
@@ -53,36 +52,37 @@ private
       v.avatar = Faker::Avatar.image(slug: cookies[:tid], size: "50x50")
     end
     @visitor.save
-    @current_user = @visitor
+    current_user = @visitor
     flash.now[:notice] = "Welcome " + @visitor.name
   end
   
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
   def check_visitor
-    # check if admin, do nothing
-    if cookies[:tid] == '0'
-    # handle admin signouts
-    elsif @current_user == nil && cookies[:tid] == '0'
+    if current_user == nil && cookies[:tid] == '0'
+      # handle admin signouts
+    # redirect_to user_session_path
       cookies[:tid] ||= {
         value: rand(1001..99999999).to_s,
         path: '/',
         SameSite: 'none',
         secure: 'true'
       }
-      create_visitor 
-    # check if not admin
+      # create_visitor 
     elsif cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
-      # check if Visitor exists
+      # check if not admin
       if Visitor.where(tid: cookies[:tid]).first != nil
+        # check if Visitor exists
         if Visitor.where(tid: cookies[:tid]).first.tid > '0'
-          @current_user = Visitor.where(tid: cookies[:tid]).first
+          current_user = Visitor.where(tid: cookies[:tid]).first
         end
       else 
         create_visitor
       end
+    else cookies[:tid] == '0'
+      # check if admin, do nothing
     end
-    p @current_user
-    p cookies[:tid]
+    p "current user is #{current_user}"
+    p "TID = " + cookies[:tid]
   end
   
   def check_cookie_value
@@ -90,6 +90,7 @@ private
     cookie_value = cookies[:tid].to_i  # Convert cookie to integer
 
     unless allowed_range.include?(cookie_value)
+      p "************  not allowed  *************"
       reset_session  # Clear session to prevent unauthorized access
       logger.info "#{params[:tid]} tried to take an action, but was redirected."
       redirect_to restricted_access_path
