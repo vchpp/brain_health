@@ -23,7 +23,7 @@ private
   
   def set_admin
     if current_user.try(:admin?)
-      cookies[:tid] = 0
+      cookies[:tid] = "0"
     end
   end
   
