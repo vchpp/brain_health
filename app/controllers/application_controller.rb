@@ -23,6 +23,7 @@ private
   
   def set_admin
     if current_user.try(:admin?)
+      cookies[:tid] = nil
       cookies[:tid] = "0"
     end
   end
@@ -58,8 +59,19 @@ private
   
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
   def check_visitor
+    # check if admin, do nothing
+    if cookies[:tid] == '0'
+    # handle admin signouts
+    elsif @current_user == nil && cookies[:tid] == '0'
+      cookies[:tid] ||= {
+        value: rand(1001..99999999).to_s,
+        path: '/',
+        SameSite: 'none',
+        secure: 'true'
+      }
+      create_visitor 
     # check if not admin
-    if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
+    elsif cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
       # check if Visitor exists
       if Visitor.where(tid: cookies[:tid]).first != nil
         if Visitor.where(tid: cookies[:tid]).first.tid > '0'
@@ -68,15 +80,6 @@ private
       else 
         create_visitor
       end
-    elsif @current_user == nil && cookies[:tid] == '0'
-      # handle admin signouts
-      cookies[:tid] ||= {
-        value: rand(1001..99999999).to_s,
-        path: '/',
-        SameSite: 'none',
-        secure: 'true'
-      }
-      create_visitor 
     end
     p @current_user
     p cookies[:tid]
