@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   
   def restricted_access
     render plain: "Access Denied: Your permissions are invalid."
-    # flash.now[:alert] = "Action Denied: Your permissions are invalid."
   end
 
 private
@@ -33,14 +32,14 @@ private
       cookies[:tid] = {
         value: params[:tid],
         path: '/',
-        SameSite: 'none',
+        SameSite: 'Strict',
         secure: 'true'
       }
     else
       cookies[:tid] ||= {
         value: rand(1001..99999999).to_s,
         path: '/',
-        SameSite: 'none',
+        SameSite: 'Strict',
         secure: 'true'
       }
     end
@@ -70,12 +69,12 @@ private
       end
     elsif @visitor == nil && cookies[:tid] == '0'
     # handle admin signouts
-      # cookies[:tid] ||= {
-      #   value: rand(1001..99999999).to_s,
-      #   path: '/',
-      #   SameSite: 'none',
-      #   secure: 'true'
-      # }
+      cookies[:tid] ||= {
+        value: rand(1001..99999999).to_s,
+        path: '/',
+        SameSite: 'Strict',
+        secure: 'true'
+      }
     end
     p "Visitor is #{@visitor}"
     p "TID = " + cookies[:tid]
@@ -84,13 +83,13 @@ private
   def check_cookie_value
     allowed_range = (0..1000)  # Define the acceptable range
     cookie_value = cookies[:tid].to_i  # Convert cookie to integer
+    p "********* converted cookie is #{cookie_value} *************"
 
     unless allowed_range.include?(cookie_value)
       p "************  not allowed  *************"
       reset_session  # Clear session to prevent unauthorized access
       logger.info "#{params[:tid]} tried to take an action, but was redirected."
       redirect_to restricted_access_path
-      # redirect_back fallback_location: root_path, alert: "Action denied."
     end
   end
 
