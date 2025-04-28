@@ -43,6 +43,7 @@ private
         secure: 'true'
       }
     end
+    p "set_visitor_cookie TID is being set to " + cookies[:tid]
   end
 
   def create_visitor
@@ -58,6 +59,7 @@ private
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
   def check_visitor
     if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
+    p "check_visitor cookie evaluated"
     # check if not admin
       if Visitor.where(tid: cookies[:tid]).first != nil
         # check if Visitor exists
@@ -76,8 +78,8 @@ private
         secure: 'true'
       }
     end
-    p "Visitor is #{@visitor}"
-    p "TID = " + cookies[:tid]
+    p "check_visitor finds Visitor is #{@visitor}"
+    p "check_visitor TID = " + cookies[:tid]
   end
   
   def check_cookie_value
