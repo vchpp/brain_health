@@ -62,7 +62,7 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
-    @message.visitor_id = current_user.id
+    @message.visitor_id = @visitor.id
     @message.tid = cookies[:tid] || '0'
     @message[:tags] = params[:message][:tags].first.split("\r\n").map(&:strip) if params[:message][:tags].present?
 
@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
       if @message.save
         format.html { redirect_to @message, notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
-        logger.info("#{current_user} created Message #{@message.id} with title #{@message.en_name}")
+        logger.info("#{@visitor.tid} created Message #{@message.id} with title #{@message.en_name}")
         # audit! :created_message, @message, payload: message_params
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -87,7 +87,7 @@ class MessagesController < ApplicationController
       if @message.update(message_params)
         format.html { redirect_to @message, notice: "Message was successfully updated." }
         format.json { render :show, status: :ok, location: @message }
-        logger.info("#{current_user} updated Message #{@message.id} with title #{@message.en_name}")
+        logger.info("#{@visitor.tid} updated Message #{@message.id} with title #{@message.en_name}")
         # audit! :updated_message, @message, payload: message_params
       else
         format.html { render :edit, status: :unprocessable_entity }
