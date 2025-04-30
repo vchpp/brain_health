@@ -1,6 +1,6 @@
 class AboutController < ApplicationController
   before_action :set_profiles, only: %i[ researchers ]
-  before_action :check_cookie_value, only: %i[ index researchers lhw cab_members ]
+  # before_action :check_cookie_value, only: %i[ index researchers lhw cab_members ]
 
   def index
     @callouts = Callout.where(nil)
