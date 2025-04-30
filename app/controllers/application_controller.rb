@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   
   def restricted_access
     render plain: "Access Denied: Your permissions are invalid."
+    # flash.now[:alert] = "Not allowed, incorrect credentials"
   end
 
 private
@@ -26,23 +27,21 @@ private
       @visitor = current_user
     end
   end
+
+  def set_allowed_cookie
+    cookies[:tid] ||= params[:tid]
+  end
+
+  def set_restricted_cookie
+    cookies[:tid] ||= rand(1001..99999999).to_s
+  end
   
   def set_visitor_cookie
     if params[:tid].to_i.between?(0,1000)
-      cookies[:tid] = {
-        value: params[:tid],
-        path: '/',
-        SameSite: 'Strict',
-        secure: 'true'
-      }
+      set_allowed_cookie
       set_admin
     else
-      cookies[:tid] ||= {
-        value: rand(1001..99999999).to_s,
-        path: '/',
-        SameSite: 'Strict',
-        secure: 'true'
-      }
+      set_restricted_cookie
     end
   end
 
@@ -61,7 +60,7 @@ private
     if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
     # check if not admin
       if Visitor.where(tid: cookies[:tid]).first != nil
-        # check if Visitor exists
+      # check if Visitor exists
         if Visitor.where(tid: cookies[:tid]).first.tid > '0'
           @visitor = Visitor.where(tid: cookies[:tid]).first
         end
@@ -70,12 +69,9 @@ private
       end
     elsif @visitor == nil && cookies[:tid] == '0'
     # handle admin signouts
-      cookies[:tid] ||= {
-        value: rand(1001..99999999).to_s,
-        path: '/',
-        SameSite: 'Strict',
-        secure: 'true'
-      }
+      set_restricted_cookie
+    elsif cookies[:tid] == nil
+      set_restricted_cookie
     end
   end
   
