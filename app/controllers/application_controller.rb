@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, :only => :create
   protect_from_forgery prepend: true
-  before_action :set_locale, :count_visits, :set_admin, :set_visitor_cookie, :set_locale_cookie, :check_visitor
+  before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :check_visitor
   
   def restricted_access
     render plain: "Access Denied: Your permissions are invalid."
@@ -28,13 +28,14 @@ private
   end
   
   def set_visitor_cookie
-    if params[:tid].to_i.between?(1,1000)
+    if params[:tid].to_i.between?(0,1000)
       cookies[:tid] = {
         value: params[:tid],
         path: '/',
         SameSite: 'Strict',
         secure: 'true'
       }
+      set_admin
     else
       cookies[:tid] ||= {
         value: rand(1001..99999999).to_s,
@@ -43,7 +44,6 @@ private
         secure: 'true'
       }
     end
-    p "set_visitor_cookie TID is being set to " + cookies[:tid]
   end
 
   def create_visitor
@@ -59,7 +59,6 @@ private
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
   def check_visitor
     if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
-    p "check_visitor cookie evaluated"
     # check if not admin
       if Visitor.where(tid: cookies[:tid]).first != nil
         # check if Visitor exists
@@ -78,17 +77,13 @@ private
         secure: 'true'
       }
     end
-    p "check_visitor finds Visitor is #{@visitor}"
-    p "check_visitor TID = " + cookies[:tid]
   end
   
   def check_cookie_value
     allowed_range = (0..1000)  # Define the acceptable range
     cookie_value = cookies[:tid].to_i  # Convert cookie to integer
-    p "********* converted cookie is #{cookie_value} *************"
 
     unless allowed_range.include?(cookie_value)
-      p "************  not allowed  *************"
       reset_session  # Clear session to prevent unauthorized access
       logger.info "#{params[:tid]} tried to take an action, but was redirected."
       redirect_to restricted_access_path
