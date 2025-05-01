@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, :only => :create
   protect_from_forgery prepend: true
-  before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :check_visitor
+  before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :set_admin, :check_visitor
   
   def restricted_access
     render plain: "Access Denied: Your permissions are invalid."
@@ -23,27 +23,16 @@ private
   
   def set_admin
     if current_user.try(:admin?)
-      p "SET ADMIN"
       cookies[:tid] = "0"
-      p cookies[:tid]
       @visitor = current_user
     end
   end
-
-  def set_allowed_cookie
-    cookies[:tid] ||= params[:tid]
-  end
-
-  def set_restricted_cookie
-    cookies[:tid] ||= rand(1001..99999999).to_s
-  end
   
   def set_visitor_cookie
-    if params[:tid].to_i.between?(0,1000)
-      set_allowed_cookie
-      set_admin
+    if params[:tid].to_i.between?(1,1000)
+      cookies[:tid] ||= params[:tid]
     else
-      set_restricted_cookie
+      cookies[:tid] ||= rand(1001..99999999).to_s
     end
   end
 
