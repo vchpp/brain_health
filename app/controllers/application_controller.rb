@@ -23,7 +23,9 @@ private
   
   def set_admin
     if current_user.try(:admin?)
+      p "SET ADMIN"
       cookies[:tid] = "0"
+      p cookies[:tid]
       @visitor = current_user
     end
   end
