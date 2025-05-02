@@ -27,16 +27,12 @@ private
       @visitor = current_user
     end
   end
-
-  def set_restricted_cookie
-    cookies[:tid] ||= rand(1001..99999999).to_s
-  end
   
   def set_visitor_cookie
     if params[:tid].to_i.between?(0,1000)
       cookies[:tid] ||= params[:tid]
     else
-      set_restricted_cookie
+      cookies[:tid] ||= rand(1001..99999999).to_s
     end
   end
 
@@ -62,11 +58,9 @@ private
       else 
         create_visitor
       end
-    elsif current_user == nil && cookies[:tid] == '0'
-    # handle admin signouts
-      set_restricted_cookie
-    elsif cookies[:tid] == nil
-      set_restricted_cookie
+    elsif current_user == nil && cookies[:tid] == '0' || cookies[:tid] == nil
+    # handle admin signouts or new visitors
+      cookies[:tid] ||= rand(1001..99999999).to_s
     end
   end
   

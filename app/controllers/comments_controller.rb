@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
     @commentable = find_commentable
     @comment = @commentable.comments.new(comment_params)
     @comment.tid = cookies[:tid] || '0'
-    @comment.visitor_id = @visitor.id 
+    @comment.visitor_id = @visitor.id  || current_user.id
     respond_to do |format|
       if @comment.save
         format.html { redirect_back fallback_location: root_path, notice: "Thanks for your comment!" } 
