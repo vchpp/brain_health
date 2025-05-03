@@ -62,7 +62,7 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
-    @message.visitor_id = @visitor.id || current_user.id
+    @message.visitor_id = @visitor.id
     @message.tid = cookies[:tid] || '0'
     @message[:tags] = params[:message][:tags].first.split("\r\n").map(&:strip) if params[:message][:tags].present?
 

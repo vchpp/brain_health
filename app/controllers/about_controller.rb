@@ -27,16 +27,16 @@ class AboutController < ApplicationController
       if @profiles.any?
         @researchers = []
         # @janice = @profiles.find_by(fullname: "Janice Tsoh")
-        # @joyce = @profiles.find_by(fullname: "Joyce Cheng")
+        @sonia = @profiles.find_by(fullname: "Sonia Picht")
         @jiwon = @profiles.find_by(fullname: "JiWon Choi")
         @profiles.each do |profile|
           @researchers << profile if profile.profile_type == 'Research Team Member'
         end
-        # @researchers.delete(@joyce)
+        @researchers.delete(@sonia)
         @researchers.delete(@jiwon)
         # @researchers.delete(@janice)
         @researchers.unshift(@jiwon)
-        # @researchers.unshift(@joyce)
+        @researchers.unshift(@sonia)
         # @researchers.unshift(@janice)
       end
     end
