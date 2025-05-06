@@ -23,8 +23,6 @@ private
   def set_admin
     if current_user.try(:admin?)
       cookies[:tid] = "0"
-      @visitor = current_user
-      p "%%%%% SET_ADMIN VISITOR is #{@visitor.tid} %%%%%"
     end
   end
   
@@ -32,7 +30,7 @@ private
     if params[:tid].to_i.between?(0,1000)
       cookies[:tid] ||= params[:tid]
     else
-      cookies[:tid] ||= rand(1001..99999999).to_s
+      cookies[:tid] = rand(1001..99999999).to_s
     end
   end
   
@@ -58,7 +56,6 @@ private
       else 
         create_visitor
       end
-      p "%%%%% CHECK_VISITOR is #{@visitor.tid} %%%%%"
     elsif current_user == nil && cookies[:tid] == '0'
     # handle admin signouts
       cookies[:tid] = rand(1001..99999999).to_s

@@ -137,7 +137,7 @@ meta title: "Brain Health 4 You - Message - #{@message.id}",
           <div class="field form-group">
             <div class="fh5co-spacer fh5co-spacer-xs"></div>
             <div class="col-md-12">
-            <% if current_user.try(:admin?) || @message.tid == @visitor.tid %>
+            <% if @message.tid == @message.sender.tid %>
               <div class="actions">
                 <%= link_to 'Edit Message', edit_message_path(@message), class: "btn btn-primary btn-lg btn-block" %>
               </div>

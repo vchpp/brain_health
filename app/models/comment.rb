@@ -2,7 +2,8 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   has_many :comments, as: :commentable
   has_many :likes, as: :likeable, dependent: :destroy
-  belongs_to :visitor #, presence: true
+  belongs_to :sender, polymorphic: true
+  
   extend FriendlyId
   friendly_id :content, use: %i(slugged history finders)
   # validates :content, presence: true
