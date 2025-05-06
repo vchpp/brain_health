@@ -27,10 +27,10 @@ private
   end
   
   def set_visitor_cookie
-    if params[:tid].to_i.between?(0,1000)
+    if params[:tid].present? && params[:tid].to_i.between?(0,1000)
       cookies[:tid] ||= params[:tid]
     else
-      cookies[:tid] = rand(1001..99999999).to_s
+      cookies[:tid] ||= rand(1001..99999999).to_s
     end
   end
   
@@ -68,7 +68,7 @@ private
 
     unless allowed_range.include?(cookie_value)
       reset_session  # Clear session to prevent unauthorized access
-      logger.info "#{params[:tid]} tried to take an action, but was redirected."
+      logger.info "#{cookies[:tid]} tried to take an action, but was redirected."
       redirect_to restricted_access_path
     end
   end
