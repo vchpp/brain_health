@@ -35,13 +35,13 @@ private
   end
   
   def create_visitor
-    @visitor = Visitor.new do |v|
+    @sender = Visitor.new do |v|
       v.tid = cookies[:tid]
       v.name = Faker::Adjective.unique.positive + " " + Faker::Creature::Bird.unique.adjective + " " + Faker::Creature::Animal.unique.name
       v.avatar = Faker::Avatar.image(slug: cookies[:tid], size: "50x50")
     end
-    @visitor.save
-    flash.now[:notice] = "Welcome " + @visitor.name
+    @sender.save
+    flash.now[:notice] = "Welcome " + @sender.name
   end
   
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
@@ -51,7 +51,7 @@ private
       if Visitor.where(tid: cookies[:tid]).first != nil
         # check if Visitor exists
         if Visitor.where(tid: cookies[:tid]).first.tid > '0'
-          @visitor = Visitor.where(tid: cookies[:tid]).first
+          @sender = Visitor.where(tid: cookies[:tid]).first
         end
       else 
         create_visitor
@@ -59,6 +59,9 @@ private
     elsif current_user == nil && cookies[:tid] == '0'
     # handle admin signouts
       cookies[:tid] = rand(1001..99999999).to_s
+    elsif current_user && cookies[:tid] > '0'
+    # handle admin sign_ins after navigating around
+      cookies[:tid] = '0'
     end
   end
   
