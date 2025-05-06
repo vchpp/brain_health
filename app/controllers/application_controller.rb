@@ -23,13 +23,11 @@ private
   def set_admin
     if current_user.try(:admin?)
       cookies[:tid] = "0"
-      @visitor = current_user
-      p "%%%%% SET_ADMIN VISITOR is #{@visitor.tid} %%%%%"
     end
   end
   
   def set_visitor_cookie
-    if params[:tid].to_i.between?(0,1000)
+    if params[:tid].present? && params[:tid].to_i.between?(0,1000)
       cookies[:tid] ||= params[:tid]
     else
       cookies[:tid] ||= rand(1001..99999999).to_s
@@ -58,7 +56,6 @@ private
       else 
         create_visitor
       end
-      p "%%%%% CHECK_VISITOR is #{@visitor.tid} %%%%%"
     elsif current_user == nil && cookies[:tid] == '0'
     # handle admin signouts
       cookies[:tid] = rand(1001..99999999).to_s
@@ -71,7 +68,7 @@ private
 
     unless allowed_range.include?(cookie_value)
       reset_session  # Clear session to prevent unauthorized access
-      logger.info "#{params[:tid]} tried to take an action, but was redirected."
+      logger.info "#{cookies[:tid]} tried to take an action, but was redirected."
       redirect_to restricted_access_path
     end
   end

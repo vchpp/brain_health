@@ -9,7 +9,7 @@ class Message < ApplicationRecord
     inverse_of: :record,
     autosave: true,
     dependent: :destroy
-  belongs_to :visitor #, presence: true
+  belongs_to :sender, polymorphic: true
   extend FriendlyId
   friendly_id :en_name, use: %i(slugged history finders)
   scope :filter_by_category, -> (category) { where category: category }

@@ -30,14 +30,15 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @commentable = find_commentable
+    @sender = find_sender
     @comment = @commentable.comments.new(comment_params)
-    @comment.tid = cookies[:tid] || '0'
-    @comment.visitor_id = @visitor.id
+    @comment.tid = @sender.tid
+    @comment.sender = @sender
     respond_to do |format|
       if @comment.save
         format.html { redirect_back fallback_location: root_path, notice: "Thanks for your comment!" } 
         format.json { render :show, status: :created, location: @commentable }
-        logger.info "Visitor with TID=#{cookies[:tid]} made a comment on message #{@commentable.id}, saying '#{@comment.content}'"
+        logger.info "Visitor #{@sender.tid} made a comment on message #{@commentable.id}, saying '#{@comment.content}'"
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -66,7 +67,7 @@ class CommentsController < ApplicationController
   def destroy
     if @comment.tid == cookies[:tid]
       @commentable = find_commentable
-      logger.info "Visitor with TID=#{cookies[:tid]} deleted comment #{@commentable.id}, saying '#{@comment.content}'"
+      logger.info "Visitor #{@sender.tid}} deleted comment #{@commentable.id}, saying '#{@comment.content}'"
       @commentable.discard
       respond_to do |format|
         format.html { redirect_back fallback_location: root_path, notice: "Comment was successfully deleted." }
@@ -88,6 +89,14 @@ class CommentsController < ApplicationController
         Comment.friendly.find(params[:comment_id])
       elsif params[:message_id]
         Message.friendly.find(params[:message_id])
+      end
+    end
+
+    def find_sender
+      if current_user
+        current_user
+      elsif @visitor
+        @visitor
       end
     end
 

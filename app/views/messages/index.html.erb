@@ -67,7 +67,7 @@ meta title: "Brain Health 4 You - Messages",
           <a href="<%= message_path(item1) %>">
             <div class="col-md-4 col-sm-6 fh5co-pricing-table-item">
               <div class="text-center fh5co-pricing-table-item-heading text-uppercase <%= item1.category %> ">
-                <%= image_tag(item1.visitor.avatar) %>
+                <%= image_tag(item1.sender.avatar) %>
               </div>
               <div class="text-center fh5co-pricing-table-item-body <%= item1.category %>-border ">
                 <div><%= item1.en_name %></div>
@@ -81,7 +81,7 @@ meta title: "Brain Health 4 You - Messages",
           <a href="<%= message_path(item2) %>">
             <div class="col-md-4 col-sm-6 fh5co-pricing-table-item">
               <div class="text-center fh5co-pricing-table-item-heading text-uppercase <%= item2.category %> ">
-                <%= image_tag(item2.visitor.avatar) %>
+                <%= image_tag(item2.sender.avatar) %>
               </div>
               <div class="text-center fh5co-pricing-table-item-body <%= item2.category %>-border ">
                 <div><%= item2.en_name %></div>
@@ -95,7 +95,7 @@ meta title: "Brain Health 4 You - Messages",
           <a href="<%= message_path(item3) %>">
             <div class="col-md-4 col-sm-6 fh5co-pricing-table-item">
               <div class="text-center fh5co-pricing-table-item-heading text-uppercase <%= item3.category %> ">
-                <%= image_tag(item3.visitor.avatar) %>
+                <%= image_tag(item3.sender.avatar) %>
               </div>
               <div class="text-center fh5co-pricing-table-item-body <%= item3.category %>-border ">
                 <div><%= item3.en_name %></div>

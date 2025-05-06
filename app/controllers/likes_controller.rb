@@ -28,19 +28,21 @@ class LikesController < ApplicationController
   # POST /likes or /likes.json
   def create
     @likeable = find_likeable
+    @sender = find_sender
     existing_likes = []
     @likeable.likes.each { |like| existing_likes.push(like.tid)}
     @like = @likeable.likes.new(like_params)
-    @like.tid = cookies[:tid] || '0'
+    @like.sender = @sender
+    @like.tid = @sender.tid
     if existing_likes.include?(@like.tid)
-      logger.info "#{params[:tid]} tried to like a second time, but was redirected"
+      logger.info "Sender #{@sender.tid} tried to like a second time, but was redirected"
       redirect_back fallback_location: root_path, alert: "Can't like a second time.  Action denied."
     else
       respond_to do |format|
         if @like.save
           format.html { redirect_back fallback_location: root_path, notice: "Thanks for the like!" } 
           format.json { render :show, status: :created, location: @likeable }
-          logger.info "Visitor #{params[:tid]} liked #{@likeable.id} "
+          logger.info "Sender #{@sender.tid} liked #{@likeable.id} "
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @like.errors, status: :unprocessable_entity }
@@ -82,6 +84,14 @@ class LikesController < ApplicationController
         Comment.find(params[:comment_id])
       elsif params[:message_id]
         Message.friendly.find(params[:message_id])
+      end
+    end
+
+    def find_sender
+      if current_user
+        current_user
+      elsif @visitor
+        @visitor
       end
     end
 

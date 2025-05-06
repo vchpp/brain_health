@@ -31,7 +31,7 @@ class MessagesController < ApplicationController
       end
     end
     @likes = @message.likes.all.order('tid::integer ASC')
-    @all_comments = @message.comments.includes(:likes, :visitor)
+    @all_comments = @message.comments.includes(:likes, :sender)
     @admin_comments = @all_comments.order('tid::integer ASC')
     @comments = @all_comments.order(created_at: :desc).limit(10).offset((@page.to_i - 1) * 10)
     @page_count = (@all_comments.count / 10) + 1
@@ -62,15 +62,16 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
-    @message.visitor_id = @visitor.id
-    @message.tid = cookies[:tid] || '0'
+    @sender = find_sender
+    @message.sender = @sender
+    @message.tid = @sender.tid
     @message[:tags] = params[:message][:tags].first.split("\r\n").map(&:strip) if params[:message][:tags].present?
 
     respond_to do |format|
       if @message.save
         format.html { redirect_to @message, notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
-        logger.info("#{@visitor.tid} created Message #{@message.id} with title #{@message.en_name}")
+        logger.info("Sender #{@sender.tid} created Message #{@message.id} with title #{@message.en_name}")
         # audit! :created_message, @message, payload: message_params
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -87,7 +88,7 @@ class MessagesController < ApplicationController
       if @message.update(message_params)
         format.html { redirect_to @message, notice: "Message was successfully updated." }
         format.json { render :show, status: :ok, location: @message }
-        logger.info("#{@visitor.tid} updated Message #{@message.id} with title #{@message.en_name}")
+        logger.info("Sender #{@sender.tid} updated Message #{@message.id} with title #{@message.en_name}")
         # audit! :updated_message, @message, payload: message_params
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -150,6 +151,14 @@ private
     likes = @message.likes.all
     down = likes.map do |like| like.down end
     @down_likes = down.map(&:to_i).reduce(0, :+)
+  end
+
+  def find_sender
+    if current_user
+      current_user
+    elsif @visitor
+      @visitor
+    end
   end
   
   def coming_soon

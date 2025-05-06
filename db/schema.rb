@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_26_203122) do
+ActiveRecord::Schema.define(version: 2025_05_06_214008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,12 +116,13 @@ ActiveRecord::Schema.define(version: 2025_04_26_203122) do
     t.string "commentable_type"
     t.bigint "commentable_id"
     t.string "slug"
-    t.bigint "visitor_id"
     t.datetime "discarded_at"
+    t.string "sender_type"
+    t.bigint "sender_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["discarded_at"], name: "index_comments_on_discarded_at"
+    t.index ["sender_type", "sender_id"], name: "index_comments_on_sender"
     t.index ["slug"], name: "index_comments_on_slug", unique: true
-    t.index ["visitor_id"], name: "index_comments_on_visitor_id"
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -181,8 +182,11 @@ ActiveRecord::Schema.define(version: 2025_04_26_203122) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "likeable_type"
     t.bigint "likeable_id"
+    t.string "sender_type"
+    t.bigint "sender_id"
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["message_id"], name: "index_likes_on_message_id"
+    t.index ["sender_type", "sender_id"], name: "index_likes_on_sender"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -199,9 +203,10 @@ ActiveRecord::Schema.define(version: 2025_04_26_203122) do
     t.boolean "featured", default: false
     t.integer "priority"
     t.string "tid"
-    t.bigint "visitor_id"
+    t.string "sender_type"
+    t.bigint "sender_id"
+    t.index ["sender_type", "sender_id"], name: "index_messages_on_sender"
     t.index ["slug"], name: "index_messages_on_slug", unique: true
-    t.index ["visitor_id"], name: "index_messages_on_visitor_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -236,6 +241,8 @@ ActiveRecord::Schema.define(version: 2025_04_26_203122) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
     t.string "tid", default: "0"
+    t.binary "avatar", default: "https://robohash.org/0.png?size=50x50&set=set1"
+    t.string "name", default: "Anonymous"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -250,7 +257,5 @@ ActiveRecord::Schema.define(version: 2025_04_26_203122) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "visitors"
   add_foreign_key "likes", "messages"
-  add_foreign_key "messages", "visitors"
 end

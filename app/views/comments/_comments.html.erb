@@ -4,8 +4,8 @@
       <% comments.each do |comment| %>
       <div class="fh5co-feature-blurb comment-page">
         <row class="comment" id="toggleIcon">
-          <span class="fh5co-feature-icon"> <%= image_tag(comment.visitor.avatar) %> </span>
-          <small><b><%= comment.visitor.name %></b> | <%= comment.created_at.strftime("%b %e %H:%M:%S") %>  </small>
+          <span class="fh5co-feature-icon"> <%= image_tag(comment.sender.avatar) %> </span>
+          <small><b><%= comment.sender.name %></b> | <%= comment.created_at.strftime("%b %e %H:%M:%S") %>  </small>
         </row>
         <section class="comment-body">
           <row class="comment">
