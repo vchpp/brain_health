@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, :only => :create
   protect_from_forgery prepend: true
   before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :set_admin, :check_visitor
-  
+
   def restricted_access
     render plain: "Access Denied: Your permissions are invalid."
     # flash.now[:alert] = "Not allowed, incorrect credentials"
@@ -18,15 +18,12 @@ private
   def count_visits
     value = (cookies[:visits] || 0 ).to_i
     cookies[:visits] = (value + 1)
-    # @visits = cookies[:visits]
   end
   
   def set_admin
     if current_user.try(:admin?)
       cookies[:tid] = "0"
       @visitor = current_user
-      p current_user
-      p @visitor
     end
   end
   
@@ -37,7 +34,7 @@ private
       cookies[:tid] ||= rand(1001..99999999).to_s
     end
   end
-
+  
   def create_visitor
     @visitor = Visitor.new do |v|
       v.tid = cookies[:tid]
@@ -51,18 +48,19 @@ private
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
   def check_visitor
     if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
-    # check if not admin
+      # check if not admin
       if Visitor.where(tid: cookies[:tid]).first != nil
-      # check if Visitor exists
+        # check if Visitor exists
         if Visitor.where(tid: cookies[:tid]).first.tid > '0'
           @visitor = Visitor.where(tid: cookies[:tid]).first
         end
       else 
         create_visitor
       end
-    elsif current_user == nil && cookies[:tid] == '0' || cookies[:tid] == nil
+    p "%%%%% VISITOR is #{@visitor.tid} %%%%%"
+    elsif current_user == nil && cookies[:tid] == '0'
     # handle admin signouts or new visitors
-      cookies[:tid] ||= rand(1001..99999999).to_s
+      cookies[:tid] = rand(1001..99999999).to_s
     end
   end
   
