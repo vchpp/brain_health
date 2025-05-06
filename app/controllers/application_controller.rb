@@ -57,7 +57,7 @@ private
       else 
         create_visitor
       end
-    p "%%%%% VISITOR is #{@visitor.tid} %%%%%"
+      logger.error "%%%%% VISITOR is #{@visitor.tid} %%%%%"
     elsif current_user == nil && cookies[:tid] == '0'
     # handle admin signouts or new visitors
       cookies[:tid] = rand(1001..99999999).to_s
