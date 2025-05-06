@@ -24,6 +24,7 @@ private
     if current_user.try(:admin?)
       cookies[:tid] = "0"
       @visitor = current_user
+      p "%%%%% SET_ADMIN VISITOR is #{@visitor.tid} %%%%%"
     end
   end
   
@@ -57,9 +58,9 @@ private
       else 
         create_visitor
       end
-      logger.error "%%%%% VISITOR is #{@visitor.tid} %%%%%"
+      p "%%%%% CHECK_VISITOR is #{@visitor.tid} %%%%%"
     elsif current_user == nil && cookies[:tid] == '0'
-    # handle admin signouts or new visitors
+    # handle admin signouts
       cookies[:tid] = rand(1001..99999999).to_s
     end
   end

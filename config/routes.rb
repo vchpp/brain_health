@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  root to: redirect("/#{I18n.locale}/about/mission"), as: :redirected_root
   root 'about#index'
   get '/admin', to: redirect(path: "/#{I18n.locale}/admin")
   
   scope "(:locale)", locale: /en|ko/ do
+    root to: redirect("/#{I18n.locale}/about/mission"), as: :redirected_root
     
     get '/admin', to: 'admin#index'
     authenticate :user, -> (u) { u.admin? } do
