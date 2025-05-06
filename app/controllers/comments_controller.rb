@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :authenticate_admin!, only: %i[ index new show edit destroy ]
-  before_action :check_cookie_value, only: %i[ new create edit update destroy ]
+  before_action :check_cookie_value, only: %i[ create destroy ]
 
   # GET /comments or /comments.json
   def index
