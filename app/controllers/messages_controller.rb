@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :find_sender, only: %i[ create new edit update destroy ]
   before_action :authenticate_admin!, only: %i[ destroy ]
   before_action :set_page, only: [:show]
   before_action :check_cookie_value, only: %i[ new index show destroy]
@@ -62,7 +63,6 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
-    @sender = find_sender
     @message.sender = @sender
     @message.tid = @sender.tid
     @message[:tags] = params[:message][:tags].first.split("\r\n").map(&:strip) if params[:message][:tags].present?
