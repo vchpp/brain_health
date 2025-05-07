@@ -45,14 +45,14 @@ private
   end
 
   def current_visitor
-    @current_visitor ||= Visitor.find_by(tid: cookies[:tid])
+    @sender ||= Visitor.find_by(tid: cookies[:tid])
   end
   helper_method :current_visitor 
 
   def ensure_visitor
     if cookies[:tid].to_i.between?(1,1000)
       unless cookies[:tid] && Visitor.exists?(cookies[:tid])
-        @current_visitor = create_visitor # Add attributes if needed
+        @sender = create_visitor # Add attributes if needed
       end
     end
   end
