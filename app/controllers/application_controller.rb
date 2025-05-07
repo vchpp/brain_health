@@ -63,7 +63,7 @@ private
   def ensure_visitor
     if cookies[:tid].to_i.between?(1,1000)
       unless cookies[:tid] && Visitor.exists?(cookies[:tid])
-        @current_visitor ||= create_visitor # Add attributes if needed
+        @current_visitor = create_visitor # Add attributes if needed
       end
     end
   end
@@ -73,10 +73,10 @@ private
   def check_visitor
     if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
       # check if not admin
-      if Visitor.where(tid: cookies[:tid]).first != nil
+      if Visitor.find_by(tid: cookies[:tid]) != nil
         # check if Visitor exists
-        if Visitor.where(tid: cookies[:tid]).first.tid > '0'
-          @current_visitor = Visitor.where(tid: cookies[:tid]).first
+        if Visitor.find_by(tid: cookies[:tid]).tid > '0'
+          @current_visitor = Visitor.find_by(tid: cookies[:tid])
         end
       else 
         create_visitor
