@@ -54,6 +54,7 @@ class MessagesController < ApplicationController
   # GET /messages/new
   def new
     @message = Message.new
+    p @sender
   end
 
   # GET /messages/1/edit
@@ -155,7 +156,6 @@ private
 
   def find_sender
     @sender = current_user || current_visitor
-    p @sender
   end
   
   def coming_soon
