@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :find_sender, only: %i[ create edit update destroy ]
   before_action :authenticate_admin!, only: %i[ index new show edit destroy ]
   before_action :check_cookie_value, only: %i[ create destroy ]
 
@@ -30,7 +31,6 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @commentable = find_commentable
-    @sender = find_sender
     @comment = @commentable.comments.new(comment_params)
     @comment.tid = @sender.tid
     @comment.sender = @sender

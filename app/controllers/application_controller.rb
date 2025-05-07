@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, :only => :create
   protect_from_forgery prepend: true
-  before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :set_admin, :ensure_visitor
+  before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :set_admin, :ensure_visitor, :sign_out_admin
+  helper_method :current_visitor 
 
   def restricted_access
     render plain: "Access Denied: Your permissions are invalid."
@@ -35,46 +36,50 @@ private
   end
   
   def create_visitor
-    @sender = Visitor.new do |v|
+    @new_visitor = Visitor.new do |v|
       v.tid = cookies[:tid]
       v.name = Faker::Adjective.unique.positive + " " + Faker::Creature::Bird.unique.adjective + " " + Faker::Creature::Animal.unique.name
       v.avatar = Faker::Avatar.image(slug: cookies[:tid], size: "50x50")
     end
-    @sender.save
-    flash.now[:notice] = "Welcome " + @sender.name
+    @new_visitor.save
+    flash.now[:notice] = "Welcome " + @new_visitor.name
   end
 
   def current_visitor
-    @sender ||= Visitor.find_by(tid: cookies[:tid])
+    @current_visitor ||= Visitor.find_by(tid: cookies[:tid])
   end
-  helper_method :current_visitor 
 
   def ensure_visitor
     if cookies[:tid].to_i.between?(1,1000)
       unless cookies[:tid] && Visitor.exists?(cookies[:tid])
-        @sender = create_visitor # Add attributes if needed
+        @current_visitor = create_visitor # Add attributes if needed
       end
+    end
+  end
+
+  def sign_out_admin
+    if current_user == nil && cookies[:tid] == '0'
+    # handle admin signouts
+      cookies[:tid] = rand(1001..99999999).to_s
+    elsif current_user && cookies[:tid] > '0'
+    # handle admin sign_ins after navigating around
+      cookies[:tid] = '0'
     end
   end
   
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
+  # currently unused
   def check_visitor
     if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
       # check if not admin
       if Visitor.where(tid: cookies[:tid]).first != nil
         # check if Visitor exists
         if Visitor.where(tid: cookies[:tid]).first.tid > '0'
-          @sender = Visitor.where(tid: cookies[:tid]).first
+          @current_visitor = Visitor.where(tid: cookies[:tid]).first
         end
       else 
         create_visitor
       end
-    elsif current_user == nil && cookies[:tid] == '0'
-    # handle admin signouts
-      cookies[:tid] = rand(1001..99999999).to_s
-    elsif current_user && cookies[:tid] > '0'
-    # handle admin sign_ins after navigating around
-      cookies[:tid] = '0'
     end
   end
   

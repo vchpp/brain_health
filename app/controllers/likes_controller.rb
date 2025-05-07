@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
+  before_action :find_sender, only: %i[ create edit update destroy ]
   before_action :authenticate_admin!, only: %i[ index new show edit destroy ]
   before_action :check_cookie_value, only: %i[ new create edit update ]
   
@@ -28,7 +29,6 @@ class LikesController < ApplicationController
   # POST /likes or /likes.json
   def create
     @likeable = find_likeable
-    @sender = find_sender
     existing_likes = []
     @likeable.likes.each { |like| existing_likes.push(like.tid)}
     @like = @likeable.likes.new(like_params)
