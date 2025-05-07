@@ -26,6 +26,17 @@ private
       cookies[:tid] = "0"
     end
   end
+
+  # not currently used
+  def sign_out_admin
+    if current_user == nil && cookies[:tid] == '0'
+    # handle admin signouts
+      cookies[:tid] = rand(1001..99999999).to_s
+    # elsif current_user && cookies[:tid] > '0'
+    # # handle admin sign_ins after navigating around
+    #   cookies[:tid] = '0'
+    end
+  end
   
   def set_visitor_cookie
     if params[:tid].present? && params[:tid].to_i.between?(0,1000)
@@ -54,16 +65,6 @@ private
       unless cookies[:tid] && Visitor.exists?(cookies[:tid])
         @current_visitor = create_visitor # Add attributes if needed
       end
-    end
-  end
-
-  def sign_out_admin
-    if current_user == nil && cookies[:tid] == '0'
-    # handle admin signouts
-      cookies[:tid] = rand(1001..99999999).to_s
-    elsif current_user && cookies[:tid] > '0'
-    # handle admin sign_ins after navigating around
-      cookies[:tid] = '0'
     end
   end
   
