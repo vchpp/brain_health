@@ -155,6 +155,7 @@ private
 
   def find_sender
     @sender = current_user || current_visitor
+    p @sender
   end
   
   def coming_soon
