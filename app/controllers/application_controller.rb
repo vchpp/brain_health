@@ -45,7 +45,7 @@ private
   end
 
   def current_visitor
-    @current_visitor ||= Visitor.find_by(id: cookies[:tid])
+    @current_visitor ||= Visitor.find_by(tid: cookies[:tid])
   end
   helper_method :current_visitor 
 
