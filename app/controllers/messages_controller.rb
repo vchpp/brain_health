@@ -154,11 +154,7 @@ private
   end
 
   def find_sender
-    if current_user
-      current_user
-    elsif @visitor
-      @visitor
-    end
+    @sender = current_user || current_visitor
   end
   
   def coming_soon

@@ -93,11 +93,7 @@ class CommentsController < ApplicationController
     end
 
     def find_sender
-      if current_user
-        current_user
-      elsif @visitor
-        @visitor
-      end
+      @sender = current_user || current_visitor
     end
 
     # Only allow a list of trusted parameters through.
