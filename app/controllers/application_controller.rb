@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, :only => :create
   protect_from_forgery prepend: true
-  before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :set_admin, :ensure_visitor, :sign_out_admin
+  before_action :set_locale, :count_visits, :set_visitor_cookie, :set_locale_cookie, :set_admin, :check_visitor, :sign_out_admin
   helper_method :current_visitor 
 
   def restricted_access
@@ -60,6 +60,7 @@ private
     @current_visitor ||= Visitor.find_by(tid: cookies[:tid])
   end
 
+  # currently unused
   def ensure_visitor
     if cookies[:tid].to_i.between?(1,1000)
       unless cookies[:tid] && Visitor.exists?(cookies[:tid])
@@ -69,7 +70,6 @@ private
   end
   
   # set visitor on first browse, associate with TID cookie, flash welcome for visitor name
-  # currently unused
   def check_visitor
     if cookies[:tid].to_i.between?(1,1000) #only create Visitors for allowed visitors
       # check if not admin
