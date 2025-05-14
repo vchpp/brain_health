@@ -36,6 +36,18 @@ https://github.com/vchpp/informed-livingwell
 
 - [x] Update MessageBoard#_form layout
 
+- [x] Remove lay health educators
+
+- [x] Update messageboard to Forum
+
+- [x] Add resources resource
+
+- [] Update forum  postings' brief information, such as title, author, dates of posting, number of views/replies in a table
+
+- [] Update Message Forum categories to "Featured," "Learn about Alzheimer's Disease and Related Dementias," "Prepare as a care partner," "Care for yourself," and "Get Support."
+
+- [] Resource categories include helpline, California Caregiver, California Dementia, California Alzheimer's Disease Centers, National Caregiver
+
 - [] Add comment_likes admin panel for CSV export
 
 - [] Make Messages and Comments editable based on cookie value
